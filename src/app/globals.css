@@ -1,26 +1,54 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --radius-primary: 8px;
+  --spacing-primary: 12px; /* Dùng gap-primary thay vì số nếu muốn tường minh, nhưng gap-3 cũng bằng 12px */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Mặc định là Dark Theme (Premium Industrial Minimalism) */
+  --background: #0f172a; /* Slate 900 / Obsidian */
+  --foreground: #f8fafc; /* Slate 50 */
+  
+  --surface: rgba(30, 41, 59, 0.7); /* Background cho glassmorphism (Slate 800 blur) */
+  --surface-foreground: #f8fafc;
+
+  --accent: #eab308; /* Industrial Yellow */
+  --accent-foreground: #171717; /* Slate 900 text on yellow */
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base rules */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Common utility cho Glassmorphism bo góc 8px */
+.glass-panel {
+  background-color: var(--surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-primary);
 }
