@@ -10,14 +10,14 @@ export interface ButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "default", size = "default", asChild = false, ...props }, ref) => {
-    const baseClass = "inline-flex items-center justify-center whitespace-nowrap rounded-primary text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-400 disabled:pointer-events-none disabled:opacity-50";
+    const baseClass = "inline-flex items-center justify-center whitespace-nowrap rounded-primary text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-900 disabled:pointer-events-none disabled:opacity-50";
     
     const variants = {
-      default: "bg-slate-100 text-slate-900 shadow hover:bg-slate-200",
-      accent: "bg-accent text-accent-foreground shadow hover:opacity-90",
-      outline: "border border-slate-700 bg-transparent shadow-sm hover:bg-slate-800 hover:text-slate-50",
-      ghost: "hover:bg-slate-800 hover:text-slate-50",
-      glass: "glass-panel text-slate-50 hover:bg-white/10",
+      default: "bg-white text-slate-900 border border-slate-200 shadow-sm hover:bg-slate-100",
+      accent: "bg-accent text-accent-foreground shadow-md hover:bg-blue-800",
+      outline: "border border-slate-300 bg-transparent shadow-sm hover:bg-slate-100 text-slate-700",
+      ghost: "hover:bg-slate-100 text-slate-700 hover:text-slate-900",
+      glass: "glass-panel text-slate-900 hover:bg-slate-50/50",
     };
 
     const sizes = {
