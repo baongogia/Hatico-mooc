@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Geist } from "next/font/google";
+import { Be_Vietnam_Pro } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { MainLayout } from "@/components/layout/MainLayout";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+const beVietnamPro = Be_Vietnam_Pro({
+  weight: ['300', '400', '500', '600', '700', '800'],
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +24,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={cn("h-full", "antialiased", inter.variable, "font-sans", geist.variable)}
+      className={cn("h-full", "antialiased", beVietnamPro.variable, "font-sans")}
     >
       <body className="min-h-full flex flex-col">
         <MainLayout>{children}</MainLayout>
