@@ -21,14 +21,21 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="sticky top-3 z-50 w-full px-3">
-      <div className="glass-panel w-full flex h-16 items-center justify-between px-6 bg-white/90">
+    <header className="fixed top-0 left-3 right-3 z-50">
+      <div
+        style={{
+          backdropFilter: "blur(5px)",
+        }}
+        className="w-full flex h-16 items-center justify-between px-6 bg-white/90 rounded-bl-primary rounded-br-primary"
+      >
         {/* Logo */}
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="inline-block font-black text-2xl tracking-tighter text-accent uppercase">
-              HATICO
-            </span>
+          <Link href="/" className="flex items-center">
+            <img
+              src="/images/Logo.png"
+              alt="HATICO Logo"
+              className="h-10 md:h-12 flex items-center justify-center mt-2 scale-[180%]"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -65,7 +72,7 @@ const Header = () => {
                   {categories.map((cat) => (
                     <Link
                       key={cat.type}
-                      href={`/products/${cat.type.replace('_', '-')}`}
+                      href={`/products/${cat.type.replace("_", "-")}`}
                       className="p-3 hover:bg-slate-50 rounded-sm transition-colors text-sm font-medium text-slate-800"
                     >
                       {cat.name}
@@ -146,7 +153,7 @@ const Header = () => {
               {categories.map((cat) => (
                 <Link
                   key={cat.type}
-                  href={`/products/${cat.type.replace('_', '-')}`}
+                  href={`/products/${cat.type.replace("_", "-")}`}
                   className="text-sm text-slate-600 p-2 hover:text-blue-700 hover:bg-slate-50 rounded-sm"
                 >
                   {cat.name}

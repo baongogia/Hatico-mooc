@@ -15,7 +15,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         Phần nội dung chính. 
         Padding 12px (p-3) xung quanh theo nguyên tắc spacing 12px 
       */}
-      <main className="flex-1 w-full p-3 flex flex-col pt-3">{children}</main>
+      <main className="flex-1 w-full p-3 flex flex-col pt-20">{children}</main>
 
       {/* Footer (nếu có) cũng tuân thủ spacing tương tự */}
       <footer className="w-full p-3 mt-auto">
