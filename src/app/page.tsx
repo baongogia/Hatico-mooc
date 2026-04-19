@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-24 pb-24 w-full">
       {/* --- 1. HERO SECTION --- */}
-      <section className="relative w-full min-h-[95vh] rounded-b-[2rem] md:rounded-b-[3rem] flex flex-col items-center justify-center overflow-hidden font-sans border-b border-blue-900/30 shadow-2xl bg-slate-950">
+      <section className="relative w-full min-h-[95vh] rounded-primary flex flex-col items-center justify-center overflow-hidden font-sans border border-blue-900/30 shadow-2xl bg-slate-950">
         {/* Background Video */}
         <div className="absolute inset-0 z-0">
           <video
@@ -41,18 +41,17 @@ export default function Home() {
             <source src="/video/around.mp4" type="video/mp4" />
           </video>
         </div>
-        
+
         {/* Premium Cinematic Overlays - Brand Primary Blue Theme */}
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/80 via-blue-950/50 to-slate-950/95" />
         <div className="absolute inset-0 z-0 bg-blue-900/10 mix-blend-color" />
         <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-background via-background/80 to-transparent z-0 pointer-events-none" />
-        
+
         {/* Dynamic Light Leak Effects (Blue/Cyan) */}
         <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-blue-600/15 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
         <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
 
         <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center justify-center text-center mt-12 mb-20">
-          
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -68,7 +67,7 @@ export default function Home() {
             </span>
           </motion.div>
 
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
@@ -82,17 +81,17 @@ export default function Home() {
             </span>
           </motion.h1>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.3 }}
             className="text-lg md:text-xl text-slate-300 max-w-2xl font-light leading-relaxed mb-12"
           >
-            Giải pháp vận tải tối ưu mang lại khả năng hòa vốn nhanh chóng. 
+            Giải pháp vận tải tối ưu mang lại khả năng hòa vốn nhanh chóng.
             Thiết kế bền bỉ, an toàn và tối đa hóa lợi nhuận.
           </motion.p>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -113,28 +112,32 @@ export default function Home() {
             </Button>
           </motion.div>
         </div>
-          
+
         {/* Subtle bottom info anchors pushed far down to the absolute corners */}
-        <motion.div 
-           initial={{ opacity: 0 }}
-           animate={{ opacity: 1 }}
-           transition={{ duration: 1, delay: 0.8 }}
-           className="absolute bottom-8 left-0 w-full justify-between items-end px-8 md:px-16 hidden md:flex z-20 pointer-events-none"
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="absolute bottom-8 left-0 w-full justify-between items-end px-8 md:px-16 hidden md:flex z-20 pointer-events-none"
         >
           <div className="flex flex-col items-start gap-1">
             <span className="text-white/90 font-bold text-lg tracking-wide flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
               T700
             </span>
-            <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">Thép Cường Độ Cao</span>
+            <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+              Thép Cường Độ Cao
+            </span>
           </div>
-          
+
           <div className="flex flex-col items-end gap-1">
             <span className="text-white/90 font-bold text-lg tracking-wide flex items-center gap-2">
               10 Năm
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
             </span>
-            <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">Độ Bền Ước Tính</span>
+            <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+              Độ Bền Ước Tính
+            </span>
           </div>
         </motion.div>
 
@@ -350,7 +353,6 @@ export default function Home() {
 
       {/* --- 4. DYNAMIC PRODUCT SHOWCASE --- */}
       <ProductCategoryShowcase />
-
 
       {/* --- 4.5. ĐỐI TÁC YÊN TÂM --- */}
       <section className="w-full max-w-7xl mx-auto px-6 py-12 border-y border-slate-200 bg-white/50">
