@@ -60,11 +60,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
       {/* Breadcrumbs */}
       <div className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center text-sm font-medium text-slate-500 gap-2">
-          <Link href="/" className="hover:text-blue-600 transition-colors">Trang Chủ</Link>
+          <Link href="/" className="hover:text-blue-900 transition-colors">Trang Chủ</Link>
           <span>/</span>
           <span className="text-slate-400">Sản Phẩm</span>
           <span>/</span>
-          <span className="text-blue-800 font-bold">{categoryInfo?.name || slug}</span>
+          <span className="text-blue-900 font-bold">{categoryInfo?.name || slug}</span>
         </div>
       </div>
 
@@ -88,7 +88,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                         : "border-slate-200 bg-white hover:border-blue-300"
                     }`}
                   >
-                    <div className={`font-bold text-sm ${selectedConfig?.id === config.id ? "text-blue-700" : "text-slate-700"}`}>
+                    <div className={`font-bold text-sm ${selectedConfig?.id === config.id ? "text-blue-900" : "text-slate-700"}`}>
                       {config.name}
                     </div>
                     <div className="text-xs text-slate-500 mt-1 line-clamp-1">Tải trọng: {(config.payload_capacity / 1000).toFixed(1)} Tấn</div>
@@ -131,7 +131,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                               <span className="text-slate-400 text-sm mt-2">Hình ảnh đang cập nhật</span>
                            </div>
                         )}
-                        <div className="absolute top-4 right-4 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
+                        <div className="absolute top-4 right-4 bg-blue-900 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
                            Chính Hãng Hatico
                         </div>
                      </div>
@@ -142,7 +142,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                            </h1>
                            <div className="flex flex-col items-end">
                               <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Tải Trọng</span>
-                              <span className="text-2xl font-black text-blue-700 leading-none">{(selectedConfig.payload_capacity / 1000).toFixed(1)} Tấn</span>
+                              <span className="text-2xl font-black text-blue-900 leading-none">{(selectedConfig.payload_capacity / 1000).toFixed(1)} Tấn</span>
                            </div>
                         </div>
                         

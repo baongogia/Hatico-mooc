@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-24 pb-24 w-full">
       {/* --- 1. HERO SECTION --- */}
-      <section className="relative w-full min-h-[95vh] rounded-primary flex flex-col items-center justify-center overflow-hidden font-sans border border-blue-900/30 shadow-2xl bg-slate-950">
+      <section className="relative w-full min-h-[95vh] rounded-primary flex flex-col items-center justify-center overflow-hidden font-sans border border-blue-800/30 shadow-2xl bg-slate-950">
         {/* Background Video */}
         <div className="absolute inset-0 z-0">
           <video
@@ -42,27 +42,26 @@ export default function Home() {
           </video>
         </div>
 
-        {/* Premium Cinematic Overlays - Brand Primary Blue Theme */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/80 via-blue-950/50 to-slate-950/95" />
-        <div className="absolute inset-0 z-0 bg-blue-900/10 mix-blend-color" />
-        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-background via-background/80 to-transparent z-0 pointer-events-none" />
+        {/* Premium Cinematic Overlays - Deep Iron/Charcoal Theme */}
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/90 via-slate-900/60 to-slate-950/95" />
+        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent z-0 pointer-events-none" />
 
-        {/* Dynamic Light Leak Effects (Blue/Cyan) */}
-        <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-blue-600/15 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
-        <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
+        {/* Subtle Industrial Light Leaks (White/Soft Blue) */}
+        <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-slate-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-slate-600/5 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center justify-center text-center mt-12 mb-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-8 inline-flex items-center gap-3 border border-blue-500/30 bg-blue-500/10 backdrop-blur-md px-6 py-2 rounded-full shadow-[0_0_20px_rgba(59,130,246,0.15)]"
+            className="mb-8 inline-flex items-center gap-3 border border-accent/30 bg-accent/10 backdrop-blur-md px-6 py-2 rounded-full shadow-[0_0_20px_rgba(0,74,173,0.15)]"
           >
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
             </span>
-            <span className="text-blue-200 font-bold tracking-[0.3em] uppercase text-[10px] md:text-xs">
+            <span className="text-slate-300 font-bold tracking-[0.3em] uppercase text-[10px] md:text-xs">
               Giải Pháp Vận Tải Hiện Đại
             </span>
           </motion.div>
@@ -76,7 +75,7 @@ export default function Home() {
             <span className="text-4xl md:text-6xl lg:text-8xl font-black tracking-tight text-white leading-[1.1] drop-shadow-2xl">
               SƠ MI RƠ MOÓC
             </span>
-            <span className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-cyan-200 to-blue-400 leading-tight">
+            <span className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-slate-300 to-blue-600 leading-tight">
               ĐỈNH CAO CHẤT LƯỢNG
             </span>
           </motion.h1>
@@ -98,15 +97,16 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto"
           >
             <Button
+              variant="accent"
               size="lg"
-              className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_rgba(37,99,235,0.6)] border-none text-base h-14 px-10 rounded-full transition-all duration-300"
+              className="w-full sm:w-auto text-base h-14 px-10 rounded-sm transition-all duration-300 border border-white/20 shadow-[0_0_25px_rgba(22,34,72,0.4)] hover:border-white/40 font-black"
             >
               Nhận Tư Vấn Ngay
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="w-full sm:w-auto bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm h-14 px-10 rounded-full transition-all duration-300"
+              className="w-full sm:w-auto bg-white/5 border-white/20 text-white hover:bg-white/10 backdrop-blur-sm h-14 px-10 rounded-sm transition-all duration-300"
             >
               Khám Phá Sản Phẩm
             </Button>
@@ -122,7 +122,7 @@ export default function Home() {
         >
           <div className="flex flex-col items-start gap-1">
             <span className="text-white/90 font-bold text-lg tracking-wide flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
               T700
             </span>
             <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">
@@ -133,7 +133,7 @@ export default function Home() {
           <div className="flex flex-col items-end gap-1">
             <span className="text-white/90 font-bold text-lg tracking-wide flex items-center gap-2">
               10 Năm
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
             </span>
             <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">
               Độ Bền Ước Tính
@@ -184,7 +184,7 @@ export default function Home() {
               variants={fadeInUp}
               className="flex flex-col items-center justify-center p-4 text-center"
             >
-              <div className="text-4xl md:text-5xl font-black text-blue-900 mb-2">
+              <div className="text-4xl md:text-5xl font-black text-accent mb-2">
                 {stat.value}
               </div>
               <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider">
@@ -220,29 +220,22 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="md:col-span-2 bg-blue-900 rounded-primary p-8 md:p-10 flex flex-col justify-between relative overflow-hidden group"
+            className="md:col-span-2 bg-slate-950 border border-slate-800 rounded-sm p-8 md:p-10 flex flex-col justify-between relative overflow-hidden group shadow-xl"
           >
-            <div className="absolute right-0 top-0 w-64 h-64 bg-blue-800 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/3" />
-            <div className="relative z-10 w-12 h-12 bg-white/10 rounded-sm flex items-center justify-center mb-6">
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                ></path>
+            {/* Brushed Metal Texture Effect */}
+            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/brushed-alum.png')]" />
+            <div className="absolute right-0 top-0 w-64 h-64 bg-slate-800 rounded-full blur-3xl opacity-30 -translate-y-1/2 translate-x-1/3" />
+            
+            <div className="relative z-10 w-12 h-12 bg-white/5 border border-white/10 rounded-none flex items-center justify-center mb-6">
+              <svg className="w-6 h-6 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
             </div>
             <div className="relative z-10">
               <h3 className="text-2xl font-bold text-white mb-2">
                 Thép Cường Độ Cao T700
               </h3>
-              <p className="text-blue-200">
+              <p className="text-slate-400">
                 Sử dụng hoàn toàn bằng thép chuyên dụng siêu cường, giảm trọng
                 lượng xác xe, tăng tải trọng hàng hóa mà không làm ảnh hưởng
                 tính bền gan.
@@ -256,27 +249,17 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="bg-slate-100 rounded-primary p-8 border border-slate-200 transition-colors hover:border-blue-300 flex flex-col justify-center"
+            className="bg-white rounded-sm p-8 border border-slate-300 transition-colors hover:border-slate-400 flex flex-col justify-center shadow-sm"
           >
-            <div className="w-12 h-12 bg-white rounded-sm border border-slate-200 flex items-center justify-center mb-4 text-blue-700 shadow-sm">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                ></path>
+            <div className="w-12 h-12 bg-slate-50 border border-slate-200 rounded-none flex items-center justify-center mb-4 text-slate-800">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-2">
               Robot Hàn Tự Động
             </h3>
-            <p className="text-slate-600 text-sm">
+            <p className="text-slate-500 text-sm">
               Cho mối hàn tinh xảo, đồng nhất và có khả năng chịu lực tác động
               vượt trội.
             </p>
@@ -288,27 +271,17 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="bg-slate-100 rounded-primary p-8 border border-slate-200 transition-colors hover:border-blue-300 flex flex-col justify-center"
+            className="bg-white rounded-sm p-8 border border-slate-300 transition-colors hover:border-slate-400 flex flex-col justify-center shadow-sm"
           >
-            <div className="w-12 h-12 bg-white rounded-sm border border-slate-200 flex items-center justify-center mb-4 text-blue-700 shadow-sm">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                ></path>
+            <div className="w-12 h-12 bg-slate-50 border border-slate-200 rounded-none flex items-center justify-center mb-4 text-slate-800">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
               </svg>
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-2">
               Sơn Tĩnh Điện 2 Lớp
             </h3>
-            <p className="text-slate-600 text-sm">
+            <p className="text-slate-500 text-sm">
               Lớp sơn lót tĩnh điện & lớp sơn phủ bám chặt, cam kết chống gỉ sét
               trong môi trường khắc nghiệt tới 10 năm.
             </p>
@@ -395,11 +368,11 @@ export default function Home() {
           variants={fadeInUp}
           className="text-center mb-10 max-w-2xl mx-auto"
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
-            Niềm Vui Chạm Ngõ
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight uppercase">
+            Thực Tế Chứng Minh
           </h2>
           <p className="text-lg text-slate-600">
-            Hàng ngàn chuyến xe lăn bánh là hàng ngàn sự tin tưởng mà khách hàng
+            Hàng ngàn chuyến xe lăn bánh là bảo chứng cho chất lượng và sự tin tưởng mà khách hàng
             trao gửi cho Hatico.
           </p>
         </motion.div>
@@ -530,33 +503,26 @@ export default function Home() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
-          className="bg-blue-50 rounded-primary border border-blue-100 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8"
+          className="bg-slate-950 rounded-sm border border-slate-800 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden"
         >
-          <div className="max-w-xl">
+          {/* Decorative industrial background elements */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 rounded-full blur-[100px]" />
+          
+          <div className="max-w-xl relative z-10">
             <div className="inline-flex items-center gap-2 mb-4">
-              <span className="p-1.5 bg-blue-100 rounded-sm">
-                <svg
-                  className="w-5 h-5 text-blue-700"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                  ></path>
+              <span className="p-1.5 bg-white/5 border border-white/10 rounded-none">
+                <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </span>
-              <span className="font-semibold text-blue-900 tracking-wide text-sm uppercase">
-                Công Cụ Độc Quyền
+              <span className="font-semibold text-slate-300 tracking-wide text-sm uppercase">
+                Giải Pháp Hiệu Quả
               </span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">
               Tính Toán Đầu Tư. Nắm Bắt Cơ Hội.
             </h2>
-            <p className="text-slate-600">
+            <p className="text-slate-400">
               Sử dụng bộ công cụ theo dõi giá xăng dầu thời gian thực và mô
               phỏng hoàn vốn ROI để chủ động kiểm soát tài chính cho đội xe của
               bạn.
@@ -586,9 +552,9 @@ export default function Home() {
           variants={fadeInUp}
           className="flex flex-col items-center"
         >
-          <div className="w-16 h-16 bg-blue-100/50 rounded-full flex items-center justify-center border-4 border-white shadow-sm mb-6">
+          <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center border-4 border-white shadow-sm mb-6">
             <svg
-              className="w-8 h-8 text-blue-700"
+              className="w-8 h-8 text-accent"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -607,7 +573,7 @@ export default function Home() {
             <input
               type="text"
               placeholder="Số điện thoại của bạn..."
-              className="w-full p-4 rounded-primary border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-slate-900"
+              className="w-full p-4 rounded-sm border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent text-slate-900"
             />
             <Button
               variant="accent"

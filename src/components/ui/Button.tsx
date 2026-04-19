@@ -14,7 +14,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     
     const variants = {
       default: "bg-white text-slate-900 border border-slate-200 shadow-sm hover:bg-slate-100",
-      accent: "bg-accent text-accent-foreground shadow-md hover:bg-blue-800",
+      accent: "bg-accent text-accent-foreground shadow-md hover:opacity-90 transition-opacity",
       outline: "border border-slate-300 bg-transparent shadow-sm hover:bg-slate-100 text-slate-700",
       ghost: "hover:bg-slate-100 text-slate-700 hover:text-slate-900",
       glass: "glass-panel text-slate-900 hover:bg-slate-50/50",

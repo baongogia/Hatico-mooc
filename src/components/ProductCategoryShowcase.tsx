@@ -65,7 +65,7 @@ export function ProductCategoryShowcase() {
 
   if (loading) {
     return (
-      <div className="w-full h-[600px] bg-slate-100 animate-pulse rounded-3xl flex items-center justify-center">
+      <div className="w-full h-[600px] bg-slate-100 animate-pulse rounded-sm flex items-center justify-center">
         <span className="text-slate-400 font-medium">Đang tải danh mục sản phẩm...</span>
       </div>
     );
@@ -86,14 +86,14 @@ export function ProductCategoryShowcase() {
               <button
                 key={cat.id}
                 onClick={() => setSelectedType(cat.type)}
-                className={`flex items-center justify-between p-4 rounded-2xl transition-all duration-300 group ${
+                className={`flex items-center justify-between p-4 rounded-none transition-all duration-300 group border-l-2 ${
                   selectedType === cat.type
-                    ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20 translate-x-2"
-                    : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-100"
+                    ? "bg-slate-900 text-white border-accent shadow-lg translate-x-2"
+                    : "bg-white text-slate-600 hover:bg-slate-50 border-transparent border-slate-100"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-xl transition-colors ${
+                  <div className={`p-2 rounded-none transition-colors ${
                     selectedType === cat.type ? "bg-white/20" : "bg-slate-100 group-hover:bg-blue-50 group-hover:text-blue-600"
                   }`}>
                     {getIcon(cat.type)}
@@ -109,7 +109,8 @@ export function ProductCategoryShowcase() {
         </div>
 
         {/* Right Content - Dynamic Banner */}
-        <div className="flex-1 relative overflow-hidden rounded-[2.5rem] bg-slate-900 shadow-2xl border border-slate-800">
+        <div className="flex-1 relative overflow-hidden rounded-sm bg-slate-950 shadow-2xl border border-slate-800">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,74,173,0.15),transparent)] pointer-events-none" />
           <AnimatePresence mode="wait">
             {selectedCategory && (
               <motion.div
@@ -122,8 +123,8 @@ export function ProductCategoryShowcase() {
               >
                 {/* Background Decor */}
                 <div className="absolute inset-0 z-0 overflow-hidden">
-                  <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px]" />
-                  <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-cyan-600/10 rounded-full blur-[80px]" />
+                  <div className="absolute -top-24 -right-24 w-96 h-96 bg-accent/20 rounded-full blur-[100px]" />
+                  <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-accent/5 rounded-full blur-[80px]" />
                 </div>
 
                 <div className="relative z-10 w-full md:w-1/2 p-8 md:p-14 flex flex-col justify-center">
@@ -131,10 +132,10 @@ export function ProductCategoryShowcase() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full mb-6"
+                    className="inline-flex items-center gap-2 px-3 py-1 bg-accent/20 border border-accent/40 rounded-none mb-6"
                   >
-                    <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-                    <span className="text-[10px] font-bold text-blue-300 uppercase tracking-[0.2em]">
+                    <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+                    <span className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.2em]">
                       {selectedCategory.type.replace('_', ' ')}
                     </span>
                   </motion.div>
@@ -164,7 +165,7 @@ export function ProductCategoryShowcase() {
                     className="flex flex-wrap gap-4"
                   >
                     <Link href={`/products/${selectedCategory.type.replace('_', '-')}`}>
-                      <Button size="lg" className="bg-white text-slate-950 hover:bg-slate-100 rounded-full px-8 h-14 font-bold border-none shadow-xl shadow-white/5">
+                      <Button size="lg" className="bg-white text-slate-950 hover:bg-slate-100 rounded-sm px-8 h-14 font-bold border-none shadow-xl shadow-white/5">
                         Khám Phá Ngay
                         <ArrowRight className="ml-2 w-5 h-5" />
                       </Button>
@@ -188,8 +189,8 @@ export function ProductCategoryShowcase() {
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 flex flex-col items-center justify-center border border-white/5">
-                        <div className="w-32 h-32 bg-white/5 rounded-full flex items-center justify-center mb-4 backdrop-blur-sm border border-white/10">
-                          {React.cloneElement(getIcon(selectedCategory.type) as React.ReactElement<any>, { className: "w-16 h-16 text-blue-400" })}
+                        <div className="w-32 h-32 bg-white/5 rounded-none flex items-center justify-center mb-4 backdrop-blur-sm border border-white/10">
+                          {React.cloneElement(getIcon(selectedCategory.type) as React.ReactElement<any>, { className: "w-16 h-16 text-accent" })}
                         </div>
                         <span className="text-slate-500 font-medium text-sm">Product Visualization coming soon</span>
                         
@@ -199,7 +200,7 @@ export function ProductCategoryShowcase() {
                     )}
 
                     {/* Quality Badges */}
-                    <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center bg-black/40 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                    <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center bg-black/40 backdrop-blur-md p-4 rounded-none border border-white/10">
                       <div className="flex flex-col">
                         <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Tiêu Chuẩn</span>
                         <span className="text-xs text-white font-bold">ISO 9001:2015</span>

@@ -26,7 +26,7 @@ const Header = () => {
         {/* Logo */}
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="inline-block font-black text-2xl tracking-tighter text-blue-900 uppercase">
+            <span className="inline-block font-black text-2xl tracking-tighter text-accent uppercase">
               HATICO
             </span>
           </Link>
@@ -35,14 +35,14 @@ const Header = () => {
           <nav className="hidden md:flex gap-6 items-center">
             <Link
               href="/"
-              className="text-sm font-semibold text-slate-700 hover:text-blue-700 transition-colors"
+              className="text-sm font-semibold text-slate-700 hover:text-accent transition-colors"
             >
               Trang Chủ
             </Link>
 
             {/* Dropdown Sản Phẩm */}
             <div className="relative group py-4">
-              <button className="text-sm font-semibold text-slate-700 hover:text-blue-700 transition-colors flex items-center gap-1">
+              <button className="text-sm font-semibold text-slate-700 hover:text-accent transition-colors flex items-center gap-1">
                 Sản Phẩm
                 <svg
                   className="w-4 h-4"
@@ -84,13 +84,13 @@ const Header = () => {
 
             <Link
               href="/oil-prices"
-              className="text-sm font-semibold text-slate-700 hover:text-blue-700 transition-colors"
+              className="text-sm font-semibold text-slate-700 hover:text-accent transition-colors"
             >
               Giá Xăng Dầu
             </Link>
             <Link
               href="/roi-calculator"
-              className="text-sm font-semibold text-slate-700 hover:text-blue-700 transition-colors"
+              className="text-sm font-semibold text-slate-700 hover:text-accent transition-colors"
             >
               Tính Lợi Nhuận ROI
             </Link>

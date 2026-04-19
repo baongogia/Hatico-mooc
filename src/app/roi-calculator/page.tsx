@@ -61,19 +61,19 @@ export default function ROICalculatorPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-blue-50 border-blue-200">
+        <Card className="bg-slate-50 border-slate-200">
           <CardHeader>
             <CardTitle className="text-xl text-blue-900">Kết Quả Dự Toán</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-6">
-            <div className="bg-white p-4 rounded-primary border border-blue-100 shadow-sm">
+            <div className="bg-white p-4 rounded-sm border border-slate-200 shadow-sm">
               <div className="text-sm font-medium text-slate-500 mb-1">Lợi nhuận gộp / tháng</div>
               <div className="text-3xl font-black text-slate-800">
                 {new Intl.NumberFormat('vi-VN').format(profit)} <span className="text-lg text-slate-500 font-normal">VNĐ</span>
               </div>
             </div>
 
-            <div className="bg-blue-600 p-6 rounded-primary shadow-lg shadow-blue-900/20 text-white text-center">
+            <div className="bg-blue-900 p-6 rounded-sm shadow-lg shadow-blue-950/20 text-white text-center">
               <div className="text-sm font-medium mb-2 opacity-90">Thời gian thu hồi vốn:</div>
               <div className="text-5xl font-black mb-2 animate-pulse">
                 {monthsToBreakEven > 0 ? `${monthsToBreakEven} Tháng` : "---"}
