@@ -189,7 +189,7 @@ export function ProductCategoryShowcase() {
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 flex flex-col items-center justify-center border border-white/5">
                         <div className="w-32 h-32 bg-white/5 rounded-full flex items-center justify-center mb-4 backdrop-blur-sm border border-white/10">
-                          {React.cloneElement(getIcon(selectedCategory.type) as React.ReactElement, { className: "w-16 h-16 text-blue-400" })}
+                          {React.cloneElement(getIcon(selectedCategory.type) as React.ReactElement<any>, { className: "w-16 h-16 text-blue-400" })}
                         </div>
                         <span className="text-slate-500 font-medium text-sm">Product Visualization coming soon</span>
                         
@@ -218,12 +218,6 @@ export function ProductCategoryShowcase() {
         </div>
       </div>
 
-      <style jsx global>{`
-        @keyframes scan {
-          0% { transform: translateY(-100%); }
-          100% { transform: translateY(200%); }
-        }
-      `}</style>
     </section>
   );
 }
