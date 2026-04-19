@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import Link from "next/link";
-import { getFeaturedProducts } from "@/data/products";
+import { ProductCategoryShowcase } from "@/components/ProductCategoryShowcase";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -348,90 +348,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- 4. FEATURED PRODUCTS --- */}
-      <section className="w-full max-w-7xl mx-auto px-6 py-12">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4"
-        >
-          <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
-              Dòng Sản Phẩm Tiêu Biểu
-            </h2>
-            <p className="text-lg text-slate-600">
-              Những thiết kế tối ưu nhất phục vụ cho các đặc thù hàng hóa và địa
-              hình Việt Nam.
-            </p>
-          </div>
-          <Button variant="outline" className="hidden md:inline-flex bg-white">
-            Xem Tất Cả Sản Phẩm
-          </Button>
-        </motion.div>
+      {/* --- 4. DYNAMIC PRODUCT SHOWCASE --- */}
+      <ProductCategoryShowcase />
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
-        >
-          {getFeaturedProducts()
-            .slice(0, 3)
-            .map((prod, i) => (
-              <motion.div key={i} variants={fadeInUp}>
-                <Link href={`/products/${prod.slug}`} className="block h-full">
-                  <Card className="h-full flex flex-col group overflow-hidden border-slate-200 hover:border-blue-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white">
-                    {/* Image Placeholder */}
-                    <div className="w-full h-48 bg-slate-100 flex items-center justify-center relative overflow-hidden">
-                      <div className="absolute inset-0 bg-blue-900/5 group-hover:bg-transparent transition-colors z-10" />
-                      <svg
-                        className="w-16 h-16 text-slate-300 relative z-0"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1"
-                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <CardContent className="p-6 flex flex-col flex-1">
-                      <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors">
-                        {prod.name}
-                      </h3>
-                      <p className="text-sm text-slate-500 mb-6 flex-1">
-                        {prod.shortDesc}
-                      </p>
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {prod.tags.map((t, idx) => (
-                          <span
-                            key={idx}
-                            className="bg-slate-100 text-slate-600 text-xs font-medium px-2 py-1 rounded-sm"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                      <Button
-                        variant="ghost"
-                        asChild
-                        className="w-full border border-slate-200 justify-center group-hover:bg-blue-50 group-hover:text-blue-700 group-hover:border-blue-200 pointer-events-none"
-                      >
-                        <span>Xem Kỹ Thuật</span>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
-        </motion.div>
-      </section>
 
       {/* --- 4.5. ĐỐI TÁC YÊN TÂM --- */}
       <section className="w-full max-w-7xl mx-auto px-6 py-12 border-y border-slate-200 bg-white/50">

@@ -3,9 +3,22 @@
 import * as React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { supabase } from "@/lib/supabase";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const [categories, setCategories] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    async function fetchCategories() {
+      const { data } = await supabase
+        .from("category")
+        .select("name, type")
+        .order("id", { ascending: true });
+      if (data) setCategories(data);
+    }
+    fetchCategories();
+  }, []);
 
   return (
     <header className="sticky top-3 z-50 w-full px-3">
@@ -49,24 +62,16 @@ const Header = () => {
                 <div className="bg-white rounded-primary border border-slate-200 shadow-xl p-3 flex flex-col gap-2 relative">
                   {/* bridge gap */}
                   <div className="absolute -top-4 left-0 w-full h-4"></div>
-                  <Link
-                    href="/products/romooc-ben"
-                    className="p-3 hover:bg-slate-50 rounded-sm transition-colors text-sm font-medium text-slate-800"
-                  >
-                    Sơ Mi Rơ Moóc Ben
-                  </Link>
-                  <Link
-                    href="/products/romooc-xuong"
-                    className="p-3 hover:bg-slate-50 rounded-sm transition-colors text-sm font-medium text-slate-800"
-                  >
-                    Sơ Mi Rơ Moóc Xương
-                  </Link>
-                  <Link
-                    href="/products/romooc-san"
-                    className="p-3 hover:bg-slate-50 rounded-sm transition-colors text-sm font-medium text-slate-800"
-                  >
-                    Sơ Mi Rơ Moóc Sàn
-                  </Link>
+                  {categories.map((cat) => (
+                    <Link
+                      key={cat.type}
+                      href={`/products/${cat.type.replace('_', '-')}`}
+                      className="p-3 hover:bg-slate-50 rounded-sm transition-colors text-sm font-medium text-slate-800"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
+                  <div className="h-[1px] bg-slate-100 my-1" />
                   <Link
                     href="/products/phu-tung"
                     className="p-3 hover:bg-slate-50 rounded-sm transition-colors text-sm font-medium text-slate-800"
@@ -138,24 +143,15 @@ const Header = () => {
               Sản Phẩm
             </div>
             <div className="pl-4 flex flex-col gap-1 border-l-2 border-slate-100 ml-2">
-              <Link
-                href="/products/romooc-ben"
-                className="text-sm text-slate-600 p-2 hover:text-blue-700 hover:bg-slate-50 rounded-sm"
-              >
-                Sơ Mi Rơ Moóc Ben
-              </Link>
-              <Link
-                href="/products/romooc-xuong"
-                className="text-sm text-slate-600 p-2 hover:text-blue-700 hover:bg-slate-50 rounded-sm"
-              >
-                Sơ Mi Rơ Moóc Xương
-              </Link>
-              <Link
-                href="/products/romooc-san"
-                className="text-sm text-slate-600 p-2 hover:text-blue-700 hover:bg-slate-50 rounded-sm"
-              >
-                Sơ Mi Rơ Moóc Sàn
-              </Link>
+              {categories.map((cat) => (
+                <Link
+                  key={cat.type}
+                  href={`/products/${cat.type.replace('_', '-')}`}
+                  className="text-sm text-slate-600 p-2 hover:text-blue-700 hover:bg-slate-50 rounded-sm"
+                >
+                  {cat.name}
+                </Link>
+              ))}
             </div>
           </div>
           <Link
