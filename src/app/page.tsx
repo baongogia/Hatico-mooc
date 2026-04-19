@@ -28,112 +28,135 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-24 pb-24 w-full">
       {/* --- 1. HERO SECTION --- */}
-      <section className="relative w-full min-h-[85vh] bg-slate-50 rounded-primary flex flex-col items-center justify-center overflow-hidden font-sans border border-slate-200 shadow-sm">
-        {/* Subtle Background Elements */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-3xl -z-10 pointer-events-none translate-x-1/3 -translate-y-1/3" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-slate-200/50 rounded-full blur-3xl -z-10 pointer-events-none -translate-x-1/3 translate-y-1/3" />
-
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-12 md:py-24 flex flex-col lg:flex-row items-center justify-between">
-          {/* Left Column: Text & CTA */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeInUp}
-            className="w-full lg:w-[55%] flex flex-col items-start text-left space-y-8"
+      <section className="relative w-full min-h-[95vh] rounded-b-[2rem] md:rounded-b-[3rem] flex flex-col items-center justify-center overflow-hidden font-sans border-b border-blue-900/30 shadow-2xl bg-slate-950">
+        {/* Background Video */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover opacity-60 mix-blend-luminosity"
           >
-            <div className="inline-flex items-center gap-2 border border-blue-200 bg-blue-50 px-3 py-1.5 rounded-sm">
-              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-              <span className="text-blue-800 font-bold tracking-[0.15em] uppercase text-xs">
-                Giải Pháp Vận Tải Hiện Đại
-              </span>
-            </div>
+            <source src="/video/around.mp4" type="video/mp4" />
+          </video>
+        </div>
+        
+        {/* Premium Cinematic Overlays - Brand Primary Blue Theme */}
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/80 via-blue-950/50 to-slate-950/95" />
+        <div className="absolute inset-0 z-0 bg-blue-900/10 mix-blend-color" />
+        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-background via-background/80 to-transparent z-0 pointer-events-none" />
+        
+        {/* Dynamic Light Leak Effects (Blue/Cyan) */}
+        <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-blue-600/15 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
+        <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
 
-            <h1 className="flex flex-col gap-2">
-              <span className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                Sơ Mi Rơ Moóc
-              </span>
-              <span className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-blue-800 leading-none">
-                CHẤT LƯỢNG HÀNG ĐẦU
-              </span>
-            </h1>
-
-            <p className="text-base md:text-lg text-slate-600 max-w-xl font-normal leading-relaxed">
-              Giải pháp vận tải tối ưu mang lại khả năng hòa vốn nhanh chóng chỉ
-              trong 18 tháng. Thiết kế bền bỉ, an toàn và tối đa hóa lợi nhuận
-              cho doanh nghiệp của bạn.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-start gap-4 pt-4 w-full sm:w-auto">
-              <Button
-                variant="accent"
-                size="lg"
-                className="w-full sm:w-auto shadow-blue-900/20"
-              >
-                Nhận Tư Vấn Ngay
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto bg-white"
-              >
-                Khám Phá Sản Phẩm
-              </Button>
-            </div>
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center justify-center text-center mt-12 mb-20">
+          
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="mb-8 inline-flex items-center gap-3 border border-blue-500/30 bg-blue-500/10 backdrop-blur-md px-6 py-2 rounded-full shadow-[0_0_20px_rgba(59,130,246,0.15)]"
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
+            </span>
+            <span className="text-blue-200 font-bold tracking-[0.3em] uppercase text-[10px] md:text-xs">
+              Giải Pháp Vận Tải Hiện Đại
+            </span>
           </motion.div>
 
-          {/* Right Column: Visual Showcase */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="w-full lg:w-[45%] mt-16 lg:mt-0 relative flex justify-center"
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+            className="flex flex-col gap-4 mb-8"
           >
-            <div className="relative w-full max-w-md aspect-4/3 bg-white rounded-primary border border-slate-200 shadow-xl overflow-hidden group">
-              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#1e3a8a_1px,transparent_1px)] bg-size-[16px_16px]" />
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                <div className="w-24 h-24 mb-6 rounded-full bg-blue-50 flex items-center justify-center shadow-inner border border-blue-100 group-hover:scale-105 transition-transform cursor-pointer">
-                  <svg
-                    className="w-12 h-12 text-blue-600 ml-1"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-2">
-                  Trải Nghiệm Trực Quan
-                </h3>
-                <p className="text-sm text-slate-500">
-                  Xem video thực tế vận hành tải trọng lớn.
-                </p>
-              </div>
-              <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-100 transition-colors rounded-primary pointer-events-none" />
-            </div>
+            <span className="text-4xl md:text-6xl lg:text-8xl font-black tracking-tight text-white leading-[1.1] drop-shadow-2xl">
+              SƠ MI RƠ MOÓC
+            </span>
+            <span className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-cyan-200 to-blue-400 leading-tight">
+              ĐỈNH CAO CHẤT LƯỢNG
+            </span>
+          </motion.h1>
+
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="text-lg md:text-xl text-slate-300 max-w-2xl font-light leading-relaxed mb-12"
+          >
+            Giải pháp vận tải tối ưu mang lại khả năng hòa vốn nhanh chóng. 
+            Thiết kế bền bỉ, an toàn và tối đa hóa lợi nhuận.
+          </motion.p>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto"
+          >
+            <Button
+              size="lg"
+              className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_rgba(37,99,235,0.6)] border-none text-base h-14 px-10 rounded-full transition-all duration-300"
+            >
+              Nhận Tư Vấn Ngay
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm h-14 px-10 rounded-full transition-all duration-300"
+            >
+              Khám Phá Sản Phẩm
+            </Button>
           </motion.div>
         </div>
+          
+        {/* Subtle bottom info anchors pushed far down to the absolute corners */}
+        <motion.div 
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+           transition={{ duration: 1, delay: 0.8 }}
+           className="absolute bottom-8 left-0 w-full justify-between items-end px-8 md:px-16 hidden md:flex z-20 pointer-events-none"
+        >
+          <div className="flex flex-col items-start gap-1">
+            <span className="text-white/90 font-bold text-lg tracking-wide flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+              T700
+            </span>
+            <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">Thép Cường Độ Cao</span>
+          </div>
+          
+          <div className="flex flex-col items-end gap-1">
+            <span className="text-white/90 font-bold text-lg tracking-wide flex items-center gap-2">
+              10 Năm
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+            </span>
+            <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">Độ Bền Ước Tính</span>
+          </div>
+        </motion.div>
 
         {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer opacity-60 hover:opacity-100"
+          transition={{ delay: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer z-20 group"
           onClick={() =>
             window.scrollTo({
-              top: window.innerHeight * 0.8,
+              top: window.innerHeight * 0.9,
               behavior: "smooth",
             })
           }
         >
-          <span className="text-xs font-semibold uppercase tracking-widest text-slate-500">
-            Kéo xuống
-          </span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="w-5 h-8 border-2 border-slate-400 rounded-full flex justify-center p-1"
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className="w-6 h-10 border border-white/20 group-hover:border-orange-500/50 rounded-full flex justify-center p-1.5 transition-colors bg-black/20 backdrop-blur-sm"
           >
-            <div className="w-1 h-2 bg-blue-600 rounded-full" />
+            <div className="w-1 h-2 bg-white/50 group-hover:bg-orange-400 rounded-full" />
           </motion.div>
         </motion.div>
       </section>
