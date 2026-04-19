@@ -140,9 +140,12 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                            <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
                              {selectedConfig.name}
                            </h1>
-                           <div className="flex flex-col items-end">
-                              <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Tải Trọng</span>
-                              <span className="text-2xl font-black text-blue-900 leading-none">{(selectedConfig.payload_capacity / 1000).toFixed(1)} Tấn</span>
+                           <div className="flex flex-col items-end justify-center">
+                              <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest mb-1">Tải Trọng</span>
+                              <div className="flex items-baseline gap-1">
+                                <span className="text-3xl font-black text-accent leading-none">{(selectedConfig.payload_capacity / 1000).toFixed(1)}</span>
+                                <span className="text-sm font-bold text-accent uppercase">Tấn</span>
+                              </div>
                            </div>
                         </div>
                         
@@ -163,12 +166,12 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                            </div>
                         </div>
 
-                        <div className="flex flex-wrap gap-4 pt-6 border-t border-slate-100">
-                           <Button variant="accent" size="lg" className="flex-1 py-7 text-base font-bold shadow-xl shadow-blue-900/20">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-slate-100">
+                           <Button variant="accent" size="lg" className="w-full h-16 text-base font-black shadow-xl shadow-accent/20">
                               Nhận Báo Giá Cấu Hình Này
                            </Button>
-                           <Link href="/roi-calculator" className="flex-1">
-                              <Button variant="outline" size="lg" className="w-full h-full bg-white border-slate-300 text-slate-700 hover:bg-slate-50 py-7">
+                           <Link href="/roi-calculator">
+                              <Button variant="outline" size="lg" className="w-full h-16 bg-white border-slate-300 text-slate-700 hover:bg-slate-50 font-bold">
                                  Tính Hiệu Quả Đầu Tư
                               </Button>
                            </Link>
