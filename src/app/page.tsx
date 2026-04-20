@@ -116,7 +116,7 @@ export default function Home() {
         </div>
 
         {/* Subtle bottom info anchors pushed far down to the absolute corners */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
@@ -141,10 +141,10 @@ export default function Home() {
               Độ Bền Ước Tính
             </span>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* Scroll Indicator */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
@@ -163,7 +163,7 @@ export default function Home() {
           >
             <div className="w-1 h-2 bg-white/50 group-hover:bg-orange-400 rounded-full" />
           </motion.div>
-        </motion.div>
+        </motion.div> */}
       </section>
 
       {/* --- 2. TRUST INDICATORS --- */}
@@ -393,17 +393,18 @@ export default function Home() {
                 alt={`Partner ${idx + 1}`}
                 className={cn(
                   "max-w-full max-h-full object-contain transition-transform duration-300",
-                  idx === 4 ? "scale-[1.8]" : "scale-100"
+                  idx === 4 ? "scale-[1.8]" : "scale-100",
                 )}
                 onError={(e) => {
                   /* Fallback to text if image fails */
                   const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
+                  target.style.display = "none";
                   const parent = target.parentElement;
-                  if (parent && !parent.querySelector('.fallback-label')) {
-                    const span = document.createElement('span');
-                    span.innerText = 'Brand ' + (idx + 1);
-                    span.className = 'fallback-label text-xs font-bold text-slate-400';
+                  if (parent && !parent.querySelector(".fallback-label")) {
+                    const span = document.createElement("span");
+                    span.innerText = "Brand " + (idx + 1);
+                    span.className =
+                      "fallback-label text-xs font-bold text-slate-400";
                     parent.appendChild(span);
                   }
                 }}
