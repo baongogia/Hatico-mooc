@@ -5,16 +5,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
-import { 
-  Truck, 
-  Container, 
-  Layout, 
-  Layers, 
-  Archive, 
-  Fuel, 
+import {
+  Truck,
+  Container,
+  Layout,
+  Layers,
+  Archive,
+  Fuel,
   Dna,
   ArrowRight,
-  ChevronRight
+  ChevronRight,
 } from "lucide-react";
 
 interface Category {
@@ -52,21 +52,31 @@ export function ProductCategoryShowcase() {
 
   const getIcon = (type: string) => {
     switch (type) {
-      case "mooc_ben": return <Truck className="w-5 h-5" />;
-      case "mooc_mui": return <Archive className="w-5 h-5" />;
-      case "mooc_san": return <Layout className="w-5 h-5" />;
-      case "mooc_xuong": return <Container className="w-5 h-5" />;
-      case "mooc_lung": return <Layers className="w-5 h-5" />;
-      case "tec": return <Fuel className="w-5 h-5" />;
-      case "mooc_sieu_truong": return <Dna className="w-5 h-5" />;
-      default: return <Truck className="w-5 h-5" />;
+      case "mooc_ben":
+        return <Truck className="w-5 h-5" />;
+      case "mooc_mui":
+        return <Archive className="w-5 h-5" />;
+      case "mooc_san":
+        return <Layout className="w-5 h-5" />;
+      case "mooc_xuong":
+        return <Container className="w-5 h-5" />;
+      case "mooc_lung":
+        return <Layers className="w-5 h-5" />;
+      case "tec":
+        return <Fuel className="w-5 h-5" />;
+      case "mooc_sieu_truong":
+        return <Dna className="w-5 h-5" />;
+      default:
+        return <Truck className="w-5 h-5" />;
     }
   };
 
   if (loading) {
     return (
       <div className="w-full h-[600px] bg-slate-100 animate-pulse rounded-sm flex items-center justify-center">
-        <span className="text-slate-400 font-medium">Đang tải danh mục sản phẩm...</span>
+        <span className="text-slate-400 font-medium">
+          Đang tải danh mục sản phẩm...
+        </span>
       </div>
     );
   }
@@ -77,32 +87,46 @@ export function ProductCategoryShowcase() {
         {/* Left Sidebar - Category Tabs */}
         <div className="w-full md:w-1/3 lg:w-1/4 flex flex-col gap-2">
           <div className="mb-6">
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Dòng Sản Phẩm</h2>
-            <p className="text-sm text-slate-500 mt-1">Khám phá các giải pháp vận tải tối ưu</p>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+              Dòng Sản Phẩm
+            </h2>
+            <p className="text-sm text-slate-500 mt-1">
+              Khám phá các giải pháp vận tải tối ưu
+            </p>
           </div>
-          
+
           <div className="flex flex-col gap-1">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedType(cat.type)}
-                className={`flex items-center justify-between p-4 rounded-none transition-all duration-300 group border-l-2 ${
+                className={`flex items-center justify-between p-4 rounded-primary transition-all duration-300 group border-l-2 ${
                   selectedType === cat.type
                     ? "bg-slate-900 text-white border-accent shadow-lg translate-x-2"
                     : "bg-white text-slate-600 hover:bg-slate-50 border-transparent border-slate-100"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-none transition-colors ${
-                    selectedType === cat.type ? "bg-white/20" : "bg-slate-100 group-hover:bg-blue-50 group-hover:text-blue-600"
-                  }`}>
+                  <div
+                    className={`p-2 rounded-none transition-colors ${
+                      selectedType === cat.type
+                        ? "bg-white/20"
+                        : "bg-slate-100 group-hover:bg-blue-50 group-hover:text-blue-600"
+                    }`}
+                  >
                     {getIcon(cat.type)}
                   </div>
-                  <span className="font-bold text-sm tracking-tight">{cat.name}</span>
+                  <span className="font-bold text-sm tracking-tight">
+                    {cat.name}
+                  </span>
                 </div>
-                <ChevronRight className={`w-4 h-4 transition-transform ${
-                  selectedType === cat.type ? "translate-x-1" : "opacity-0 group-hover:opacity-100"
-                }`} />
+                <ChevronRight
+                  className={`w-4 h-4 transition-transform ${
+                    selectedType === cat.type
+                      ? "translate-x-1"
+                      : "opacity-0 group-hover:opacity-100"
+                  }`}
+                />
               </button>
             ))}
           </div>
@@ -136,7 +160,7 @@ export function ProductCategoryShowcase() {
                   >
                     <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
                     <span className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.2em]">
-                      {selectedCategory.type.replace('_', ' ')}
+                      {selectedCategory.type.replace("_", " ")}
                     </span>
                   </motion.div>
 
@@ -164,8 +188,13 @@ export function ProductCategoryShowcase() {
                     transition={{ delay: 0.5 }}
                     className="flex flex-wrap gap-4"
                   >
-                    <Link href={`/products/${selectedCategory.type.replace('_', '-')}`}>
-                      <Button size="lg" className="bg-white text-slate-950 hover:bg-slate-100 rounded-sm px-8 h-14 font-bold border-none shadow-xl shadow-white/5">
+                    <Link
+                      href={`/products/${selectedCategory.type.replace("_", "-")}`}
+                    >
+                      <Button
+                        size="lg"
+                        className="bg-white text-slate-950 hover:bg-slate-100 rounded-sm px-8 h-14 font-bold border-none shadow-xl shadow-white/5"
+                      >
                         Khám Phá Ngay
                         <ArrowRight className="ml-2 w-5 h-5" />
                       </Button>
@@ -182,33 +211,51 @@ export function ProductCategoryShowcase() {
                     className="relative w-full aspect-square max-w-md rounded-3xl overflow-hidden shadow-2xl"
                   >
                     {selectedCategory.image ? (
-                      <img 
-                        src={selectedCategory.image} 
-                        alt={selectedCategory.name} 
+                      <img
+                        src={selectedCategory.image}
+                        alt={selectedCategory.name}
                         className="w-full h-full object-cover"
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 flex flex-col items-center justify-center border border-white/5">
                         <div className="w-32 h-32 bg-white/5 rounded-none flex items-center justify-center mb-4 backdrop-blur-sm border border-white/10">
-                          {React.cloneElement(getIcon(selectedCategory.type) as React.ReactElement<any>, { className: "w-16 h-16 text-accent" })}
+                          {React.cloneElement(
+                            getIcon(
+                              selectedCategory.type,
+                            ) as React.ReactElement<any>,
+                            { className: "w-16 h-16 text-accent" },
+                          )}
                         </div>
-                        <span className="text-slate-500 font-medium text-sm">Product Visualization coming soon</span>
-                        
+                        <span className="text-slate-500 font-medium text-sm">
+                          Product Visualization coming soon
+                        </span>
+
                         {/* Shimmering scanline effect */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-blue-500/5 to-transparent h-1/2 w-full animate-scan" style={{ animation: 'scan 4s linear infinite' }} />
+                        <div
+                          className="absolute inset-0 bg-gradient-to-t from-transparent via-blue-500/5 to-transparent h-1/2 w-full animate-scan"
+                          style={{ animation: "scan 4s linear infinite" }}
+                        />
                       </div>
                     )}
 
                     {/* Quality Badges */}
                     <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center bg-black/40 backdrop-blur-md p-4 rounded-none border border-white/10">
                       <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Tiêu Chuẩn</span>
-                        <span className="text-xs text-white font-bold">ISO 9001:2015</span>
+                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                          Tiêu Chuẩn
+                        </span>
+                        <span className="text-xs text-white font-bold">
+                          ISO 9001:2015
+                        </span>
                       </div>
                       <div className="h-8 w-[1px] bg-white/20" />
                       <div className="flex flex-col items-end">
-                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Vật Liệu</span>
-                        <span className="text-xs text-white font-bold">Thép T700 Siêu Cường</span>
+                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                          Vật Liệu
+                        </span>
+                        <span className="text-xs text-white font-bold">
+                          Thép T700 Siêu Cường
+                        </span>
                       </div>
                     </div>
                   </motion.div>
@@ -218,7 +265,6 @@ export function ProductCategoryShowcase() {
           </AnimatePresence>
         </div>
       </div>
-
     </section>
   );
 }
