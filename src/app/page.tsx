@@ -5,7 +5,9 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import Link from "next/link";
-import { ProductCategoryShowcase } from "@/components/ProductCategoryShowcase";
+import { ProductCategoryShowcase } from "@/components/layout/ProductCategoryShowcase";
+import { PARTNER_LOGOS } from "@/constants/image/logo";
+import { cn } from "@/lib/utils";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -225,15 +227,25 @@ export default function Home() {
             {/* Brushed Metal Texture Effect */}
             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/brushed-alum.png')]" />
             <div className="absolute right-0 top-0 w-64 h-64 bg-slate-800 rounded-full blur-3xl opacity-30 -translate-y-1/2 translate-x-1/3" />
-            
+
             <div className="relative z-10 w-12 h-12 bg-white/5 border border-white/10 rounded-none flex items-center justify-center mb-6">
-              <svg className="w-6 h-6 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              <svg
+                className="w-6 h-6 text-slate-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                />
               </svg>
             </div>
             <div className="relative z-10">
               <h3 className="text-2xl font-bold text-white mb-2">
-                Thép Cường Độ Cao T700
+                Thép Cường Độ Cao NM450
               </h3>
               <p className="text-slate-400">
                 Sử dụng hoàn toàn bằng thép chuyên dụng siêu cường, giảm trọng
@@ -252,8 +264,18 @@ export default function Home() {
             className="bg-white rounded-sm p-8 border border-slate-300 transition-colors hover:border-slate-400 flex flex-col justify-center shadow-sm"
           >
             <div className="w-12 h-12 bg-slate-50 border border-slate-200 rounded-none flex items-center justify-center mb-4 text-slate-800">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
               </svg>
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-2">
@@ -274,12 +296,22 @@ export default function Home() {
             className="bg-white rounded-sm p-8 border border-slate-300 transition-colors hover:border-slate-400 flex flex-col justify-center shadow-sm"
           >
             <div className="w-12 h-12 bg-slate-50 border border-slate-200 rounded-none flex items-center justify-center mb-4 text-slate-800">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                />
               </svg>
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-2">
-              Sơn Tĩnh Điện 2 Lớp
+              Sơn Tĩnh Điện 3 Lớp
             </h3>
             <p className="text-slate-500 text-sm">
               Lớp sơn lót tĩnh điện & lớp sơn phủ bám chặt, cam kết chống gỉ sét
@@ -334,26 +366,48 @@ export default function Home() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
-          className="text-center mb-8"
+          className="text-center mb-10"
         >
-          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest">
-            Đồng Hành Cùng Các Doanh Nghiệp Hàng Đầu
+          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-[0.3em] mb-2">
+            Đối Tác Chiến Lược
           </h3>
+          <h2 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight">
+            Đồng Hành Cùng Các Doanh Nghiệp Hàng Đầu
+          </h2>
         </motion.div>
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-300"
+          className="flex flex-wrap justify-center items-center gap-6 md:gap-8 opacity-70 grayscale hover:grayscale-0 transition-all duration-500 px-4"
         >
-          {[1, 2, 3, 4, 5].map((i) => (
+          {PARTNER_LOGOS.map((logo, idx) => (
             <motion.div
-              key={i}
+              key={idx}
               variants={fadeInUp}
-              className="w-32 h-12 bg-slate-200 rounded-sm flex items-center justify-center font-bold text-slate-500"
+              className="w-32 md:w-52 h-24 flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all duration-300 overflow-hidden"
             >
-              LOGO {i}
+              <img
+                src={logo}
+                alt={`Partner ${idx + 1}`}
+                className={cn(
+                  "max-w-full max-h-full object-contain transition-transform duration-300",
+                  idx === 4 ? "scale-[1.8]" : "scale-100"
+                )}
+                onError={(e) => {
+                  /* Fallback to text if image fails */
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const parent = target.parentElement;
+                  if (parent && !parent.querySelector('.fallback-label')) {
+                    const span = document.createElement('span');
+                    span.innerText = 'Brand ' + (idx + 1);
+                    span.className = 'fallback-label text-xs font-bold text-slate-400';
+                    parent.appendChild(span);
+                  }
+                }}
+              />
             </motion.div>
           ))}
         </motion.div>
@@ -372,8 +426,8 @@ export default function Home() {
             Thực Tế Chứng Minh
           </h2>
           <p className="text-lg text-slate-600">
-            Hàng ngàn chuyến xe lăn bánh là bảo chứng cho chất lượng và sự tin tưởng mà khách hàng
-            trao gửi cho Hatico.
+            Hàng ngàn chuyến xe lăn bánh là bảo chứng cho chất lượng và sự tin
+            tưởng mà khách hàng trao gửi cho Hatico.
           </p>
         </motion.div>
 
@@ -507,12 +561,22 @@ export default function Home() {
         >
           {/* Decorative industrial background elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 rounded-full blur-[100px]" />
-          
+
           <div className="max-w-xl relative z-10">
             <div className="inline-flex items-center gap-2 mb-4">
               <span className="p-1.5 bg-white/5 border border-white/10 rounded-none">
-                <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                <svg
+                  className="w-5 h-5 text-blue-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  />
                 </svg>
               </span>
               <span className="font-semibold text-slate-300 tracking-wide text-sm uppercase">
