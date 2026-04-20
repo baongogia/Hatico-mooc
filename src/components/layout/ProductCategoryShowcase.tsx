@@ -208,7 +208,7 @@ export function ProductCategoryShowcase() {
                     initial={{ opacity: 0, x: 50, rotate: 2 }}
                     animate={{ opacity: 1, x: 0, rotate: 0 }}
                     transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
-                    className="relative w-full aspect-square max-w-md rounded-3xl overflow-hidden shadow-2xl"
+                    className="relative w-full aspect-square max-w-md rounded-primary overflow-hidden shadow-2xl"
                   >
                     {selectedCategory.image ? (
                       <img
