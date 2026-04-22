@@ -8,6 +8,7 @@ import { supabase } from "@/lib/supabase";
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [categories, setCategories] = React.useState<any[]>([]);
+  const [session, setSession] = React.useState<any>(null);
 
   React.useEffect(() => {
     async function fetchCategories() {
@@ -18,6 +19,17 @@ const Header = () => {
       if (data) setCategories(data);
     }
     fetchCategories();
+
+    // Check session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   return (
@@ -106,15 +118,19 @@ const Header = () => {
 
         {/* Actions & Mobile Menu Toggle */}
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="hidden lg:inline-flex">
-            Đăng Nhập
-          </Button>
-          <Button
-            variant="accent"
-            className="hidden sm:inline-flex shadow-blue-900/20"
-          >
-            Nhận Báo Giá
-          </Button>
+          <Link href={session ? "/admin" : "/login"}>
+            <Button variant="outline" className="hidden lg:inline-flex">
+              {session ? "Trang Quản Trị" : "Đăng Nhập"}
+            </Button>
+          </Link>
+          <Link href="/">
+            <Button
+              variant="accent"
+              className="hidden sm:inline-flex shadow-blue-900/20"
+            >
+              Nhận Báo Giá
+            </Button>
+          </Link>
           <button
             className="md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-primary"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

@@ -7,6 +7,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { supabase } from "@/lib/supabase";
+import { QuoteRequestForm } from "@/components/forms/QuoteRequestForm";
+import { X } from "lucide-react";
 
 export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = React.use(params);
@@ -14,6 +16,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
   const [trailers, setTrailers] = React.useState<any[]>([]);
   const [selectedConfig, setSelectedConfig] = React.useState<any>(null);
   const [loading, setLoading] = React.useState(true);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = React.useState(false);
 
   const [allCategories, setAllCategories] = React.useState<any[]>([]);
 
@@ -131,7 +134,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 <p className="text-slate-300 text-xs leading-relaxed">
                   Hỗ trợ trả góp lên tới 80% với lãi suất ưu đãi nhất thị trường.
                 </p>
-                <Button size="sm" className="bg-white text-slate-950 hover:bg-slate-100 font-black rounded-none mt-2">
+                <Button 
+                  size="sm" 
+                  className="bg-white text-slate-950 hover:bg-slate-100 font-black rounded-none mt-2"
+                  onClick={() => setIsQuoteModalOpen(true)}
+                >
                   XEM CHI TIẾT
                 </Button>
               </div>
@@ -195,7 +202,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                           <Button size="lg" className="w-full h-16 text-sm font-black uppercase tracking-widest shadow-xl shadow-accent/20 rounded-none">
+                           <Button 
+                             size="lg" 
+                             className="w-full h-16 text-sm font-black uppercase tracking-widest shadow-xl shadow-accent/20 rounded-none"
+                             onClick={() => setIsQuoteModalOpen(true)}
+                           >
                               Nhận Báo Giá Ngay
                            </Button>
                            <Link href="/roi-calculator" className="w-full">
@@ -298,6 +309,50 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
           ))}
         </div>
       </section>
+
+      {/* --- Quote Request Modal --- */}
+      <AnimatePresence>
+        {isQuoteModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsQuoteModalOpen(false)}
+              className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-lg bg-white rounded-primary shadow-2xl overflow-hidden"
+            >
+              <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <div>
+                  <h3 className="text-xl font-black text-slate-900 uppercase">Nhận Báo Giá</h3>
+                  <p className="text-xs text-slate-500 font-bold mt-1 uppercase tracking-wider">
+                    {selectedConfig?.name || categoryInfo?.name}
+                  </p>
+                </div>
+                <button 
+                  onClick={() => setIsQuoteModalOpen(false)}
+                  className="p-2 hover:bg-slate-200 rounded-full transition-colors"
+                >
+                  <X className="w-5 h-5 text-slate-500" />
+                </button>
+              </div>
+              
+              <div className="p-6">
+                 <QuoteRequestForm 
+                    productId={selectedConfig?.id || slug} 
+                    productPrice={selectedConfig?.price}
+                    onSuccess={() => setIsQuoteModalOpen(false)} 
+                 />
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
