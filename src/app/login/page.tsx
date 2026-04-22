@@ -48,15 +48,27 @@ export default function LoginPage() {
         className="w-full max-w-md relative z-10"
       >
         <div className="bg-white rounded-primary shadow-2xl overflow-hidden border border-slate-100">
-          <div className="p-8 pb-4 text-center">
-            <Link href="/" className="inline-flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-accent transition-colors mb-8 uppercase tracking-widest">
-              <ArrowLeft className="w-3 h-3" /> Quay lại trang chủ
+          <div className="p-8 pb-4 text-center relative border-b border-slate-50">
+            <Link
+              href="/"
+              className="absolute top-4 left-4 inline-flex items-center gap-2 text-[10px] font-black text-slate-400 hover:text-accent transition-all uppercase tracking-widest z-20 bg-white/50 backdrop-blur-sm p-2 rounded-sm"
+            >
+              <ArrowLeft className="w-3 h-3" /> Quay lại
             </Link>
-            <div className="flex justify-center mb-6">
-               <img src="/images/Logo.png" alt="Hatico Logo" className="h-12 object-contain" />
+
+            <div className="flex justify-center my-16 py-4">
+              <img
+                src="/images/Logo.png"
+                alt="Hatico Logo"
+                className="h-12 scale-[3.5] object-contain"
+              />
             </div>
-            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Hệ Thống Quản Trị</h1>
-            <p className="text-sm text-slate-500 mt-2">Vui lòng đăng nhập để tiếp tục quản lý</p>
+            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight mt-10">
+              Hệ Thống Quản Trị
+            </h1>
+            <p className="text-sm text-slate-500 mt-2 font-medium">
+              Vui lòng đăng nhập để tiếp tục quản lý
+            </p>
           </div>
 
           <form onSubmit={handleLogin} className="p-8 pt-4 flex flex-col gap-6">
@@ -89,7 +101,7 @@ export default function LoginPage() {
             </div>
 
             {error && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 className="p-3 bg-red-50 border border-red-100 text-red-600 text-xs rounded-sm flex gap-2 items-center"
@@ -117,9 +129,9 @@ export default function LoginPage() {
           </form>
 
           <div className="p-6 bg-slate-50 border-t border-slate-100 text-center">
-             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest italic">
-               Hệ thống bảo mật nội bộ HATICO International.
-             </p>
+            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest italic">
+              Hệ thống bảo mật nội bộ HATICO International.
+            </p>
           </div>
         </div>
       </motion.div>
