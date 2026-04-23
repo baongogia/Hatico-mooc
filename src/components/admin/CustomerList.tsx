@@ -26,7 +26,12 @@ export const CustomerList = () => {
     setLoading(true);
     const { data, error } = await supabase
       .from("customer")
-      .select("*")
+      .select(`
+        *,
+        trailers (
+          name
+        )
+      `)
       .order("id", { ascending: false });
 
     if (error) {
@@ -45,6 +50,7 @@ export const CustomerList = () => {
     (c) =>
       c.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       c.phone?.includes(searchTerm) ||
+      (Array.isArray(c.trailers) ? c.trailers[0]?.name : c.trailers?.name)?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       c.product_id?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -85,8 +91,9 @@ export const CustomerList = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-100">
-                <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest">Danh tính</th>
-                <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest">Phân loại</th>
+                <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest">Họ và tên</th>
+                <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest">SĐT</th>
+                <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest">Sản phẩm</th>
                 <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest">Giá trị</th>
                 <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest">Yêu cầu</th>
                 <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest text-right">Thời gian</th>
@@ -96,7 +103,7 @@ export const CustomerList = () => {
               {loading ? (
                 Array.from({ length: 5 }).map((_, i) => (
                   <tr key={i} className="animate-pulse">
-                    <td colSpan={5} className="p-3">
+                    <td colSpan={6} className="p-3">
                        <div className="h-4 bg-slate-50 rounded w-full"></div>
                     </td>
                   </tr>
@@ -105,15 +112,17 @@ export const CustomerList = () => {
                 filteredCustomers.map((customer) => (
                   <tr key={customer.id} className="hover:bg-slate-50/50 transition-all font-bold">
                     <td className="p-3">
-                      <div className="flex flex-col">
-                        <span className="text-sm text-slate-900 uppercase tracking-tighter">{customer.name || "KHÁCH ẨN DANH"}</span>
-                        <a href={`tel:${customer.phone}`} className="text-xs text-accent tracking-widest font-black uppercase mt-0.5">
-                          {customer.phone}
-                        </a>
-                      </div>
+                       <span className="text-sm text-slate-900 uppercase tracking-tighter">{customer.name || "KHÁCH ẨN DANH"}</span>
                     </td>
                     <td className="p-3">
-                      <span className="text-xs text-slate-700 uppercase tracking-widest bg-slate-100 px-3 py-1 font-black">{customer.product_id || "CHUNG"}</span>
+                        <a href={`tel:${customer.phone}`} className="text-xs text-accent tracking-widest font-black uppercase">
+                          {customer.phone}
+                        </a>
+                    </td>
+                    <td className="p-3">
+                      <span className="text-xs text-slate-700 uppercase tracking-widest bg-slate-100 px-3 py-1 font-black">
+                        {(Array.isArray(customer.trailers) ? customer.trailers[0]?.name : customer.trailers?.name) || customer.product_id || "CHUNG"}
+                      </span>
                     </td>
                     <td className="p-3">
                        <span className="text-xs text-blue-700 uppercase tracking-widest font-black">
@@ -132,7 +141,7 @@ export const CustomerList = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} className="p-16 text-center">
+                  <td colSpan={6} className="p-16 text-center">
                     <p className="text-xs font-black uppercase text-slate-300 tracking-widest">Không có dữ liệu</p>
                   </td>
                 </tr>
