@@ -56,12 +56,15 @@ export default function LoginPage() {
               <ArrowLeft className="w-3 h-3" /> Quay lại
             </Link>
 
-            <div className="flex justify-center my-16 py-4">
-              <img
-                src="/images/Logo.png"
-                alt="Hatico Logo"
-                className="h-12 scale-[3.5] object-contain"
-              />
+            <div className="flex justify-center my-10 py-2">
+              <div className="relative w-24 h-24">
+                <div className="absolute inset-0 bg-accent/20 rounded-primary blur-2xl animate-pulse" />
+                <img
+                  src="/images/admin-logo.png"
+                  alt="Hatico Logo"
+                  className="w-full h-full object-contain relative z-10"
+                />
+              </div>
             </div>
             <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight mt-10">
               Hệ Thống Quản Trị
