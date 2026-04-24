@@ -78,7 +78,7 @@ export default function AdminPage() {
   if (!session) return null;
 
   return (
-    <div className="min-h-screen bg-slate-100 flex p-3 gap-3">
+    <div className="h-screen bg-slate-100 flex p-3 gap-3 overflow-hidden">
       {/* Sidebar - Modern Floating Card */}
       <aside
         className={cn(
@@ -126,7 +126,7 @@ export default function AdminPage() {
           </button>
         </div>
 
-        <nav className="flex-1 p-4 flex flex-col gap-3">
+        <nav className="flex-1 p-4 flex flex-col gap-3 overflow-y-auto custom-scrollbar-dark">
           <div className="px-2 mb-2">
             <p className="text-[10px] font-black uppercase text-slate-500 tracking-[0.2em]">
               Menu chính
@@ -253,7 +253,7 @@ export default function AdminPage() {
         </header>
 
         {/* Content Viewport */}
-        <div className="flex-1 overflow-y-auto bg-slate-50/50 p-3 w-full">
+        <div className="flex-1 overflow-y-auto bg-slate-50/50 p-3 w-full custom-scrollbar">
           {activeTab === "customers" ? (
             <div className="w-full">
               <CustomerList />
