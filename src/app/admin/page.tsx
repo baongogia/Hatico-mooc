@@ -20,6 +20,7 @@ import { CustomerList } from "@/components/admin/CustomerList";
 import { PriceList } from "@/components/admin/PriceList";
 import { InventoryList } from "@/components/admin/InventoryList";
 import { CommercialVehicleList } from "@/components/admin/CommercialVehicleList";
+import { Dashboard } from "@/components/admin/Dashboard";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -285,81 +286,8 @@ export default function AdminPage() {
                <CommercialVehicleList />
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 w-full">
-              {[
-                {
-                  label: "YÊU CẦU MỚI",
-                  value: "24",
-                  color: "from-blue-500 to-indigo-600",
-                  icon: <Bell className="w-6 h-6" />,
-                },
-                {
-                  label: "TỔNG LIÊN HỆ",
-                  value: "1,2k",
-                  color: "from-slate-800 to-slate-900",
-                  icon: <Users className="w-6 h-6" />,
-                },
-                {
-                  label: "TỶ LỆ CHỐT",
-                  value: "68%",
-                  color: "from-emerald-500 to-teal-600",
-                  icon: <LayoutDashboard className="w-6 h-6" />,
-                },
-                {
-                  label: "DOANH THU",
-                  value: "8.5B",
-                  color: "from-accent to-blue-900",
-                  icon: <Tag className="w-6 h-6" />,
-                },
-              ].map((stat, i) => (
-                <div
-                  key={i}
-                  className="relative bg-white p-4 rounded-primary border border-slate-100 shadow-sm overflow-hidden group"
-                >
-                  <div
-                    className={cn(
-                      "w-12 h-12 rounded-none flex items-center justify-center text-white bg-gradient-to-br mb-4 shadow-md transition-transform group-hover:scale-110",
-                      stat.color,
-                    )}
-                  >
-                    {stat.icon}
-                  </div>
-                  <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">
-                    {stat.label}
-                  </p>
-                  <p className="text-3xl font-black text-slate-900 tracking-tighter">
-                    {stat.value}
-                  </p>
-                </div>
-              ))}
-
-              {/* Modern Grid/Chart Section */}
-              <div className="lg:col-span-3 xl:col-span-4 bg-white p-4 rounded-primary border border-slate-100 shadow-sm">
-                <div className="flex justify-between items-center mb-8">
-                  <h3 className="text-sm font-black uppercase text-slate-900 tracking-widest">
-                    Hiệu suất vận hành
-                  </h3>
-                  <div className="flex bg-slate-100 p-1 rounded-sm gap-1">
-                    {["Hằng ngày", "Hằng tháng"].map((t) => (
-                      <button
-                        key={t}
-                        className="px-4 py-2 text-xs font-black uppercase tracking-widest rounded-sm hover:bg-white transition-all"
-                      >
-                        {t}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className="h-64 w-full flex items-end gap-2 px-1">
-                  {Array.from({ length: 24 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="flex-1 bg-slate-100 hover:bg-accent rounded-none transition-all duration-300"
-                      style={{ height: `${Math.random() * 70 + 30}%` }}
-                    />
-                  ))}
-                </div>
-              </div>
+            <div className="w-full h-full">
+              <Dashboard />
             </div>
           )}
         </div>
