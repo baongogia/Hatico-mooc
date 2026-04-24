@@ -13,11 +13,13 @@ import {
   X,
   Tag,
   Package,
-  ClipboardList
+  ClipboardList,
+  Truck
 } from "lucide-react";
 import { CustomerList } from "@/components/admin/CustomerList";
 import { PriceList } from "@/components/admin/PriceList";
 import { InventoryList } from "@/components/admin/InventoryList";
+import { CommercialVehicleList } from "@/components/admin/CommercialVehicleList";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -199,6 +201,17 @@ export default function AdminPage() {
             {isSidebarOpen && <span className="text-xs font-black uppercase tracking-widest">Hàng tồn kho</span>}
           </button>
 
+          <button 
+            onClick={() => setActiveTab("commercial")}
+            className={cn(
+              "flex items-center gap-4 p-4 rounded-sm transition-all duration-300 group",
+              activeTab === "commercial" ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'hover:bg-white/5 text-slate-400'
+            )}
+          >
+            <Truck className={cn("w-5 h-5 shrink-0 transition-transform", activeTab === "commercial" && "scale-110")} />
+            {isSidebarOpen && <span className="text-xs font-black uppercase tracking-widest">Xe thương mại</span>}
+          </button>
+
           <div className="mt-auto px-2 pt-6 border-t border-white/10 flex flex-col gap-4">
             {isSidebarOpen && (
               <div className="bg-white/5 p-4 rounded-sm border border-white/5">
@@ -231,7 +244,8 @@ export default function AdminPage() {
               <h1 className="text-xl font-black text-slate-900 uppercase tracking-tighter">
                 {activeTab === "customers" ? "Quản lý khách hàng" : 
                  activeTab === "quotations" ? "Báo giá chi tiết" :
-                 activeTab === "inventory" ? "Kiểm soát tồn kho" : "Thống kê hệ thống"}
+                 activeTab === "inventory" ? "Kiểm soát tồn kho" : 
+                 activeTab === "commercial" ? "Bảng giá xe thương mại" : "Thống kê hệ thống"}
               </h1>
             </div>
             <p className="text-xs text-slate-400 font-bold uppercase tracking-[0.2em] mt-1 ml-4">
@@ -265,6 +279,10 @@ export default function AdminPage() {
           ) : activeTab === "inventory" ? (
             <div className="w-full">
                <InventoryList />
+            </div>
+          ) : activeTab === "commercial" ? (
+            <div className="w-full">
+               <CommercialVehicleList />
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 w-full">

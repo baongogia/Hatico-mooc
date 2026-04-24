@@ -76,12 +76,12 @@ export const PriceList = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[1000px]">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-100">
-                <th className="p-4 text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] w-12 text-center">STT</th>
-                <th className="p-4 text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] w-64">Sản phẩm & Hình ảnh</th>
-                <th className="p-4 text-[10px] font-black uppercase text-slate-500 tracking-[0.2em]">Thông số kỹ thuật</th>
-                <th className="p-4 text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] w-56">Giá chi nhánh</th>
-                <th className="p-4 text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] w-24 text-center">Lương</th>
+              <tr className="bg-slate-900 text-white border-b border-slate-800">
+                <th className="p-4 text-[10px] font-black uppercase tracking-[0.2em] w-12 text-center border border-slate-800">STT</th>
+                <th className="p-4 text-[10px] font-black uppercase tracking-[0.2em] w-64 border border-slate-800">Sản phẩm & Hình ảnh</th>
+                <th className="p-4 text-[10px] font-black uppercase tracking-[0.2em] border border-slate-800">Thông số kỹ thuật</th>
+                <th className="p-4 text-[10px] font-black uppercase tracking-[0.2em] w-56 border border-slate-800">Giá chi nhánh</th>
+                <th className="p-4 text-[10px] font-black uppercase tracking-[0.2em] w-24 text-center border border-slate-800">Lương</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">

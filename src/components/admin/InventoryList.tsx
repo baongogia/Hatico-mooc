@@ -185,19 +185,19 @@ export const InventoryList = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse border-spacing-0">
             <thead>
-              <tr className="bg-orange-500 text-white">
-                <th className="p-3 text-[10px] font-black uppercase tracking-widest border border-orange-400 min-w-[200px] sticky left-0 z-20 bg-orange-600">
+              <tr className="bg-slate-900 text-white border-b border-slate-800">
+                <th className="p-3 text-[10px] font-black uppercase tracking-widest border border-slate-800 min-w-[200px] sticky left-0 z-20 bg-slate-950">
                   Dòng xe / Chi nhánh
                 </th>
                 {agencies.map((agency) => (
                   <th
                     key={agency.id}
-                    className="p-3 text-[10px] font-black uppercase tracking-widest border border-orange-400 text-center min-w-[100px]"
+                    className="p-3 text-[10px] font-black uppercase tracking-widest border border-slate-800 text-center min-w-[100px]"
                   >
                     {agency.name}
                   </th>
                 ))}
-                <th className="p-3 text-[10px] font-black uppercase tracking-widest border border-orange-400 text-center sticky right-0 z-20 bg-orange-600">
+                <th className="p-3 text-[10px] font-black uppercase tracking-widest border border-slate-800 text-center sticky right-0 z-20 bg-slate-950">
                   Tổng cộng
                 </th>
               </tr>

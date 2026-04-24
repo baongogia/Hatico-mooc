@@ -90,13 +90,13 @@ export const CustomerList = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-100">
-                <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest">Họ và tên</th>
-                <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest">SĐT</th>
-                <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest">Sản phẩm</th>
-                <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest">Giá trị</th>
-                <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest">Yêu cầu</th>
-                <th className="p-3 text-[11px] font-black uppercase text-slate-400 tracking-widest text-right">Thời gian</th>
+              <tr className="bg-slate-900 text-white border-b border-slate-800">
+                <th className="p-3 text-[11px] font-black uppercase tracking-widest border border-slate-800">Họ và tên</th>
+                <th className="p-3 text-[11px] font-black uppercase tracking-widest border border-slate-800">SĐT</th>
+                <th className="p-3 text-[11px] font-black uppercase tracking-widest border border-slate-800">Sản phẩm</th>
+                <th className="p-3 text-[11px] font-black uppercase tracking-widest border border-slate-800">Giá trị</th>
+                <th className="p-3 text-[11px] font-black uppercase tracking-widest border border-slate-800">Yêu cầu</th>
+                <th className="p-3 text-[11px] font-black uppercase tracking-widest border border-slate-800 text-right">Thời gian</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
