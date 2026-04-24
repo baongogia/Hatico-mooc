@@ -14,7 +14,7 @@ import {
   Tag,
   Package,
   ClipboardList,
-  Truck
+  Truck,
 } from "lucide-react";
 import { CustomerList } from "@/components/admin/CustomerList";
 import { PriceList } from "@/components/admin/PriceList";
@@ -92,11 +92,11 @@ export default function AdminPage() {
         <div className="p-6 flex items-center justify-between border-b border-white/10">
           {isSidebarOpen ? (
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 relative group">
+              <div className="w-10 h-10 relative bg-white p-1.5 rounded-[8px] shadow-sm">
                 <img
-                  src="/images/Logo.png"
+                  src="/images/logo-sp.png"
                   alt="Logo"
-                  className="w-full h-full object-contain relative z-10 rounded-sm"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <div className="flex flex-col leading-none">
@@ -109,11 +109,11 @@ export default function AdminPage() {
               </div>
             </div>
           ) : (
-            <div className="w-10 h-10">
+            <div className="w-10 h-10 bg-white p-1.5 rounded-[8px] shadow-sm">
               <img
-                src="/images/admin-logo.png"
+                src="/images/logo-sp.png"
                 alt="Logo"
-                className="w-full h-full object-contain rounded-sm"
+                className="w-full h-full object-contain"
               />
             </div>
           )}
@@ -180,37 +180,70 @@ export default function AdminPage() {
             )}
           </button>
 
-          <button 
+          <button
             onClick={() => setActiveTab("quotations")}
             className={cn(
               "flex items-center gap-4 p-4 rounded-sm transition-all duration-300 group",
-              activeTab === "quotations" ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'hover:bg-white/5 text-slate-400'
+              activeTab === "quotations"
+                ? "bg-accent text-white shadow-lg shadow-accent/20"
+                : "hover:bg-white/5 text-slate-400",
             )}
           >
-            <Tag className={cn("w-5 h-5 shrink-0 transition-transform", activeTab === "quotations" && "scale-110")} />
-            {isSidebarOpen && <span className="text-xs font-black uppercase tracking-widest">Báo giá</span>}
+            <Tag
+              className={cn(
+                "w-5 h-5 shrink-0 transition-transform",
+                activeTab === "quotations" && "scale-110",
+              )}
+            />
+            {isSidebarOpen && (
+              <span className="text-xs font-black uppercase tracking-widest">
+                Báo giá
+              </span>
+            )}
           </button>
 
-          <button 
+          <button
             onClick={() => setActiveTab("inventory")}
             className={cn(
               "flex items-center gap-4 p-4 rounded-sm transition-all duration-300 group",
-              activeTab === "inventory" ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'hover:bg-white/5 text-slate-400'
+              activeTab === "inventory"
+                ? "bg-accent text-white shadow-lg shadow-accent/20"
+                : "hover:bg-white/5 text-slate-400",
             )}
           >
-            <Package className={cn("w-5 h-5 shrink-0 transition-transform", activeTab === "inventory" && "scale-110")} />
-            {isSidebarOpen && <span className="text-xs font-black uppercase tracking-widest">Hàng tồn kho</span>}
+            <Package
+              className={cn(
+                "w-5 h-5 shrink-0 transition-transform",
+                activeTab === "inventory" && "scale-110",
+              )}
+            />
+            {isSidebarOpen && (
+              <span className="text-xs font-black uppercase tracking-widest">
+                Hàng tồn kho
+              </span>
+            )}
           </button>
 
-          <button 
+          <button
             onClick={() => setActiveTab("commercial")}
             className={cn(
               "flex items-center gap-4 p-4 rounded-sm transition-all duration-300 group",
-              activeTab === "commercial" ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'hover:bg-white/5 text-slate-400'
+              activeTab === "commercial"
+                ? "bg-accent text-white shadow-lg shadow-accent/20"
+                : "hover:bg-white/5 text-slate-400",
             )}
           >
-            <Truck className={cn("w-5 h-5 shrink-0 transition-transform", activeTab === "commercial" && "scale-110")} />
-            {isSidebarOpen && <span className="text-xs font-black uppercase tracking-widest">Xe thương mại</span>}
+            <Truck
+              className={cn(
+                "w-5 h-5 shrink-0 transition-transform",
+                activeTab === "commercial" && "scale-110",
+              )}
+            />
+            {isSidebarOpen && (
+              <span className="text-xs font-black uppercase tracking-widest">
+                Xe thương mại
+              </span>
+            )}
           </button>
 
           <div className="mt-auto px-2 pt-6 border-t border-white/10 flex flex-col gap-4">
@@ -243,10 +276,15 @@ export default function AdminPage() {
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-6 bg-accent rounded-full" />
               <h1 className="text-xl font-black text-slate-900 uppercase tracking-tighter">
-                {activeTab === "customers" ? "Quản lý khách hàng" : 
-                 activeTab === "quotations" ? "Báo giá chi tiết" :
-                 activeTab === "inventory" ? "Kiểm soát tồn kho" : 
-                 activeTab === "commercial" ? "Bảng giá xe thương mại" : "Thống kê hệ thống"}
+                {activeTab === "customers"
+                  ? "Quản lý khách hàng"
+                  : activeTab === "quotations"
+                    ? "Báo giá chi tiết"
+                    : activeTab === "inventory"
+                      ? "Kiểm soát tồn kho"
+                      : activeTab === "commercial"
+                        ? "Bảng giá xe thương mại"
+                        : "Thống kê hệ thống"}
               </h1>
             </div>
             <p className="text-xs text-slate-400 font-bold uppercase tracking-[0.2em] mt-1 ml-4">
@@ -275,15 +313,15 @@ export default function AdminPage() {
             </div>
           ) : activeTab === "quotations" ? (
             <div className="w-full">
-               <PriceList />
+              <PriceList />
             </div>
           ) : activeTab === "inventory" ? (
             <div className="w-full">
-               <InventoryList />
+              <InventoryList />
             </div>
           ) : activeTab === "commercial" ? (
             <div className="w-full">
-               <CommercialVehicleList />
+              <CommercialVehicleList />
             </div>
           ) : (
             <div className="w-full h-full">
