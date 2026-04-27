@@ -71,59 +71,60 @@ export const QuoteRequestForm = ({ productId, productPrice, onSuccess }: QuoteRe
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5 p-2">
-      <div className="flex flex-col gap-2">
-        <label htmlFor="name" className="text-xs font-black uppercase text-slate-500 tracking-widest">Họ & Tên</label>
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="name" className="text-[9px] font-black uppercase text-slate-400 tracking-[0.2em] px-1">Họ & Tên</label>
         <input
           id="name"
           type="text"
           placeholder="Nhập tên của bạn"
-          className="w-full h-12 px-4 rounded-sm border border-slate-200 focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all text-sm font-medium"
+          className="w-full h-11 px-4 rounded-primary border border-slate-100 bg-slate-50 focus:bg-white focus:border-accent focus:ring-4 focus:ring-accent/5 outline-none transition-all text-sm font-medium"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label htmlFor="phone" className="text-xs font-black uppercase text-slate-500 tracking-widest">Số Điện Thoại *</label>
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="phone" className="text-[9px] font-black uppercase text-slate-400 tracking-[0.2em] px-1">Số Điện Thoại *</label>
         <input
           id="phone"
           type="tel"
           required
           placeholder="09xx xxx xxx"
-          className="w-full h-12 px-4 rounded-sm border border-slate-200 focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all text-sm font-medium"
+          className="w-full h-11 px-4 rounded-primary border border-slate-100 bg-slate-50 focus:bg-white focus:border-accent focus:ring-4 focus:ring-accent/5 outline-none transition-all text-sm font-medium"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label htmlFor="note" className="text-xs font-black uppercase text-slate-500 tracking-widest">Ghi chú thêm</label>
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="note" className="text-[9px] font-black uppercase text-slate-400 tracking-[0.2em] px-1">Ghi chú thêm</label>
         <textarea
           id="note"
           rows={3}
           placeholder="Bạn cần tư vấn thêm về điều gì?"
-          className="w-full p-4 rounded-sm border border-slate-200 focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all text-sm font-medium resize-none"
+          className="w-full p-4 rounded-primary border border-slate-100 bg-slate-50 focus:bg-white focus:border-accent focus:ring-4 focus:ring-accent/5 outline-none transition-all text-sm font-medium resize-none"
           value={formData.note}
           onChange={(e) => setFormData({ ...formData, note: e.target.value })}
         />
       </div>
 
       {status === "error" && (
-        <div className="p-3 bg-red-50 border border-red-100 text-red-600 text-xs rounded-sm flex gap-2 items-center">
-          <AlertCircle className="w-4 h-4" />
+        <div className="p-3 bg-red-50 border border-red-100 text-red-600 text-[11px] rounded-primary flex gap-2 items-center">
+          <AlertCircle className="w-3.5 h-3.5" />
           {errorMessage}
         </div>
       )}
 
       <Button 
         type="submit" 
+        variant="accent"
         size="lg" 
-        className="w-full h-14 bg-accent hover:bg-blue-900 text-white font-black uppercase tracking-widest rounded-none shadow-xl shadow-blue-900/20"
+        className="w-full h-12 text-[10px] font-black uppercase tracking-[0.2em] rounded-primary shadow-xl shadow-accent/10 mt-1"
         disabled={status === "loading"}
       >
         {status === "loading" ? (
           <>
-            <Loader2 className="w-5 h-5 animate-spin mr-2" />
+            <Loader2 className="w-4 h-4 animate-spin mr-2" />
             Đang Xử Lý...
           </>
         ) : (
