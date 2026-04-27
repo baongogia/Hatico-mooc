@@ -9,6 +9,13 @@ import { cn } from "@/lib/utils";
 interface Agency {
   id: number;
   name: string;
+  ano_name: string;
+}
+
+interface Trailer {
+  name: string;
+  category: string;
+  ano_name?: string;
 }
 
 interface InventoryItem {
@@ -16,13 +23,15 @@ interface InventoryItem {
   name: string;
   agency: string | number;
   value: number;
-  agency_info?: { id: number; name: string };
+  agency_info?: { id: number; name: string; ano_name: string };
 }
 
 export const InventoryList = () => {
   const [agencies, setAgencies] = React.useState<Agency[]>([]);
   const [inventory, setInventory] = React.useState<InventoryItem[]>([]);
-  const [productTypes, setProductTypes] = React.useState<string[]>([]);
+  const [productTypes, setProductTypes] = React.useState<
+    { name: string; ano_name?: string }[]
+  >([]);
   const [loading, setLoading] = React.useState(true);
   const [saving, setSaving] = React.useState<string | null>(null);
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -32,13 +41,10 @@ export const InventoryList = () => {
     // Fetch agencies and inventory with joined agency name
     const [agenciesRes, inventoryRes, trailersRes] = await Promise.all([
       supabase.from("agency").select("*").order("id", { ascending: true }),
-      supabase
-        .from("inventory")
-        .select("*, agency_info:agency(id, name)")
-        .order("id", { ascending: true }),
+      supabase.from("inventory").select("*").order("id", { ascending: true }),
       supabase
         .from("trailers")
-        .select("name, category")
+        .select("name, category, ano_name")
         .order("category", { ascending: true })
         .order("name", { ascending: true }),
     ]);
@@ -47,26 +53,57 @@ export const InventoryList = () => {
       console.error("Error fetching agencies:", agenciesRes.error);
     if (inventoryRes.error)
       console.error("Error fetching inventory:", inventoryRes.error);
+    if (trailersRes.error)
+      console.error("Error fetching trailers:", trailersRes.error);
 
-    setAgencies(agenciesRes.data || []);
-    setInventory(inventoryRes.data || []);
+    const agenciesData = agenciesRes.data || [];
+    // Manually link agency info to inventory items
+    const inventoryData = (inventoryRes.data || []).map((item) => ({
+      ...item,
+      agency_info: agenciesData.find(
+        (a) => String(a.id) === String(item.agency),
+      ),
+    })) as InventoryItem[];
+
+    setAgencies(agenciesData);
+    setInventory(inventoryData);
 
     // Combine product types and maintain the sort order from trailers
-    const trailerNames = trailersRes.data?.map((t) => t.name) || [];
+    const trailers = (trailersRes.data as Trailer[]) || [];
+    const trailerNames = trailers.map((t) => t.name);
     const inventoryNames = (inventoryRes.data || []).map((i) => i.name);
 
     // Merge while preserving trailer order for known products
-    const allTypes = Array.from(new Set([...trailerNames, ...inventoryNames]));
+    const allNames = Array.from(new Set([...trailerNames, ...inventoryNames]));
+
+    // Map names to their info (especially ano_name)
+    const productInfoMap = new Map<
+      string,
+      { name: string; ano_name?: string }
+    >();
+    trailers.forEach((t) =>
+      productInfoMap.set(t.name, {
+        name: t.name,
+        ano_name: t.ano_name,
+      }),
+    );
+    inventoryData.forEach((i) => {
+      if (!productInfoMap.has(i.name)) {
+        productInfoMap.set(i.name, { name: i.name });
+      }
+    });
 
     // Final sorting: known trailers first (by their category/name order), then any unknown inventory items
-    const sortedTypes = allTypes.sort((a, b) => {
-      const indexA = trailerNames.indexOf(a);
-      const indexB = trailerNames.indexOf(b);
-      if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-      if (indexA !== -1) return -1;
-      if (indexB !== -1) return 1;
-      return a.localeCompare(b);
-    });
+    const sortedTypes = allNames
+      .sort((a, b) => {
+        const indexA = trailerNames.indexOf(a);
+        const indexB = trailerNames.indexOf(b);
+        if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+        if (indexA !== -1) return -1;
+        if (indexB !== -1) return 1;
+        return a.localeCompare(b);
+      })
+      .map((name) => productInfoMap.get(name)!);
 
     setProductTypes(sortedTypes);
 
@@ -134,19 +171,20 @@ export const InventoryList = () => {
 
   const calculateColTotal = (agencyId: number) => {
     return productTypes.reduce((acc, type) => {
-      const val = getStockValue(type, agencyId);
+      const val = getStockValue(type.name, agencyId);
       return acc + (val ? parseInt(String(val)) : 0);
     }, 0);
   };
 
   const grandTotal = productTypes.reduce(
-    (acc, type) => acc + calculateRowTotal(type),
+    (acc, type) => acc + calculateRowTotal(type.name),
     0,
   );
 
-  const filteredProductTypes = productTypes.filter((t) =>
-    t.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const filteredProductTypes = productTypes.filter((t) => {
+    const nameToSearch = t.ano_name || t.name || "";
+    return nameToSearch.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   return (
     <div className="flex flex-col gap-3 animate-in fade-in duration-500 w-full">
@@ -194,7 +232,7 @@ export const InventoryList = () => {
                     key={agency.id}
                     className="p-3 text-[10px] font-black uppercase tracking-widest border border-slate-800 text-center min-w-[100px]"
                   >
-                    {agency.name}
+                    {agency.ano_name || agency.name}
                   </th>
                 ))}
                 <th className="p-3 text-[10px] font-black uppercase tracking-widest border border-slate-800 text-center sticky right-0 z-20 bg-slate-950">
@@ -215,16 +253,16 @@ export const InventoryList = () => {
               ) : filteredProductTypes.length > 0 ? (
                 filteredProductTypes.map((type) => (
                   <tr
-                    key={type}
+                    key={type.name}
                     className="hover:bg-slate-50/50 transition-all group font-bold"
                   >
                     <td className="p-3 text-[11px] text-slate-800 uppercase tracking-tight border border-slate-100 sticky left-0 z-10 bg-white group-hover:bg-slate-50 transition-colors">
-                      {type}
+                      {type.ano_name || type.name}
                     </td>
                     {agencies.map((agency) => {
-                      const id = `${type}-${agency.id}`;
+                      const id = `${type.name}-${agency.id}`;
                       const isSaving = saving === id;
-                      const currentValue = getStockValue(type, agency.id);
+                      const currentValue = getStockValue(type.name, agency.id);
 
                       return (
                         <td
@@ -233,12 +271,12 @@ export const InventoryList = () => {
                         >
                           <input
                             type="text"
-                            key={`${type}-${agency.id}-${currentValue}`}
+                            key={`${type.name}-${agency.id}-${currentValue}`}
                             defaultValue={currentValue}
                             onBlur={(e) => {
                               if (e.target.value !== String(currentValue)) {
                                 handleUpdateValue(
-                                  type,
+                                  type.name,
                                   agency.id,
                                   e.target.value,
                                 );
@@ -258,7 +296,7 @@ export const InventoryList = () => {
                       );
                     })}
                     <td className="p-3 text-center text-xs font-black text-slate-900 border border-slate-100 bg-slate-50 sticky right-0 z-10">
-                      {calculateRowTotal(type)}
+                      {calculateRowTotal(type.name)}
                     </td>
                   </tr>
                 ))
