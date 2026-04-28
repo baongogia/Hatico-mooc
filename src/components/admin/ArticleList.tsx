@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { Plus, Search, RefreshCw, Trash2, Edit } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Article } from "@/types/article";
+import { cn } from "@/lib/utils";
 
 export const ArticleList = () => {
   const [articles, setArticles] = React.useState<Article[]>([]);
