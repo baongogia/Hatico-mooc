@@ -98,13 +98,11 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
   }
 
   return (
-    <div className="w-full min-h-screen bg-white font-sans selection:bg-accent/30 selection:text-slate-900">
+    <div className="w-full min-h-screen bg-white font-sans selection:bg-accent/30 selection:text-slate-900 pb-32">
       {/* 1. HERO HEADER SECTION */}
       <section className="relative pt-32 pb-20 overflow-hidden bg-slate-950 border-b border-white/5">
-        {/* Abstract Background */}
         <div className="absolute inset-0 z-0 opacity-20">
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_20%,_rgba(0,74,173,0.3)_0%,_transparent_50%)]" />
-            <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_80%,_rgba(0,74,173,0.2)_0%,_transparent_50%)]" />
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20" />
         </div>
 
@@ -130,7 +128,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                     transition={{ delay: 0.2 }}
                     className="mb-6"
                 >
-                    <span className="bg-accent/10 border border-accent/30 text-accent text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-[0_0_15px_rgba(0,74,173,0.2)]">
+                    <span className="bg-accent/10 border border-accent/30 text-accent text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">
                         {article.type}
                     </span>
                 </motion.div>
@@ -188,10 +186,9 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
       </section>
 
       {/* 2. MAIN CONTENT AREA */}
-      <div className="container max-w-7xl mx-auto px-6 -mt-16 relative z-20 pb-32">
+      <div className="container max-w-7xl mx-auto px-6 -mt-16 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
-            {/* Main Content Column */}
             <div className="lg:col-span-8">
                 {article.image && (
                 <motion.div
@@ -208,85 +205,79 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                 </motion.div>
                 )}
 
-                <motion.div
+                <motion.article
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.6 }}
-                    className="prose prose-xl prose-slate max-w-none 
-                        prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900
+                    className="prose prose-lg md:prose-xl prose-slate max-w-none 
+                        prose-headings:font-black prose-headings:tracking-tighter prose-headings:text-slate-950
                         prose-p:text-slate-600 prose-p:leading-relaxed prose-p:text-lg
-                        prose-strong:text-slate-900 prose-strong:font-bold
-                        prose-blockquote:border-l-accent prose-blockquote:bg-slate-50 prose-blockquote:p-8 prose-blockquote:rounded-sm prose-blockquote:italic
-                        prose-img:rounded-sm prose-img:shadow-lg
-                        prose-a:text-accent prose-a:no-underline hover:prose-a:underline"
+                        prose-strong:text-slate-950 prose-strong:font-black
+                        prose-blockquote:border-l-accent prose-blockquote:bg-slate-50 prose-blockquote:p-8 prose-blockquote:not-italic prose-blockquote:text-slate-700
+                        prose-img:rounded-sm prose-img:shadow-2xl
+                        prose-a:text-accent prose-a:font-bold prose-a:no-underline hover:prose-a:underline
+                        prose-li:text-slate-600"
                 >
                     <div 
-                        className="article-content"
+                        className="rich-content"
                         dangerouslySetInnerHTML={{ 
-                            __html: article.description ? article.description.replace(/\n/g, '<br/>') : '<p className="text-slate-400 italic">Nội dung đang được cập nhật...</p>' 
+                            __html: article.content || (article.description ? `<p>${article.description.replace(/\n/g, '<br/>')}</p>` : '<p className="text-slate-400 italic">Nội dung đang được cập nhật...</p>') 
                         }} 
                     />
-                </motion.div>
+                </motion.article>
 
-                {/* Engagement / Footer */}
-                <div className="mt-16 pt-12 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div className="mt-20 pt-10 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
                     <div className="flex items-center gap-4">
-                        <span className="text-xs font-black uppercase text-slate-400 tracking-widest">Chia sẻ bài viết</span>
+                        <span className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">Chia sẻ bài viết</span>
                         <div className="flex gap-2">
                             {[1, 2, 3].map((i) => (
-                                <button key={i} className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all text-slate-500">
+                                <button key={i} className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-950 hover:text-white transition-all text-slate-400">
                                     <Share2 className="w-4 h-4" />
                                 </button>
                             ))}
                         </div>
                     </div>
-                    <Button variant="outline" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest h-12 px-8 border-slate-200">
-                        <Bookmark className="w-4 h-4" /> Lưu bài viết
-                    </Button>
                 </div>
             </div>
 
             {/* Sidebar Column */}
             <div className="lg:col-span-4 space-y-12">
-                {/* Related Articles */}
                 <div className="sticky top-24">
-                    <div className="mb-8">
-                        <h3 className="text-sm font-black uppercase text-slate-900 tracking-widest mb-2 flex items-center gap-2">
-                            <div className="w-1.5 h-4 bg-accent rounded-full" /> Tin tức liên quan
-                        </h3>
-                    </div>
+                    <h3 className="text-xs font-black uppercase text-slate-950 tracking-[0.2em] mb-8 flex items-center gap-3">
+                        <div className="w-2 h-2 bg-accent rotate-45" /> Tin tức liên quan
+                    </h3>
 
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                         {relatedArticles.map((rel) => (
                             <Link key={rel.id} href={`/tin-tuc/${rel.id}`} className="group block">
-                                <div className="flex gap-4 items-start">
-                                    <div className="w-24 h-24 shrink-0 rounded-sm overflow-hidden bg-slate-100 border border-slate-200">
-                                        <FallbackImage src={rel.image} title={rel.title} className="group-hover:scale-110 transition-transform duration-500" />
+                                <div className="flex gap-5 items-start">
+                                    <div className="w-20 h-20 shrink-0 rounded-none overflow-hidden bg-slate-100 border border-slate-200">
+                                        <FallbackImage src={rel.image} title={rel.title} className="group-hover:scale-110 transition-transform duration-700" />
                                     </div>
-                                    <div className="flex flex-col gap-1">
-                                        <span className="text-[10px] font-black uppercase text-accent tracking-wider">{rel.type || "Tin tức"}</span>
-                                        <h4 className="text-sm font-bold text-slate-900 line-clamp-2 leading-snug group-hover:text-accent transition-colors">
+                                    <div className="flex flex-col gap-1.5">
+                                        <span className="text-[8px] font-black uppercase text-accent tracking-widest">{rel.type || "Tin tức"}</span>
+                                        <h4 className="text-sm font-black text-slate-900 line-clamp-2 leading-tight group-hover:text-accent transition-colors">
                                             {rel.title}
                                         </h4>
-                                        <span className="text-[10px] text-slate-400 font-medium">28/04/2026</span>
+                                        <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                                            {rel.created_at ? new Date(rel.created_at).toLocaleDateString('vi-VN') : '28/04'}
+                                        </span>
                                     </div>
                                 </div>
                             </Link>
                         ))}
                     </div>
 
-                    {/* Newsletter / CTA Box */}
-                    <div className="mt-12 p-8 bg-slate-950 rounded-sm relative overflow-hidden group shadow-2xl">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                    <div className="mt-16 p-10 bg-slate-950 relative overflow-hidden group shadow-2xl">
                         <div className="relative z-10">
-                            <h3 className="text-lg font-black text-white mb-4 leading-tight uppercase tracking-tight">Nhận thông tin thị trường mới nhất</h3>
-                            <p className="text-xs text-slate-400 mb-6 font-medium">Đăng ký để nhận báo cáo thị trường và các ưu đãi đặc quyền từ Hatico.</p>
+                            <h3 className="text-xl font-black text-white mb-4 leading-none uppercase tracking-tighter">Bản tin công nghiệp</h3>
+                            <p className="text-[10px] text-slate-400 mb-8 font-bold uppercase tracking-widest">Đăng ký nhận tin từ Hatico</p>
                             <input 
                                 type="email" 
                                 placeholder="Email của bạn..." 
-                                className="w-full bg-white/5 border border-white/10 rounded-sm p-3 text-sm text-white mb-3 focus:outline-none focus:border-accent transition-colors"
+                                className="w-full bg-white/5 border border-white/10 rounded-none p-4 text-xs text-white mb-4 focus:outline-none focus:border-accent transition-colors font-bold"
                             />
-                            <Button variant="accent" className="w-full font-black uppercase text-[10px] tracking-[0.2em] h-11 rounded-sm">
+                            <Button variant="accent" className="w-full font-black uppercase text-[10px] tracking-[0.2em] h-14 rounded-none">
                                 Đăng ký ngay
                             </Button>
                         </div>
@@ -296,6 +287,14 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
 
         </div>
       </div>
+      
+      <style jsx global>{`
+        .rich-content h1, .rich-content h2, .rich-content h3 { margin-top: 2.5rem; margin-bottom: 1.25rem; }
+        .rich-content p { margin-bottom: 1.5rem; }
+        .rich-content img { margin: 2rem 0; width: 100%; height: auto; }
+        .rich-content ul, .rich-content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        .rich-content li { margin-bottom: 0.5rem; }
+      `}</style>
     </div>
   );
 }
