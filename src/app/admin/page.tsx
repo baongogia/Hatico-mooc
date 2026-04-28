@@ -21,6 +21,7 @@ import { PriceList } from "@/components/admin/PriceList";
 import { InventoryList } from "@/components/admin/InventoryList";
 import { CommercialVehicleList } from "@/components/admin/CommercialVehicleList";
 import { Dashboard } from "@/components/admin/Dashboard";
+import { ArticleList } from "@/components/admin/ArticleList";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -225,6 +226,28 @@ export default function AdminPage() {
           </button>
 
           <button
+            onClick={() => setActiveTab("articles")}
+            className={cn(
+              "flex items-center gap-4 p-4 rounded-sm transition-all duration-300 group",
+              activeTab === "articles"
+                ? "bg-accent text-white shadow-lg shadow-accent/20"
+                : "hover:bg-white/5 text-slate-400",
+            )}
+          >
+            <ClipboardList
+              className={cn(
+                "w-5 h-5 shrink-0 transition-transform",
+                activeTab === "articles" && "scale-110",
+              )}
+            />
+            {isSidebarOpen && (
+              <span className="text-xs font-black uppercase tracking-widest">
+                Tin Tức (SEO)
+              </span>
+            )}
+          </button>
+
+          <button
             onClick={() => setActiveTab("commercial")}
             className={cn(
               "flex items-center gap-4 p-4 rounded-sm transition-all duration-300 group",
@@ -284,7 +307,9 @@ export default function AdminPage() {
                       ? "Kiểm soát tồn kho"
                       : activeTab === "commercial"
                         ? "Bảng giá xe thương mại"
-                        : "Thống kê hệ thống"}
+                        : activeTab === "articles"
+                          ? "Quản lý Tin tức & Bài viết"
+                          : "Thống kê hệ thống"}
               </h1>
             </div>
             <p className="text-xs text-slate-400 font-bold uppercase tracking-[0.2em] mt-1 ml-4">
@@ -322,6 +347,10 @@ export default function AdminPage() {
           ) : activeTab === "commercial" ? (
             <div className="w-full">
               <CommercialVehicleList />
+            </div>
+          ) : activeTab === "articles" ? (
+            <div className="w-full h-full">
+              <ArticleList />
             </div>
           ) : (
             <div className="w-full h-full">

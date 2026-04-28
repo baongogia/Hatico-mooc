@@ -1,28 +1,120 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import Link from "next/link";
 import { ProductCategoryShowcase } from "@/components/layout/ProductCategoryShowcase";
 import { PARTNER_LOGOS } from "@/constants/image/logo";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/lib/supabase";
+import { Article } from "@/types/article";
+import { Calendar, User, ArrowRight, LayoutGrid } from "lucide-react";
 
-const fadeInUp = {
+const NewsCardImage = ({ src, title }: { src: string | null, title: string | null }) => {
+  const [error, setError] = React.useState(false);
+
+  if (!src || error) {
+    return (
+      <div className="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100">
+        <LayoutGrid className="w-12 h-12 opacity-20" />
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={title || ""}
+      onError={() => setError(true)}
+      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+    />
+  );
+};
+
+const LatestNewsList = () => {
+  const [articles, setArticles] = React.useState<Article[]>([]);
+
+  React.useEffect(() => {
+    const fetchNews = async () => {
+      const { data } = await supabase
+        .from("article")
+        .select("*")
+        .order("id", { ascending: false })
+        .limit(4);
+
+      if (data) setArticles(data);
+    };
+    fetchNews();
+  }, []);
+
+  if (articles.length === 0) return null;
+
+  return (
+    <>
+      {articles.map((article) => (
+        <motion.div key={article.id} variants={fadeInUp} className="h-full">
+          <Link href={`/tin-tuc/${article.id}`}>
+            <Card className="h-full bg-white border-transparent hover:border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col group cursor-pointer rounded-sm">
+              <div className="relative w-full aspect-square bg-slate-200 overflow-hidden">
+                <NewsCardImage src={article.image} title={article.title} />
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {article.type && (
+                  <div className="absolute top-2.5 left-2.5 bg-slate-900/80 backdrop-blur-md text-white text-[7px] font-black px-2 py-0.5 rounded-sm shadow-xl border border-white/10 uppercase tracking-widest">
+                    {article.type}
+                  </div>
+                )}
+              </div>
+              <CardContent className="p-4 flex-1 flex flex-col">
+                <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">
+                        {article.created_at ? new Date(article.created_at).toLocaleDateString('vi-VN') : '28/04'}
+                    </span>
+                    <div className="w-0.5 h-0.5 bg-slate-200 rounded-full" />
+                    <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider truncate">
+                        {article.owner || "Hatico"}
+                    </span>
+                </div>
+
+                <h3 className="text-sm font-black text-slate-900 mb-2 line-clamp-2 group-hover:text-accent transition-colors tracking-tight leading-snug">
+                  {article.title}
+                </h3>
+                
+                <p className="text-slate-500 text-[10px] mb-4 line-clamp-2 flex-1 leading-normal">
+                  {article.description?.replace(/<[^>]*>/g, '') || "Đang cập nhật..."}
+                </p>
+                
+                <div className="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <span className="text-[8px] font-black text-slate-900 uppercase tracking-[0.2em] group-hover:translate-x-0.5 transition-transform duration-300 flex items-center gap-1.5">
+                    Chi tiết <ArrowRight className="w-2 h-2 text-accent" />
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        </motion.div>
+      ))}
+    </>
+  );
+};
+
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: "easeOut" as const },
+    transition: { duration: 0.7, ease: "easeOut" },
   },
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.2 },
+    transition: { staggerChildren: 0.15 },
   },
 };
 
@@ -38,15 +130,15 @@ export default function Home() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover opacity-60 mix-blend-luminosity"
+            className="w-full h-full object-cover opacity-40 mix-blend-luminosity"
           >
             <source src="/video/around.mp4" type="video/mp4" />
           </video>
         </div>
 
         {/* Premium Cinematic Overlays - Deep Iron/Charcoal Theme */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/90 via-slate-900/60 to-slate-950/95" />
-        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent z-0 pointer-events-none" />
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/80 via-slate-900/40 to-slate-950/90" />
+        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent z-0 pointer-events-none" />
 
         {/* Subtle Industrial Light Leaks (White/Soft Blue) */}
         <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-slate-500/10 rounded-full blur-[120px] pointer-events-none" />
@@ -62,9 +154,6 @@ export default function Home() {
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
-            </span>
-            <span className="text-slate-300 font-bold tracking-[0.3em] uppercase text-[10px] md:text-xs">
-              Giải Pháp Vận Tải Hiện Đại
             </span>
           </motion.div>
 
@@ -176,7 +265,7 @@ export default function Home() {
           className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-y md:divide-y-0 md:divide-x divide-slate-200"
         >
           {[
-            { value: "15+", label: "Năm Kinh Nghiệm" },
+            { value: "8+", label: "Năm Kinh Nghiệm" },
             { value: "5,000+", label: "Moóc Đã Bàn Giao" },
             { value: "100%", label: "Linh Kiện Chính Hãng" },
             { value: "24/7", label: "Hỗ Trợ Kỹ Thuật" },
@@ -606,6 +695,44 @@ export default function Home() {
             </Link>
           </div>
         </motion.div>
+      </section>
+
+      {/* --- 5.5. LATEST NEWS (SEO) --- */}
+      <section className="w-full max-w-7xl mx-auto px-6 py-12">
+        <div className="flex justify-between items-end mb-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
+            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">
+              Góc Nhìn & Kiến Thức
+            </h3>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Tin Tức Mới Nhất
+            </h2>
+          </motion.div>
+          <Link href="/tin-tuc" className="hidden md:flex items-center text-accent font-bold hover:text-blue-800 transition-colors">
+            Xem tất cả <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </Link>
+        </div>
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+        >
+          {/* We will just fetch top 3 articles dynamically using a separate client component or fetching directly. Since this is a client component ('use client' at top), we can fetch here. */}
+          <LatestNewsList />
+        </motion.div>
+        
+        <div className="mt-8 text-center md:hidden">
+          <Link href="/tin-tuc">
+            <Button variant="outline" className="w-full">Xem tất cả tin tức</Button>
+          </Link>
+        </div>
       </section>
 
       {/* --- 6. BOTTOM CTA --- */}

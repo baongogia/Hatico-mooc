@@ -131,7 +131,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
               className="mt-6 rounded-primary overflow-hidden relative aspect-[3/4] group shadow-xl shadow-slate-200"
             >
               <img 
-                src="https://images.unsplash.com/photo-1586339949916-3e9457bef6d3?q=80&w=1000&auto=format&fit=crop" 
+                src="/images/IMG_9052.JPG" 
                 alt="Hatico Promotion" 
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
               />

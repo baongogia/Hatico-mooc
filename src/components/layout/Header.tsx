@@ -113,6 +113,12 @@ const Header = () => {
             >
               Tính Lợi Nhuận ROI
             </Link>
+            <Link
+              href="/tin-tuc"
+              className="text-sm font-semibold text-slate-700 hover:text-accent transition-colors"
+            >
+              Tin Tức
+            </Link>
           </nav>
         </div>
 
@@ -188,6 +194,12 @@ const Header = () => {
             className="text-sm font-semibold text-slate-800 p-2 hover:bg-slate-50 rounded-sm"
           >
             Tính Lợi Nhuận ROI
+          </Link>
+          <Link
+            href="/tin-tuc"
+            className="text-sm font-semibold text-slate-800 p-2 hover:bg-slate-50 rounded-sm"
+          >
+            Tin Tức
           </Link>
           <hr className="my-2 border-slate-100" />
           <Button variant="accent" className="w-full justify-center">
