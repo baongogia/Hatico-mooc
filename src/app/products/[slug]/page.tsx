@@ -345,7 +345,7 @@ export default function ProductDetailPage({
                     </div>
 
                     <div className="p-6 lg:p-8">
-                      <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-slate-50 pb-6">
+                      <div className="flex flex-col md:flex-row justify-between items-center mb-3 gap-4 border-b border-slate-50 pb-3">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
                             <span className="w-8 h-[2px] bg-accent"></span>
@@ -375,7 +375,7 @@ export default function ProductDetailPage({
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                         <div className="p-5 bg-slate-50/50 rounded-[8px] border border-slate-100 flex items-center gap-4 transition-all duration-300 hover:bg-white hover:shadow-lg hover:border-transparent group">
                           <div className="w-10 h-10 bg-white rounded-[8px] flex items-center justify-center text-slate-400 shadow-sm transition-all duration-300 group-hover:bg-accent group-hover:text-white">
                             <Maximize className="w-4 h-4" />
