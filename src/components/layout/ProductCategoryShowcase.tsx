@@ -30,7 +30,7 @@ interface Category {
 
 export function ProductCategoryShowcase() {
   const [categories, setCategories] = React.useState<Category[]>([]);
-  const [selectedType, setSelectedType] = React.useState<string | null>(null);
+  const [activeIndex, setActiveIndex] = React.useState(0);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -42,16 +42,22 @@ export function ProductCategoryShowcase() {
 
       if (data) {
         setCategories(data);
-        if (data.length > 0) {
-          setSelectedType(data[0].type);
-        }
       }
       setLoading(false);
     }
     fetchCategories();
   }, []);
 
-  const selectedCategory = categories.find((c) => c.type === selectedType);
+  // 4. Auto-play Progress Bar Logic (5 seconds)
+  React.useEffect(() => {
+    if (categories.length === 0) return;
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % categories.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [categories.length, activeIndex]);
+
+  const selectedCategory = categories[activeIndex];
 
   const getIcon = (type: string) => {
     switch (type) {
@@ -76,188 +82,210 @@ export function ProductCategoryShowcase() {
 
   if (loading) {
     return (
-      <div className="w-full max-w-7xl mx-auto px-6 py-12">
-        <div className="w-full h-[700px] bg-slate-100 animate-pulse rounded-[12px] flex items-center justify-center">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-slate-200 border-t-accent rounded-full animate-spin"></div>
-            <span className="text-slate-400 font-bold uppercase tracking-widest text-xs">
-              Đang tải hệ sinh thái...
-            </span>
-          </div>
+      <div className="w-full h-[800px] bg-slate-950 animate-pulse flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-slate-800 border-t-accent rounded-full animate-spin"></div>
+          <span className="text-slate-600 font-bold uppercase tracking-widest text-xs">
+            Đang tải hệ sinh thái...
+          </span>
         </div>
       </div>
     );
   }
 
+  if (!selectedCategory) return null;
+
+  const bgText = selectedCategory.type.replace("mooc_", "").replace("tec", "xi tec").toUpperCase();
+
   return (
-    <section className="w-full max-w-7xl mx-auto px-6 py-12">
-      <div className="relative w-full min-h-[700px] rounded-[16px] overflow-hidden bg-slate-950 flex flex-col md:flex-row shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-800 group">
-        
-        {/* Dynamic Cinematic Background */}
-        <div className="absolute inset-0 z-0">
-          <AnimatePresence mode="wait">
-            {selectedCategory && (
-              <motion.div
-                key={selectedCategory.id}
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
-                className="absolute inset-0 w-full h-full"
-              >
-                {selectedCategory.image ? (
-                  <img
-                    src={selectedCategory.image}
-                    alt={selectedCategory.name}
-                    className="w-full h-full object-cover opacity-60 mix-blend-luminosity"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-slate-900 flex items-center justify-center">
-                    <Truck className="w-32 h-32 text-slate-800 opacity-20" />
-                  </div>
-                )}
-              </motion.div>
+    // 1. Phá vỡ "Cái Hộp" (Full-bleed Layout)
+    <section className="w-full bg-slate-950 relative overflow-hidden min-h-[800px] flex items-center border-y border-slate-900">
+      
+      {/* 3. Hiệu ứng Chuyển Cảnh Cinematic cho Background Image */}
+      <div className="absolute inset-0 z-0">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedCategory.id}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="absolute inset-0 w-full h-full"
+          >
+            {selectedCategory.image ? (
+              <img
+                src={selectedCategory.image}
+                alt={selectedCategory.name}
+                className="w-full h-full object-cover mix-blend-luminosity opacity-50"
+              />
+            ) : (
+              <div className="w-full h-full bg-slate-900 flex items-center justify-center">
+                <Truck className="w-32 h-32 text-slate-800 opacity-20" />
+              </div>
             )}
-          </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
 
-          {/* Premium Overlays */}
-          {/* Deep gradient from left for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/60 to-transparent" />
-          {/* Subtle bottom gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
-          {/* Industrial texture overlay */}
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-overlay" />
-        </div>
+        {/* 2. Tách Nền & Chữ Khổng Lồ (Oversized Typography) */}
+        {/* Nằm đè lên trên ảnh một chút, tạo chiều sâu 3 lớp */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`text-${selectedCategory.id}`}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 50 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 overflow-hidden mix-blend-overlay"
+          >
+            <span className="text-[25vw] font-black text-white opacity-10 whitespace-nowrap select-none leading-none -translate-y-10">
+              {bgText}
+            </span>
+          </motion.div>
+        </AnimatePresence>
 
-        {/* Content Container */}
-        <div className="relative z-10 flex flex-col md:flex-row w-full h-full p-6 md:p-10 gap-10">
-          
-          {/* 1. Glassmorphism Sidebar */}
-          <div className="w-full md:w-[320px] shrink-0 flex flex-col relative h-full">
-            {/* Glass Background */}
-            <div className="absolute inset-0 bg-white/5 backdrop-blur-xl rounded-[12px] border border-white/10 hidden md:block shadow-2xl" />
-            
-            <div className="relative z-20 p-6 flex flex-col h-full">
-              <div className="mb-8">
-                <h2 className="text-[10px] font-black text-accent tracking-[0.3em] uppercase mb-2 flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                  Hệ Sinh Thái
-                </h2>
-                <h3 className="text-3xl font-black text-white tracking-tight leading-none drop-shadow-lg">
-                  Sản Phẩm<br />Chủ Lực
-                </h3>
-              </div>
+        {/* Deep gradient từ trái sang để dễ đọc chữ */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10" />
+      </div>
 
-              <div className="flex flex-col gap-2 flex-1 overflow-y-auto no-scrollbar pb-4 pr-2">
-                {categories.map((cat) => {
-                  const isActive = selectedType === cat.type;
-                  return (
-                    <button
-                      key={cat.id}
-                      onClick={() => setSelectedType(cat.type)}
-                      className={cn(
-                        "w-full flex items-center gap-4 p-4 rounded-[8px] transition-all duration-500 group text-left relative overflow-hidden",
-                        isActive
-                          ? "bg-white/10 border-white/20 shadow-lg text-white"
-                          : "bg-transparent border-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200"
-                      )}
-                      style={{ borderWidth: "1px" }}
-                    >
-                      {/* Active Indicator Glow */}
-                      {isActive && (
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent shadow-[0_0_15px_rgba(0,74,173,1)]" />
-                      )}
-                      
-                      <div
-                        className={cn(
-                          "p-2.5 rounded-[6px] transition-all duration-500",
-                          isActive
-                            ? "bg-accent/20 text-accent"
-                            : "bg-white/5 group-hover:bg-white/10"
-                        )}
-                      >
-                        {getIcon(cat.type)}
-                      </div>
-                      
-                      <span className={cn(
-                        "font-bold text-sm tracking-tight transition-all duration-300 flex-1",
-                        isActive ? "translate-x-1" : "group-hover:translate-x-1"
-                      )}>
-                        {cat.name}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+      {/* Container nội dung bị giới hạn độ rộng để Sidebar dính sát viền trái */}
+      <div className="w-full max-w-7xl mx-auto px-6 relative z-20 flex flex-col md:flex-row h-full py-20 gap-12">
+        
+        {/* Cột Sidebar */}
+        <div className="w-full md:w-[320px] shrink-0 flex flex-col relative">
+          <div className="mb-12">
+            <h3 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9] flex flex-col">
+              <span 
+                className="text-transparent opacity-40 select-none"
+                style={{ WebkitTextStroke: "1px white" }}
+              >
+                Sản Phẩm
+              </span>
+              <span className="text-white drop-shadow-[0_0_30px_rgba(0,74,173,0.8)] -mt-2">
+                Chủ Lực
+              </span>
+            </h3>
           </div>
 
-          {/* 2. Dynamic Details Area */}
-          <div className="flex-1 flex flex-col justify-center py-10 md:py-0 md:pl-8">
-            <AnimatePresence mode="wait">
-              {selectedCategory && (
-                <motion.div
-                  key={selectedCategory.id}
-                  initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="max-w-2xl"
+          <div className="flex flex-col gap-2 flex-1">
+            {categories.map((cat, idx) => {
+              const isActive = activeIndex === idx;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveIndex(idx)}
+                  className={cn(
+                    "w-full flex items-center gap-4 p-4 rounded-[8px] transition-all duration-300 group text-left relative overflow-hidden",
+                    isActive
+                      ? "bg-white/10 text-white shadow-lg backdrop-blur-md"
+                      : "bg-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200"
+                  )}
                 >
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/20 rounded-full mb-6 backdrop-blur-md shadow-lg">
-                    <span className="text-[9px] font-black text-slate-200 uppercase tracking-[0.2em]">
-                      {selectedCategory.type.replace("_", " ")}
-                    </span>
+                  {/* Icon */}
+                  <div
+                    className={cn(
+                      "p-2.5 rounded-[6px] transition-all duration-300",
+                      isActive
+                        ? "bg-accent/30 text-white shadow-[0_0_15px_rgba(0,74,173,0.5)]"
+                        : "bg-white/10 text-slate-300 group-hover:bg-white/20 group-hover:text-white"
+                    )}
+                  >
+                    {getIcon(cat.type)}
                   </div>
+                  
+                  {/* Name */}
+                  <span className={cn(
+                    "font-bold text-sm tracking-tight transition-all duration-300 flex-1",
+                    isActive ? "translate-x-1 text-white" : "text-slate-400 group-hover:text-slate-200 group-hover:translate-x-1"
+                  )}>
+                    {cat.name}
+                  </span>
 
-                  <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-[1.1] tracking-tighter drop-shadow-2xl">
-                    {selectedCategory.name}
-                  </h1>
-
-                  <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-10 font-medium drop-shadow-lg max-w-xl">
-                    {selectedCategory.description}
-                  </p>
-
-                  <div className="flex flex-wrap items-center gap-4 mb-14">
-                    <Link href={`/products/${selectedCategory.type.replace("_", "-")}`}>
-                      <Button
-                        size="lg"
-                        className="bg-accent hover:bg-blue-700 text-white rounded-[6px] px-8 h-14 font-black tracking-widest text-xs uppercase shadow-[0_0_30px_rgba(0,74,173,0.4)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,74,173,0.6)]"
-                      >
-                        Khám Phá Chi Tiết
-                        <ArrowRight className="ml-2 w-4 h-4" />
-                      </Button>
-                    </Link>
-                  </div>
-
-                  {/* Technical Specs Glass Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-white/10 pt-8">
-                    {[
-                      { icon: ShieldCheck, label: "Tiêu Chuẩn", value: "ISO 9001:2015" },
-                      { icon: Settings, label: "Vật Liệu", value: "Thép T700" },
-                      { icon: Wrench, label: "Bảo Hành", value: "24 Tháng" },
-                    ].map((spec, i) => (
-                      <div key={i} className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm text-slate-400">
-                          <spec.icon className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="text-[9px] font-bold uppercase tracking-widest text-slate-500">
-                            {spec.label}
-                          </div>
-                          <div className="text-sm font-black text-white">
-                            {spec.value}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  {/* 4. Thanh Tiến Trình (Progress Bar) */}
+                  {isActive && (
+                    <motion.div
+                      key={`progress-${activeIndex}`}
+                      initial={{ width: 0 }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 5, ease: "linear" }}
+                      className="absolute bottom-0 left-0 h-[2px] bg-accent"
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
-
         </div>
+
+        {/* Nội Dung Chi Tiết Bên Phải */}
+        <div className="flex-1 flex flex-col justify-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedCategory.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="max-w-2xl"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/20 rounded-full mb-6 backdrop-blur-md">
+                <span className="text-[9px] font-black text-slate-200 uppercase tracking-[0.2em]">
+                  {selectedCategory.type.replace("_", " ")}
+                </span>
+              </div>
+
+              <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-[1.1] tracking-tighter drop-shadow-2xl">
+                {selectedCategory.name}
+              </h1>
+
+              <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-10 font-medium drop-shadow-lg max-w-xl">
+                {selectedCategory.description}
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4 mb-14">
+                <Link href={`/products/${selectedCategory.type.replace("_", "-")}`}>
+                  <Button
+                    size="lg"
+                    className="bg-accent hover:bg-blue-700 text-white rounded-[6px] px-8 h-14 font-black tracking-widest text-xs uppercase shadow-[0_0_30px_rgba(0,74,173,0.4)] transition-all duration-300"
+                  >
+                    Khám Phá Chi Tiết
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Thông số kỹ thuật - Staggered Slide up (Delay 0.1s cho mỗi cái) */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-white/10 pt-8">
+                {[
+                  { icon: ShieldCheck, label: "Tiêu Chuẩn", value: "ISO 9001:2015" },
+                  { icon: Settings, label: "Vật Liệu", value: "Thép T700" },
+                  { icon: Wrench, label: "Bảo Hành", value: "24 Tháng" },
+                ].map((spec, i) => (
+                  <motion.div 
+                    key={`${selectedCategory.id}-${i}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
+                    className="flex items-center gap-4"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center backdrop-blur-sm text-slate-300">
+                      <spec.icon className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-[9px] font-bold uppercase tracking-widest text-slate-400">
+                        {spec.label}
+                      </div>
+                      <div className="text-sm font-black text-white">
+                        {spec.value}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
       </div>
     </section>
   );
