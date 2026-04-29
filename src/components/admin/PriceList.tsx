@@ -12,6 +12,14 @@ import {
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
+const normalizeText = (text: string) => {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[đĐ]/g, "d");
+};
+
 export const PriceList = () => {
   const [products, setProducts] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
@@ -19,16 +27,29 @@ export const PriceList = () => {
 
   const fetchProducts = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("trailers")
-      .select("*")
-      .order("id", { ascending: true });
+    const [trucksRes, trailersRes] = await Promise.all([
+      supabase.from('commercial_vehicles').select('*').order('id', { ascending: true }),
+      supabase.from('trailers').select('*').order('id', { ascending: true })
+    ]);
 
-    if (error) {
-      console.error("Error fetching trailers:", error);
-    } else {
-      setProducts(data || []);
+    const allProducts: any[] = [];
+    
+    if (trucksRes.data) {
+      trucksRes.data.forEach(t => allProducts.push({
+        ...t,
+        type: 'truck',
+        dimensions: t.specs?.dimensions || t.dimensions
+      }));
     }
+    
+    if (trailersRes.data) {
+      trailersRes.data.forEach(t => allProducts.push({
+        ...t,
+        type: 'trailer'
+      }));
+    }
+
+    setProducts(allProducts);
     setLoading(false);
   };
 
@@ -38,8 +59,8 @@ export const PriceList = () => {
 
   const filteredProducts = products.filter(
     (p) =>
-      p.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.category?.toLowerCase().includes(searchTerm.toLowerCase())
+      normalizeText(p.name || "").includes(normalizeText(searchTerm)) ||
+      normalizeText(p.category || "").includes(normalizeText(searchTerm))
   );
 
   return (
