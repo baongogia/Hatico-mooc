@@ -62,7 +62,7 @@ const LatestNewsList = () => {
     <>
       {articles.map((article) => (
         <motion.div key={article.id} variants={fadeInUp} className="h-full">
-          <Link href={`/tin-tuc/${article.id}`}>
+          <Link href={`/tin-tuc/${article.slug || article.id}`}>
             <Card className="h-full bg-white border-transparent hover:border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col group cursor-pointer rounded-sm">
               <div className="relative w-full aspect-square bg-slate-200 overflow-hidden">
                 <NewsCardImage src={article.image} title={article.title} />
@@ -166,7 +166,9 @@ export default function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
             </span>
-            <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Hatico Industrial Premium</span>
+            <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">
+              Hatico Industrial Premium
+            </span>
           </motion.div>
 
           <motion.h1
@@ -219,7 +221,7 @@ export default function Home() {
           </motion.div>
 
           {/* Stats Cards Row */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6 }}
@@ -231,10 +233,19 @@ export default function Home() {
               { label: "Bảo Hành", value: "24 Tháng", sub: "Chính hãng" },
               { label: "Hỗ Trợ", value: "80%", sub: "Trả góp" },
             ].map((stat, i) => (
-              <div key={i} className="bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-[8px] flex flex-col items-center justify-center group hover:bg-white/10 transition-all duration-500">
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1 group-hover:text-accent transition-colors">{stat.label}</span>
-                <span className="text-sm md:text-base font-black text-white uppercase tracking-tight">{stat.value}</span>
-                <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">{stat.sub}</span>
+              <div
+                key={i}
+                className="bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-[8px] flex flex-col items-center justify-center group hover:bg-white/10 transition-all duration-500"
+              >
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1 group-hover:text-accent transition-colors">
+                  {stat.label}
+                </span>
+                <span className="text-sm md:text-base font-black text-white uppercase tracking-tight">
+                  {stat.value}
+                </span>
+                <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">
+                  {stat.sub}
+                </span>
               </div>
             ))}
           </motion.div>
