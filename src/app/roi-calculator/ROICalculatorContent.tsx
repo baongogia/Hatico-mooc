@@ -951,18 +951,18 @@ export default function ROICalculatorPage() {
                   <CardContent className="p-6">
                     {profit > 0 ? (
                       <div className="text-center">
-                        <h3 className="text-slate-400 font-black uppercase tracking-widest text-[10px] mb-4">
+                        <h3 className="text-slate-300 font-black uppercase tracking-widest text-[10px] mb-4">
                           Thời gian thu hồi vốn
                         </h3>
                         <div className="flex justify-center items-end gap-2 mb-3">
                           <div className="text-6xl font-black text-white leading-none tracking-tighter">
                             {monthsToBreakEven}
                           </div>
-                          <div className="text-sm font-black text-accent uppercase tracking-widest mb-1">
-                            Tháng
+                          <div className="text-xs font-black text-slate-400 uppercase tracking-widest pb-1">
+                            tháng
                           </div>
                         </div>
-                        <div className="text-slate-500 font-bold text-xs mt-3 pt-3 border-t border-white/10 uppercase tracking-wider">
+                        <div className="text-slate-400 font-bold text-xs mt-3 pt-3 border-t border-white/10 uppercase tracking-wider">
                           Tương đương{" "}
                           <span className="text-white">
                             ~{yearsToBreakEven} năm

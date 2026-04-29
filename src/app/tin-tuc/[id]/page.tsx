@@ -112,7 +112,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Link href="/tin-tuc" className="group inline-flex items-center text-xs font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white mb-10 transition-all">
+            <Link href="/tin-tuc" className="group inline-flex items-center text-xs font-black uppercase tracking-[0.2em] text-slate-300 hover:text-white mb-10 transition-all">
               <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center mr-3 group-hover:bg-accent group-hover:border-accent transition-all">
                 <ArrowLeft className="w-3.5 h-3.5" />
               </div>
@@ -128,7 +128,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                     transition={{ delay: 0.2 }}
                     className="mb-6"
                 >
-                    <span className="bg-accent/10 border border-accent/30 text-accent text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">
+                    <span className="bg-white/5 border border-white/10 text-slate-200 text-[10px] font-black px-4 py-1.5 rounded-sm uppercase tracking-widest backdrop-blur-sm">
                         {article.type}
                     </span>
                 </motion.div>
@@ -150,12 +150,12 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                 className="flex flex-wrap items-center gap-8 py-8 border-t border-white/10"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent font-black text-sm">
+                <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white font-black text-sm">
                   {(article.owner || "H").charAt(0).toUpperCase()}
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-[10px] font-black uppercase text-slate-500 tracking-widest">Tác giả</span>
-                    <span className="text-sm font-bold text-slate-200">{article.owner || "Hatico Team"}</span>
+                    <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest opacity-80">Tác giả</span>
+                    <span className="text-sm font-bold text-white">{article.owner || "Hatico Team"}</span>
                 </div>
               </div>
 
@@ -164,7 +164,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                   <Calendar className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-[10px] font-black uppercase text-slate-500 tracking-widest">Ngày đăng</span>
+                    <span className="text-[10px] font-black uppercase text-slate-500 tracking-widest opacity-70">Ngày đăng</span>
                     <span className="text-sm font-bold text-slate-200">
                         {article.created_at ? new Date(article.created_at).toLocaleDateString('vi-VN', { day: '2-digit', month: 'long', year: 'numeric' }) : '28/04/2026'}
                     </span>
@@ -176,7 +176,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                   <Clock className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-[10px] font-black uppercase text-slate-500 tracking-widest">Thời gian đọc</span>
+                    <span className="text-[10px] font-black uppercase text-slate-500 tracking-widest opacity-70">Thời gian đọc</span>
                     <span className="text-sm font-bold text-slate-200">5 Phút</span>
                 </div>
               </div>
@@ -242,9 +242,9 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
 
             {/* Sidebar Column */}
             <div className="lg:col-span-4 space-y-12">
-                <div className="sticky top-24">
-                    <h3 className="text-xs font-black uppercase text-slate-950 tracking-[0.2em] mb-8 flex items-center gap-3">
-                        <div className="w-2 h-2 bg-accent rotate-45" /> Tin tức liên quan
+                <div className="sticky top-24 pt-12 lg:pt-20">
+                    <h3 className="text-[10px] font-black uppercase text-slate-950 tracking-[0.3em] mb-8 flex items-center gap-3">
+                        <div className="w-4 h-[1px] bg-accent" /> Tin tức liên quan
                     </h3>
 
                     <div className="space-y-8">
@@ -255,7 +255,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                                         <FallbackImage src={rel.image} title={rel.title} className="group-hover:scale-110 transition-transform duration-700" />
                                     </div>
                                     <div className="flex flex-col gap-1.5">
-                                        <span className="text-[8px] font-black uppercase text-accent tracking-widest">{rel.type || "Tin tức"}</span>
+                                        <span className="text-[8px] font-black uppercase text-slate-500 tracking-widest">{rel.type || "Tin tức"}</span>
                                         <h4 className="text-sm font-black text-slate-900 line-clamp-2 leading-tight group-hover:text-accent transition-colors">
                                             {rel.title}
                                         </h4>
@@ -271,7 +271,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                     <div className="mt-16 p-10 bg-slate-950 relative overflow-hidden group shadow-2xl">
                         <div className="relative z-10">
                             <h3 className="text-xl font-black text-white mb-4 leading-none uppercase tracking-tighter">Bản tin công nghiệp</h3>
-                            <p className="text-[10px] text-slate-400 mb-8 font-bold uppercase tracking-widest">Đăng ký nhận tin từ Hatico</p>
+                            <p className="text-[10px] text-slate-300 mb-8 font-bold uppercase tracking-widest">Đăng ký nhận tin từ Hatico</p>
                             <input 
                                 type="email" 
                                 placeholder="Email của bạn..." 

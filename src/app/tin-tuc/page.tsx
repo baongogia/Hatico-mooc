@@ -91,11 +91,11 @@ export default function NewsPage() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
-            <span className="text-accent font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Hatico Media Center</span>
+            <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[9px] mb-4 block opacity-80">Hatico Media Center</span>
             <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-6 leading-none">
               TIN TỨC <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-slate-400">&</span> SỰ KIỆN
             </h1>
-            <p className="text-lg text-slate-400 font-medium leading-relaxed max-w-xl">
+            <p className="text-lg text-slate-300 font-medium leading-relaxed max-w-xl">
               Cập nhật những chuyển động mới nhất của ngành vận tải, công nghệ rơ moóc 
               và các cột mốc quan trọng của Hatico trên hành trình nâng tầm logistics Việt.
             </p>
@@ -224,7 +224,7 @@ export default function NewsPage() {
                 viewport={{ once: true }}
             >
                 <h2 className="text-3xl md:text-4xl font-black text-white mb-6 uppercase tracking-tighter">Đăng ký bản tin công nghiệp</h2>
-                <p className="text-slate-400 mb-10 max-w-xl mx-auto font-medium">Đừng bỏ lỡ các thông tin quan trọng về kỹ thuật và biến động thị trường vận tải nặng.</p>
+                <p className="text-slate-300 mb-10 max-w-xl mx-auto font-medium">Đừng bỏ lỡ các thông tin quan trọng về kỹ thuật và biến động thị trường vận tải nặng.</p>
                 <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
                     <input 
                         type="email" 
