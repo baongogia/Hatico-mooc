@@ -13,7 +13,13 @@ import { Article } from "@/types/article";
 import { Calendar, User, ArrowRight, LayoutGrid } from "lucide-react";
 import { useContactModal } from "@/context/ContactContext";
 
-const NewsCardImage = ({ src, title }: { src: string | null, title: string | null }) => {
+const NewsCardImage = ({
+  src,
+  title,
+}: {
+  src: string | null;
+  title: string | null;
+}) => {
   const [error, setError] = React.useState(false);
 
   if (!src || error) {
@@ -60,9 +66,9 @@ const LatestNewsList = () => {
             <Card className="h-full bg-white border-transparent hover:border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col group cursor-pointer rounded-sm">
               <div className="relative w-full aspect-square bg-slate-200 overflow-hidden">
                 <NewsCardImage src={article.image} title={article.title} />
-                
+
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+
                 {article.type && (
                   <div className="absolute top-2.5 left-2.5 bg-slate-900/80 backdrop-blur-md text-white text-[7px] font-black px-2 py-0.5 rounded-sm shadow-xl border border-white/10 uppercase tracking-widest">
                     {article.type}
@@ -71,23 +77,26 @@ const LatestNewsList = () => {
               </div>
               <CardContent className="p-4 flex-1 flex flex-col">
                 <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">
-                        {article.created_at ? new Date(article.created_at).toLocaleDateString('vi-VN') : '28/04'}
-                    </span>
-                    <div className="w-0.5 h-0.5 bg-slate-200 rounded-full" />
-                    <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider truncate">
-                        {article.owner || "Hatico"}
-                    </span>
+                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">
+                    {article.created_at
+                      ? new Date(article.created_at).toLocaleDateString("vi-VN")
+                      : "28/04"}
+                  </span>
+                  <div className="w-0.5 h-0.5 bg-slate-200 rounded-full" />
+                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider truncate">
+                    {article.owner || "Hatico"}
+                  </span>
                 </div>
 
                 <h3 className="text-sm font-black text-slate-900 mb-2 line-clamp-2 group-hover:text-accent transition-colors tracking-tight leading-snug">
                   {article.title}
                 </h3>
-                
+
                 <p className="text-slate-500 text-[10px] mb-4 line-clamp-2 flex-1 leading-normal">
-                  {article.description?.replace(/<[^>]*>/g, '') || "Đang cập nhật..."}
+                  {article.description?.replace(/<[^>]*>/g, "") ||
+                    "Đang cập nhật..."}
                 </p>
-                
+
                 <div className="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
                   <span className="text-[8px] font-black text-slate-900 uppercase tracking-[0.2em] group-hover:translate-x-0.5 transition-transform duration-300 flex items-center gap-1.5">
                     Chi tiết <ArrowRight className="w-2 h-2 text-accent" />
@@ -146,7 +155,7 @@ export default function Home() {
         <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-slate-500/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-slate-600/5 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center justify-center text-center mt-12 mb-20">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center mt-12 mb-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -157,6 +166,7 @@ export default function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
             </span>
+            <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Hatico Industrial Premium</span>
           </motion.div>
 
           <motion.h1
@@ -169,7 +179,7 @@ export default function Home() {
               SƠ MI RƠ MOÓC
             </span>
             <span className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-slate-300 to-blue-600 leading-tight">
-              ĐỈNH CAO CHẤT LƯỢNG
+              KIẾN TẠO THỊNH VƯỢNG
             </span>
           </motion.h1>
 
@@ -192,8 +202,8 @@ export default function Home() {
             <Button
               variant="accent"
               size="lg"
-              className="w-full sm:w-auto text-base h-14 px-10 rounded-sm transition-all duration-300 border border-white/20 shadow-[0_0_25px_rgba(22,34,72,0.4)] hover:border-white/40 font-black"
-              onClick={() => openContactModal('consult')}
+              className="w-full sm:w-auto text-base h-14 px-10 rounded-[8px] transition-all duration-300 border border-white/20 shadow-[0_0_25px_rgba(22,34,72,0.4)] hover:border-white/40 font-black"
+              onClick={() => openContactModal("consult")}
             >
               Nhận Tư Vấn Ngay
             </Button>
@@ -201,11 +211,32 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full bg-white/5 border-white/20 text-white hover:bg-white/10 backdrop-blur-sm h-14 px-10 rounded-sm transition-all duration-300"
+                className="w-full bg-white/5 border-white/20 text-white hover:bg-white/10 backdrop-blur-sm h-14 px-10 rounded-[8px] transition-all duration-300"
               >
                 Khám Phá Sản Phẩm
               </Button>
             </Link>
+          </motion.div>
+
+          {/* Stats Cards Row */}
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 w-full max-w-4xl"
+          >
+            {[
+              { label: "Chất Liệu", value: "Thép T700", sub: "Siêu cường" },
+              { label: "Hòa Vốn", value: "18-24 Tháng", sub: "Ước tính ROI" },
+              { label: "Bảo Hành", value: "24 Tháng", sub: "Chính hãng" },
+              { label: "Hỗ Trợ", value: "80%", sub: "Trả góp" },
+            ].map((stat, i) => (
+              <div key={i} className="bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-[8px] flex flex-col items-center justify-center group hover:bg-white/10 transition-all duration-500">
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1 group-hover:text-accent transition-colors">{stat.label}</span>
+                <span className="text-sm md:text-base font-black text-white uppercase tracking-tight">{stat.value}</span>
+                <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">{stat.sub}</span>
+              </div>
+            ))}
           </motion.div>
         </div>
 
@@ -718,8 +749,24 @@ export default function Home() {
               Tin Tức Mới Nhất
             </h2>
           </motion.div>
-          <Link href="/tin-tuc" className="hidden md:flex items-center text-accent font-bold hover:text-blue-800 transition-colors">
-            Xem tất cả <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          <Link
+            href="/tin-tuc"
+            className="hidden md:flex items-center text-accent font-bold hover:text-blue-800 transition-colors"
+          >
+            Xem tất cả{" "}
+            <svg
+              className="w-5 h-5 ml-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              ></path>
+            </svg>
           </Link>
         </div>
         <motion.div
@@ -732,16 +779,21 @@ export default function Home() {
           {/* We will just fetch top 3 articles dynamically using a separate client component or fetching directly. Since this is a client component ('use client' at top), we can fetch here. */}
           <LatestNewsList />
         </motion.div>
-        
+
         <div className="mt-8 text-center md:hidden">
           <Link href="/tin-tuc">
-            <Button variant="outline" className="w-full">Xem tất cả tin tức</Button>
+            <Button variant="outline" className="w-full">
+              Xem tất cả tin tức
+            </Button>
           </Link>
         </div>
       </section>
 
       {/* --- 6. BOTTOM CTA --- */}
-      <section id="contact-section" className="w-full max-w-5xl mx-auto px-6 pt-12 pb-6 text-center">
+      <section
+        id="contact-section"
+        className="w-full max-w-5xl mx-auto px-6 pt-12 pb-6 text-center"
+      >
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -776,7 +828,7 @@ export default function Home() {
               variant="accent"
               size="lg"
               className="w-full sm:w-auto whitespace-nowrap px-8 py-4"
-              onClick={() => openContactModal('consult')}
+              onClick={() => openContactModal("consult")}
             >
               Gửi Yêu Cầu
             </Button>

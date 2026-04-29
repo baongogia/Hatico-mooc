@@ -120,8 +120,10 @@ export const PriceList = () => {
                     <td className="p-6 text-xs font-black text-slate-300 text-center align-top border-r border-slate-50">{index + 1}</td>
                     <td className="p-6 align-top">
                       <div className="flex flex-col gap-4">
-                        <div className="aspect-[16/9] bg-slate-100 rounded-sm overflow-hidden border border-slate-200 relative shadow-sm group-hover:shadow-md transition-all">
-                           {product.image ? (
+                        <div className="aspect-[16/9] bg-slate-100 rounded-[8px] overflow-hidden border border-slate-200 relative shadow-sm group-hover:shadow-md transition-all">
+                           {product.images && product.images.length > 0 ? (
+                             <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                           ) : product.image ? (
                              <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                            ) : (
                              <div className="w-full h-full flex flex-col items-center justify-center text-slate-300 gap-2">
@@ -161,7 +163,7 @@ export const PriceList = () => {
                       <div className="flex flex-col gap-1.5">
                         {product.regional_prices && Object.keys(product.regional_prices).length > 0 ? (
                           Object.entries(product.regional_prices).map(([region, price]) => (
-                            <div key={region} className="group/price flex justify-between items-center p-2 rounded-sm bg-slate-50 border border-slate-100 hover:border-accent/30 hover:bg-white transition-all">
+                            <div key={region} className="group/price flex justify-between items-center p-2 rounded-[8px] bg-slate-50 border border-slate-100 hover:border-accent/30 hover:bg-white transition-all">
                                <div className="flex items-center gap-2">
                                   <div className="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover/price:bg-accent transition-colors" />
                                   <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">{region}</span>
@@ -173,7 +175,7 @@ export const PriceList = () => {
                             </div>
                           ))
                         ) : (
-                          <div className="p-4 border-2 border-dashed border-slate-100 rounded-sm text-center">
+                          <div className="p-4 border-2 border-dashed border-slate-100 rounded-[8px] text-center">
                              <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Liên hệ báo giá</span>
                           </div>
                         )}

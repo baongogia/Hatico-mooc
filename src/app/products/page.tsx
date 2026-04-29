@@ -98,11 +98,11 @@ export default function ProductsPage() {
                 className="group h-full"
               >
                 <Link href={`/products/${cat.type.replace('_', '-')}`}>
-                    <Card className="h-full bg-white border-transparent hover:border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col rounded-sm">
+                    <Card className="h-full bg-white border-transparent hover:border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col rounded-[8px]">
                         <div className="relative w-full aspect-[4/3] overflow-hidden bg-slate-200 shrink-0">
-                            {cat.image ? (
+                            {cat.images && cat.images.length > 0 ? (
                               <img
-                                src={cat.image}
+                                src={cat.images[0]}
                                 alt={cat.name}
                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                               />
@@ -115,7 +115,7 @@ export default function ProductsPage() {
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             
                             <div className="absolute top-4 left-4">
-                                <span className="bg-slate-900/80 backdrop-blur-md text-white text-[8px] font-black px-3 py-1 rounded-sm uppercase tracking-widest border border-white/10">
+                                <span className="bg-slate-900/80 backdrop-blur-md text-white text-[8px] font-black px-3 py-1 rounded-[8px] uppercase tracking-widest border border-white/10">
                                     Industrial Series
                                 </span>
                             </div>
@@ -150,7 +150,7 @@ export default function ProductsPage() {
               className="group h-full"
             >
               <Link href="/products/phu-tung">
-                  <Card className="h-full bg-slate-900 border-transparent hover:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden flex flex-col rounded-sm relative">
+                  <Card className="h-full bg-slate-900 border-transparent hover:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden flex flex-col rounded-[8px] relative">
                       <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')]" />
                       
                       <div className="relative w-full aspect-[4/3] overflow-hidden bg-slate-800 shrink-0 flex items-center justify-center">

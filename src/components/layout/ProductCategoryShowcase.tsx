@@ -22,7 +22,7 @@ interface Category {
   name: string;
   type: string;
   description: string;
-  image: string | null;
+  images: string[] | null;
 }
 
 export function ProductCategoryShowcase() {
@@ -73,7 +73,7 @@ export function ProductCategoryShowcase() {
 
   if (loading) {
     return (
-      <div className="w-full h-[600px] bg-slate-100 animate-pulse rounded-sm flex items-center justify-center">
+      <div className="w-full h-[600px] bg-slate-100 animate-pulse rounded-[8px] flex items-center justify-center">
         <span className="text-slate-400 font-medium">
           Đang tải danh mục sản phẩm...
         </span>
@@ -100,7 +100,7 @@ export function ProductCategoryShowcase() {
               <button
                 key={cat.id}
                 onClick={() => setSelectedType(cat.type)}
-                className={`flex items-center justify-between p-4 rounded-primary transition-all duration-300 group border-l-2 ${
+                className={`flex items-center justify-between p-4 rounded-[8px] transition-all duration-300 group border-l-2 ${
                   selectedType === cat.type
                     ? "bg-slate-900 text-white border-accent shadow-lg translate-x-2"
                     : "bg-white text-slate-600 hover:bg-slate-50 border-transparent border-slate-100"
@@ -108,7 +108,7 @@ export function ProductCategoryShowcase() {
               >
                 <div className="flex items-center gap-3">
                   <div
-                    className={`p-2 rounded-none transition-colors ${
+                    className={`p-2 rounded-[8px] transition-colors ${
                       selectedType === cat.type
                         ? "bg-white/20"
                         : "bg-slate-100 group-hover:bg-blue-50 group-hover:text-blue-600"
@@ -133,7 +133,7 @@ export function ProductCategoryShowcase() {
         </div>
 
         {/* Right Content - Dynamic Banner */}
-        <div className="flex-1 relative overflow-hidden rounded-sm bg-slate-950 shadow-2xl border border-slate-800">
+        <div className="flex-1 relative overflow-hidden rounded-[8px] bg-slate-950 shadow-2xl border border-slate-800">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,74,173,0.15),transparent)] pointer-events-none" />
           <AnimatePresence mode="wait">
             {selectedCategory && (
@@ -156,7 +156,7 @@ export function ProductCategoryShowcase() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="inline-flex items-center gap-2 px-3 py-1 bg-accent/20 border border-accent/40 rounded-none mb-6"
+                    className="inline-flex items-center gap-2 px-3 py-1 bg-accent/20 border border-accent/40 rounded-[8px] mb-6"
                   >
                     <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
                     <span className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.2em]">
@@ -193,7 +193,7 @@ export function ProductCategoryShowcase() {
                     >
                       <Button
                         size="lg"
-                        className="bg-white text-slate-950 hover:bg-slate-100 rounded-sm px-8 h-14 font-bold border-none shadow-xl shadow-white/5"
+                        className="bg-white text-slate-950 hover:bg-slate-100 rounded-[8px] px-8 h-14 font-bold border-none shadow-xl shadow-white/5"
                       >
                         Khám Phá Ngay
                         <ArrowRight className="ml-2 w-5 h-5" />
@@ -208,17 +208,36 @@ export function ProductCategoryShowcase() {
                     initial={{ opacity: 0, x: 50, rotate: 2 }}
                     animate={{ opacity: 1, x: 0, rotate: 0 }}
                     transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
-                    className="relative w-full aspect-square max-w-md rounded-primary overflow-hidden shadow-2xl"
+                    className="relative w-full aspect-square max-w-md rounded-[8px] overflow-hidden shadow-2xl"
                   >
-                    {selectedCategory.image ? (
-                      <img
-                        src={selectedCategory.image}
-                        alt={selectedCategory.name}
-                        className="w-full h-full object-cover"
-                      />
+                    {selectedCategory.images && selectedCategory.images.length > 0 ? (
+                      <div className="grid grid-cols-2 grid-rows-2 gap-2 w-full h-full p-2 bg-slate-900/50">
+                        <div className={cn(
+                          "relative overflow-hidden rounded-[8px] shadow-lg",
+                          selectedCategory.images.length === 1 ? "col-span-2 row-span-2" : "col-span-1 row-span-2"
+                        )}>
+                           <img src={selectedCategory.images[0]} alt={selectedCategory.name} className="w-full h-full object-cover" />
+                        </div>
+                        {selectedCategory.images.length > 1 && (
+                           <div className="grid grid-rows-2 gap-2">
+                              <div className="relative overflow-hidden rounded-[8px] shadow-lg">
+                                 <img src={selectedCategory.images[1]} alt={selectedCategory.name} className="w-full h-full object-cover" />
+                              </div>
+                              <div className="relative overflow-hidden rounded-[8px] shadow-lg">
+                                 {selectedCategory.images[2] ? (
+                                    <img src={selectedCategory.images[2]} alt={selectedCategory.name} className="w-full h-full object-cover" />
+                                 ) : (
+                                    <div className="w-full h-full bg-slate-800/50 flex items-center justify-center border border-white/5">
+                                       <Truck className="w-8 h-8 text-slate-700" />
+                                    </div>
+                                 )}
+                              </div>
+                           </div>
+                        )}
+                      </div>
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 flex flex-col items-center justify-center border border-white/5">
-                        <div className="w-32 h-32 bg-white/5 rounded-none flex items-center justify-center mb-4 backdrop-blur-sm border border-white/10">
+                        <div className="w-32 h-32 bg-white/5 rounded-[8px] flex items-center justify-center mb-4 backdrop-blur-sm border border-white/10">
                           {React.cloneElement(
                             getIcon(
                               selectedCategory.type,
@@ -226,7 +245,7 @@ export function ProductCategoryShowcase() {
                             { className: "w-16 h-16 text-accent" },
                           )}
                         </div>
-                        <span className="text-slate-500 font-medium text-sm">
+                        <span className="text-slate-500 font-medium text-sm text-center px-6">
                           Product Visualization coming soon
                         </span>
 
@@ -239,7 +258,7 @@ export function ProductCategoryShowcase() {
                     )}
 
                     {/* Quality Badges */}
-                    <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center bg-black/40 backdrop-blur-md p-4 rounded-none border border-white/10">
+                    <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center bg-black/40 backdrop-blur-md p-4 rounded-[8px] border border-white/10">
                       <div className="flex flex-col">
                         <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
                           Tiêu Chuẩn
