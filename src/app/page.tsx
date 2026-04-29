@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { supabase } from "@/lib/supabase";
 import { Article } from "@/types/article";
 import { Calendar, User, ArrowRight, LayoutGrid } from "lucide-react";
+import { useContactModal } from "@/context/ContactContext";
 
 const NewsCardImage = ({ src, title }: { src: string | null, title: string | null }) => {
   const [error, setError] = React.useState(false);
@@ -119,6 +120,7 @@ const staggerContainer: Variants = {
 };
 
 export default function Home() {
+  const { openContactModal } = useContactModal();
   return (
     <div className="flex flex-col gap-24 pb-24 w-full">
       {/* --- 1. HERO SECTION --- */}
@@ -191,16 +193,19 @@ export default function Home() {
               variant="accent"
               size="lg"
               className="w-full sm:w-auto text-base h-14 px-10 rounded-sm transition-all duration-300 border border-white/20 shadow-[0_0_25px_rgba(22,34,72,0.4)] hover:border-white/40 font-black"
+              onClick={() => openContactModal('consult')}
             >
               Nhận Tư Vấn Ngay
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto bg-white/5 border-white/20 text-white hover:bg-white/10 backdrop-blur-sm h-14 px-10 rounded-sm transition-all duration-300"
-            >
-              Khám Phá Sản Phẩm
-            </Button>
+            <Link href="/products" className="w-full sm:w-auto">
+              <Button
+                variant="outline"
+                size="lg"
+                className="w-full bg-white/5 border-white/20 text-white hover:bg-white/10 backdrop-blur-sm h-14 px-10 rounded-sm transition-all duration-300"
+              >
+                Khám Phá Sản Phẩm
+              </Button>
+            </Link>
           </motion.div>
         </div>
 
@@ -736,7 +741,7 @@ export default function Home() {
       </section>
 
       {/* --- 6. BOTTOM CTA --- */}
-      <section className="w-full max-w-5xl mx-auto px-6 pt-12 pb-6 text-center">
+      <section id="contact-section" className="w-full max-w-5xl mx-auto px-6 pt-12 pb-6 text-center">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -771,6 +776,7 @@ export default function Home() {
               variant="accent"
               size="lg"
               className="w-full sm:w-auto whitespace-nowrap px-8 py-4"
+              onClick={() => openContactModal('consult')}
             >
               Gửi Yêu Cầu
             </Button>

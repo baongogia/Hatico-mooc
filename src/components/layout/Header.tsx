@@ -4,11 +4,13 @@ import * as React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { supabase } from "@/lib/supabase";
+import { useContactModal } from "@/context/ContactContext";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [categories, setCategories] = React.useState<any[]>([]);
   const [session, setSession] = React.useState<any>(null);
+  const { openContactModal } = useContactModal();
 
   React.useEffect(() => {
     async function fetchCategories() {
@@ -129,14 +131,13 @@ const Header = () => {
               {session ? "Trang Quản Trị" : "Đăng Nhập"}
             </Button>
           </Link>
-          <Link href="/">
-            <Button
-              variant="accent"
-              className="hidden sm:inline-flex shadow-blue-900/20"
-            >
-              Nhận Báo Giá
-            </Button>
-          </Link>
+          <Button
+            variant="accent"
+            className="hidden sm:inline-flex shadow-blue-900/20"
+            onClick={() => openContactModal('quote')}
+          >
+            Nhận Báo Giá
+          </Button>
           <button
             className="md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-primary"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -202,7 +203,14 @@ const Header = () => {
             Tin Tức
           </Link>
           <hr className="my-2 border-slate-100" />
-          <Button variant="accent" className="w-full justify-center">
+          <Button 
+            variant="accent" 
+            className="w-full justify-center" 
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              openContactModal('quote');
+            }}
+          >
             Nhận Báo Giá
           </Button>
         </div>
