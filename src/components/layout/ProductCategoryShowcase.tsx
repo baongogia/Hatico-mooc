@@ -22,7 +22,7 @@ interface Category {
   name: string;
   type: string;
   description: string;
-  images: string[] | null;
+  image: string | null;
 }
 
 export function ProductCategoryShowcase() {
@@ -210,30 +210,14 @@ export function ProductCategoryShowcase() {
                     transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
                     className="relative w-full aspect-square max-w-md rounded-[8px] overflow-hidden shadow-2xl"
                   >
-                    {selectedCategory.images && selectedCategory.images.length > 0 ? (
-                      <div className="grid grid-cols-2 grid-rows-2 gap-2 w-full h-full p-2 bg-slate-900/50">
-                        <div className={cn(
-                          "relative overflow-hidden rounded-[8px] shadow-lg",
-                          selectedCategory.images.length === 1 ? "col-span-2 row-span-2" : "col-span-1 row-span-2"
-                        )}>
-                           <img src={selectedCategory.images[0]} alt={selectedCategory.name} className="w-full h-full object-cover" />
-                        </div>
-                        {selectedCategory.images.length > 1 && (
-                           <div className="grid grid-rows-2 gap-2">
-                              <div className="relative overflow-hidden rounded-[8px] shadow-lg">
-                                 <img src={selectedCategory.images[1]} alt={selectedCategory.name} className="w-full h-full object-cover" />
-                              </div>
-                              <div className="relative overflow-hidden rounded-[8px] shadow-lg">
-                                 {selectedCategory.images[2] ? (
-                                    <img src={selectedCategory.images[2]} alt={selectedCategory.name} className="w-full h-full object-cover" />
-                                 ) : (
-                                    <div className="w-full h-full bg-slate-800/50 flex items-center justify-center border border-white/5">
-                                       <Truck className="w-8 h-8 text-slate-700" />
-                                    </div>
-                                 )}
-                              </div>
-                           </div>
-                        )}
+                    {selectedCategory.image ? (
+                      <div className="w-full h-full relative overflow-hidden rounded-[8px]">
+                        <img
+                          src={selectedCategory.image}
+                          alt={selectedCategory.name}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
                       </div>
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 flex flex-col items-center justify-center border border-white/5">
