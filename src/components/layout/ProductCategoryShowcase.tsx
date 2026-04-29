@@ -95,12 +95,14 @@ export function ProductCategoryShowcase() {
 
   if (!selectedCategory) return null;
 
-  const bgText = selectedCategory.type.replace("mooc_", "").replace("tec", "xi tec").toUpperCase();
+  const bgText = selectedCategory.type
+    .replace("mooc_", "")
+    .replace("tec", "xi tec")
+    .toUpperCase();
 
   return (
     // 1. Phá vỡ "Cái Hộp" (Full-bleed Layout)
-    <section className="w-full bg-slate-950 relative overflow-hidden min-h-[800px] flex items-center border-y border-slate-900">
-      
+    <section className="w-full bg-slate-950 rounded-[8px] relative overflow-hidden min-h-[800px] flex items-center border-y border-slate-900">
       {/* 3. Hiệu ứng Chuyển Cảnh Cinematic cho Background Image */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
@@ -110,7 +112,7 @@ export function ProductCategoryShowcase() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="absolute inset-0 w-full h-full"
+            className="absolute inset-0 w-full h-full rounded-[8px]"
           >
             {selectedCategory.image ? (
               <img
@@ -150,12 +152,11 @@ export function ProductCategoryShowcase() {
 
       {/* Container nội dung bị giới hạn độ rộng để Sidebar dính sát viền trái */}
       <div className="w-full max-w-7xl mx-auto px-6 relative z-20 flex flex-col md:flex-row h-full py-20 gap-12">
-        
         {/* Cột Sidebar */}
         <div className="w-full md:w-[320px] shrink-0 flex flex-col relative">
           <div className="mb-12">
             <h3 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9] flex flex-col">
-              <span 
+              <span
                 className="text-transparent opacity-40 select-none"
                 style={{ WebkitTextStroke: "1px white" }}
               >
@@ -178,7 +179,7 @@ export function ProductCategoryShowcase() {
                     "w-full flex items-center gap-4 p-4 rounded-[8px] transition-all duration-300 group text-left relative overflow-hidden",
                     isActive
                       ? "bg-white/10 text-white shadow-lg backdrop-blur-md"
-                      : "bg-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200"
+                      : "bg-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200",
                   )}
                 >
                   {/* Icon */}
@@ -187,17 +188,21 @@ export function ProductCategoryShowcase() {
                       "p-2.5 rounded-[6px] transition-all duration-300",
                       isActive
                         ? "bg-accent/30 text-white shadow-[0_0_15px_rgba(0,74,173,0.5)]"
-                        : "bg-white/10 text-slate-300 group-hover:bg-white/20 group-hover:text-white"
+                        : "bg-white/10 text-slate-300 group-hover:bg-white/20 group-hover:text-white",
                     )}
                   >
                     {getIcon(cat.type)}
                   </div>
-                  
+
                   {/* Name */}
-                  <span className={cn(
-                    "font-bold text-sm tracking-tight transition-all duration-300 flex-1",
-                    isActive ? "translate-x-1 text-white" : "text-slate-400 group-hover:text-slate-200 group-hover:translate-x-1"
-                  )}>
+                  <span
+                    className={cn(
+                      "font-bold text-sm tracking-tight transition-all duration-300 flex-1",
+                      isActive
+                        ? "translate-x-1 text-white"
+                        : "text-slate-400 group-hover:text-slate-200 group-hover:translate-x-1",
+                    )}
+                  >
                     {cat.name}
                   </span>
 
@@ -243,7 +248,9 @@ export function ProductCategoryShowcase() {
               </p>
 
               <div className="flex flex-wrap items-center gap-4 mb-14">
-                <Link href={`/products/${selectedCategory.type.replace("_", "-")}`}>
+                <Link
+                  href={`/products/${selectedCategory.type.replace("_", "-")}`}
+                >
                   <Button
                     size="lg"
                     className="bg-accent hover:bg-blue-700 text-white rounded-[6px] px-8 h-14 font-black tracking-widest text-xs uppercase shadow-[0_0_30px_rgba(0,74,173,0.4)] transition-all duration-300"
@@ -257,11 +264,15 @@ export function ProductCategoryShowcase() {
               {/* Thông số kỹ thuật - Staggered Slide up (Delay 0.1s cho mỗi cái) */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-white/10 pt-8">
                 {[
-                  { icon: ShieldCheck, label: "Tiêu Chuẩn", value: "ISO 9001:2015" },
+                  {
+                    icon: ShieldCheck,
+                    label: "Tiêu Chuẩn",
+                    value: "ISO 9001:2015",
+                  },
                   { icon: Settings, label: "Vật Liệu", value: "Thép T700" },
                   { icon: Wrench, label: "Bảo Hành", value: "24 Tháng" },
                 ].map((spec, i) => (
-                  <motion.div 
+                  <motion.div
                     key={`${selectedCategory.id}-${i}`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -285,7 +296,6 @@ export function ProductCategoryShowcase() {
             </motion.div>
           </AnimatePresence>
         </div>
-
       </div>
     </section>
   );
