@@ -186,16 +186,17 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
       </section>
 
       {/* 2. MAIN CONTENT AREA */}
+      {/* 2. MAIN CONTENT AREA */}
       <div className="container max-w-7xl mx-auto px-6 -mt-16 relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="flex flex-col lg:flex-row gap-16">
             
-            <div className="lg:col-span-8">
+            <div className="w-full lg:w-[65%]">
                 {article.image && (
                 <motion.div
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    className="w-full aspect-video rounded-sm overflow-hidden mb-12 shadow-2xl border border-slate-200 bg-slate-100"
+                    className="w-full aspect-video rounded-sm overflow-hidden mb-10 shadow-2xl border border-slate-200 bg-slate-100"
                 >
                     <FallbackImage
                         src={article.image}
@@ -209,14 +210,14 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.6 }}
-                    className="prose prose-lg md:prose-xl prose-slate max-w-none 
+                    className="prose prose-lg md:prose-xl prose-slate max-w-none break-words
                         prose-headings:font-black prose-headings:tracking-tighter prose-headings:text-slate-950
-                        prose-p:text-slate-600 prose-p:leading-relaxed prose-p:text-lg
+                        prose-p:text-slate-600 prose-p:leading-snug prose-p:text-lg prose-p:mb-4
                         prose-strong:text-slate-950 prose-strong:font-black
                         prose-blockquote:border-l-accent prose-blockquote:bg-slate-50 prose-blockquote:p-8 prose-blockquote:not-italic prose-blockquote:text-slate-700
                         prose-img:rounded-sm prose-img:shadow-2xl
                         prose-a:text-accent prose-a:font-bold prose-a:no-underline hover:prose-a:underline
-                        prose-li:text-slate-600"
+                        prose-li:text-slate-600 prose-li:mb-2"
                 >
                     <div 
                         className="rich-content"
@@ -226,7 +227,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                     />
                 </motion.article>
 
-                <div className="mt-20 pt-10 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div className="mt-12 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
                     <div className="flex items-center gap-4">
                         <span className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">Chia sẻ bài viết</span>
                         <div className="flex gap-2">
@@ -241,34 +242,36 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
             </div>
 
             {/* Sidebar Column */}
-            <div className="lg:col-span-4 space-y-12">
-                <div className="sticky top-24 pt-12 lg:pt-20">
-                    <h3 className="text-[10px] font-black uppercase text-slate-950 tracking-[0.3em] mb-8 flex items-center gap-3">
-                        <div className="w-4 h-[1px] bg-accent" /> Tin tức liên quan
-                    </h3>
+            <div className="w-full lg:w-[35%] lg:pt-24">
+                <div className="sticky top-32 space-y-12">
+                    <div>
+                        <h3 className="text-[10px] font-black uppercase text-slate-950 tracking-[0.3em] mb-8 flex items-center gap-3">
+                            <div className="w-4 h-[1px] bg-accent" /> Tin tức liên quan
+                        </h3>
 
-                    <div className="space-y-8">
-                        {relatedArticles.map((rel) => (
-                            <Link key={rel.id} href={`/tin-tuc/${rel.id}`} className="group block">
-                                <div className="flex gap-5 items-start">
-                                    <div className="w-20 h-20 shrink-0 rounded-none overflow-hidden bg-slate-100 border border-slate-200">
-                                        <FallbackImage src={rel.image} title={rel.title} className="group-hover:scale-110 transition-transform duration-700" />
+                        <div className="space-y-6">
+                            {relatedArticles.map((rel) => (
+                                <Link key={rel.id} href={`/tin-tuc/${rel.id}`} className="group block">
+                                    <div className="flex gap-5 items-start">
+                                        <div className="w-20 h-20 shrink-0 rounded-none overflow-hidden bg-slate-100 border border-slate-200">
+                                            <FallbackImage src={rel.image} title={rel.title} className="group-hover:scale-110 transition-transform duration-700" />
+                                        </div>
+                                        <div className="flex flex-col gap-1.5">
+                                            <span className="text-[8px] font-black uppercase text-slate-500 tracking-widest">{rel.type || "Tin tức"}</span>
+                                            <h4 className="text-sm font-black text-slate-900 line-clamp-2 leading-tight group-hover:text-accent transition-colors">
+                                                {rel.title}
+                                            </h4>
+                                            <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                                                {rel.created_at ? new Date(rel.created_at).toLocaleDateString('vi-VN') : '28/04'}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className="flex flex-col gap-1.5">
-                                        <span className="text-[8px] font-black uppercase text-slate-500 tracking-widest">{rel.type || "Tin tức"}</span>
-                                        <h4 className="text-sm font-black text-slate-900 line-clamp-2 leading-tight group-hover:text-accent transition-colors">
-                                            {rel.title}
-                                        </h4>
-                                        <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
-                                            {rel.created_at ? new Date(rel.created_at).toLocaleDateString('vi-VN') : '28/04'}
-                                        </span>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
+                                </Link>
+                            ))}
+                        </div>
                     </div>
 
-                    <div className="mt-16 p-10 bg-slate-950 relative overflow-hidden group shadow-2xl">
+                    <div className="p-8 bg-slate-950 relative overflow-hidden group shadow-2xl rounded-sm">
                         <div className="relative z-10">
                             <h3 className="text-xl font-black text-white mb-4 leading-none uppercase tracking-tighter">Bản tin công nghiệp</h3>
                             <p className="text-[10px] text-slate-300 mb-8 font-bold uppercase tracking-widest">Đăng ký nhận tin từ Hatico</p>
@@ -289,11 +292,11 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
       </div>
       
       <style jsx global>{`
-        .rich-content h1, .rich-content h2, .rich-content h3 { margin-top: 2.5rem; margin-bottom: 1.25rem; }
-        .rich-content p { margin-bottom: 1.5rem; }
-        .rich-content img { margin: 2rem 0; width: 100%; height: auto; }
-        .rich-content ul, .rich-content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
-        .rich-content li { margin-bottom: 0.5rem; }
+        .rich-content h1, .rich-content h2, .rich-content h3 { margin-top: 2rem; margin-bottom: 1rem; line-height: 1.2; }
+        .rich-content p { margin-bottom: 1rem; line-height: 1.6; }
+        .rich-content img { margin: 1.5rem 0; width: 100%; height: auto; }
+        .rich-content ul, .rich-content ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+        .rich-content li { margin-bottom: 0.35rem; line-height: 1.6; }
       `}</style>
     </div>
   );

@@ -271,12 +271,12 @@ export const ArticleList = () => {
             .quill-wrapper .ql-editor { 
                 min-height: 500px; 
                 padding: 48px 64px !important; 
-                line-height: 1.8; 
+                line-height: 1.6; 
                 color: #1e293b;
             }
-            .quill-wrapper .ql-editor h1 { font-weight: 900; font-size: 2.5em; margin-bottom: 1.5rem; letter-spacing: -0.05em; }
-            .quill-wrapper .ql-editor h2 { font-weight: 800; font-size: 1.8em; margin-top: 2rem; margin-bottom: 1rem; letter-spacing: -0.03em; }
-            .quill-wrapper .ql-editor p { margin-bottom: 1.5rem; }
+            .quill-wrapper .ql-editor h1 { font-weight: 900; font-size: 2.5em; margin-bottom: 1rem; letter-spacing: -0.05em; line-height: 1.2; }
+            .quill-wrapper .ql-editor h2 { font-weight: 800; font-size: 1.8em; margin-top: 1.5rem; margin-bottom: 0.75rem; letter-spacing: -0.03em; line-height: 1.2; }
+            .quill-wrapper .ql-editor p { margin-bottom: 1rem; }
         `}</style>
       </div>
     );
