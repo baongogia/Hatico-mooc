@@ -3,7 +3,7 @@
 import React, { use, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Article } from "@/types/article";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import {

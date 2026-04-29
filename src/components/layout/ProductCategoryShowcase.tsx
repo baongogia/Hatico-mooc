@@ -14,8 +14,11 @@ import {
   Fuel,
   Dna,
   ArrowRight,
-  ChevronRight,
+  ShieldCheck,
+  Wrench,
+  Settings,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Category {
   id: number;
@@ -73,199 +76,187 @@ export function ProductCategoryShowcase() {
 
   if (loading) {
     return (
-      <div className="w-full h-[600px] bg-slate-100 animate-pulse rounded-[8px] flex items-center justify-center">
-        <span className="text-slate-400 font-medium">
-          Đang tải danh mục sản phẩm...
-        </span>
+      <div className="w-full max-w-7xl mx-auto px-6 py-12">
+        <div className="w-full h-[700px] bg-slate-100 animate-pulse rounded-[12px] flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-12 h-12 border-4 border-slate-200 border-t-accent rounded-full animate-spin"></div>
+            <span className="text-slate-400 font-bold uppercase tracking-widest text-xs">
+              Đang tải hệ sinh thái...
+            </span>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
     <section className="w-full max-w-7xl mx-auto px-6 py-12">
-      <div className="flex flex-col md:flex-row gap-8 min-h-[600px]">
-        {/* Left Sidebar - Category Tabs */}
-        <div className="w-full md:w-1/3 lg:w-1/4 flex flex-col gap-2">
-          <div className="mb-6">
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-              Dòng Sản Phẩm
-            </h2>
-            <p className="text-sm text-slate-500 mt-1">
-              Khám phá các giải pháp vận tải tối ưu
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedType(cat.type)}
-                className={`flex items-center justify-between p-4 rounded-[8px] transition-all duration-300 group border-l-2 ${
-                  selectedType === cat.type
-                    ? "bg-slate-900 text-white border-accent shadow-lg translate-x-2"
-                    : "bg-white text-slate-600 hover:bg-slate-50 border-transparent border-slate-100"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`p-2 rounded-[8px] transition-colors ${
-                      selectedType === cat.type
-                        ? "bg-white/20"
-                        : "bg-slate-100 group-hover:bg-blue-50 group-hover:text-blue-600"
-                    }`}
-                  >
-                    {getIcon(cat.type)}
-                  </div>
-                  <span className="font-bold text-sm tracking-tight">
-                    {cat.name}
-                  </span>
-                </div>
-                <ChevronRight
-                  className={`w-4 h-4 transition-transform ${
-                    selectedType === cat.type
-                      ? "translate-x-1"
-                      : "opacity-0 group-hover:opacity-100"
-                  }`}
-                />
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Right Content - Dynamic Banner */}
-        <div className="flex-1 relative overflow-hidden rounded-[8px] bg-slate-950 shadow-2xl border border-slate-800">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,74,173,0.15),transparent)] pointer-events-none" />
+      <div className="relative w-full min-h-[700px] rounded-[16px] overflow-hidden bg-slate-950 flex flex-col md:flex-row shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-800 group">
+        
+        {/* Dynamic Cinematic Background */}
+        <div className="absolute inset-0 z-0">
           <AnimatePresence mode="wait">
             {selectedCategory && (
               <motion.div
-                key={selectedCategory.type}
-                initial={{ opacity: 0, scale: 0.95 }}
+                key={selectedCategory.id}
+                initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.05 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 flex flex-col md:flex-row"
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+                className="absolute inset-0 w-full h-full"
               >
-                {/* Background Decor */}
-                <div className="absolute inset-0 z-0 overflow-hidden">
-                  <div className="absolute -top-24 -right-24 w-96 h-96 bg-accent/20 rounded-full blur-[100px]" />
-                  <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-accent/5 rounded-full blur-[80px]" />
-                </div>
-
-                <div className="relative z-10 w-full md:w-1/2 p-8 md:p-14 flex flex-col justify-center">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="inline-flex items-center gap-2 px-3 py-1 bg-accent/20 border border-accent/40 rounded-[8px] mb-6"
-                  >
-                    <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                    <span className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.2em]">
-                      {selectedCategory.type.replace("_", " ")}
-                    </span>
-                  </motion.div>
-
-                  <motion.h3
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight"
-                  >
-                    {selectedCategory.name}
-                  </motion.h3>
-
-                  <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="text-slate-400 text-lg leading-relaxed mb-10 max-w-md"
-                  >
-                    {selectedCategory.description}
-                  </motion.p>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="flex flex-wrap gap-4"
-                  >
-                    <Link
-                      href={`/products/${selectedCategory.type.replace("_", "-")}`}
-                    >
-                      <Button
-                        size="lg"
-                        className="bg-white text-slate-950 hover:bg-slate-100 rounded-[8px] px-8 h-14 font-bold border-none shadow-xl shadow-white/5"
-                      >
-                        Khám Phá Ngay
-                        <ArrowRight className="ml-2 w-5 h-5" />
-                      </Button>
-                    </Link>
-                  </motion.div>
-                </div>
-
-                {/* Image Placeholder Area */}
-                <div className="relative z-10 hidden md:flex flex-1 items-center justify-center p-8">
-                  <motion.div
-                    initial={{ opacity: 0, x: 50, rotate: 2 }}
-                    animate={{ opacity: 1, x: 0, rotate: 0 }}
-                    transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
-                    className="relative w-full aspect-square max-w-md rounded-[8px] overflow-hidden shadow-2xl"
-                  >
-                    {selectedCategory.image ? (
-                      <div className="w-full h-full relative overflow-hidden rounded-[8px]">
-                        <img
-                          src={selectedCategory.image}
-                          alt={selectedCategory.name}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
-                      </div>
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 flex flex-col items-center justify-center border border-white/5">
-                        <div className="w-32 h-32 bg-white/5 rounded-[8px] flex items-center justify-center mb-4 backdrop-blur-sm border border-white/10">
-                          {React.cloneElement(
-                            getIcon(
-                              selectedCategory.type,
-                            ) as React.ReactElement<any>,
-                            { className: "w-16 h-16 text-accent" },
-                          )}
-                        </div>
-                        <span className="text-slate-500 font-medium text-sm text-center px-6">
-                          Product Visualization coming soon
-                        </span>
-
-                        {/* Shimmering scanline effect */}
-                        <div
-                          className="absolute inset-0 bg-gradient-to-t from-transparent via-blue-500/5 to-transparent h-1/2 w-full animate-scan"
-                          style={{ animation: "scan 4s linear infinite" }}
-                        />
-                      </div>
-                    )}
-
-                    {/* Quality Badges */}
-                    <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center bg-black/40 backdrop-blur-md p-4 rounded-[8px] border border-white/10">
-                      <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
-                          Tiêu Chuẩn
-                        </span>
-                        <span className="text-xs text-white font-bold">
-                          ISO 9001:2015
-                        </span>
-                      </div>
-                      <div className="h-8 w-[1px] bg-white/20" />
-                      <div className="flex flex-col items-end">
-                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
-                          Vật Liệu
-                        </span>
-                        <span className="text-xs text-white font-bold">
-                          Thép T700 Siêu Cường
-                        </span>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
+                {selectedCategory.image ? (
+                  <img
+                    src={selectedCategory.image}
+                    alt={selectedCategory.name}
+                    className="w-full h-full object-cover opacity-60 mix-blend-luminosity"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-slate-900 flex items-center justify-center">
+                    <Truck className="w-32 h-32 text-slate-800 opacity-20" />
+                  </div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* Premium Overlays */}
+          {/* Deep gradient from left for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/60 to-transparent" />
+          {/* Subtle bottom gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+          {/* Industrial texture overlay */}
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-overlay" />
+        </div>
+
+        {/* Content Container */}
+        <div className="relative z-10 flex flex-col md:flex-row w-full h-full p-6 md:p-10 gap-10">
+          
+          {/* 1. Glassmorphism Sidebar */}
+          <div className="w-full md:w-[320px] shrink-0 flex flex-col relative h-full">
+            {/* Glass Background */}
+            <div className="absolute inset-0 bg-white/5 backdrop-blur-xl rounded-[12px] border border-white/10 hidden md:block shadow-2xl" />
+            
+            <div className="relative z-20 p-6 flex flex-col h-full">
+              <div className="mb-8">
+                <h2 className="text-[10px] font-black text-accent tracking-[0.3em] uppercase mb-2 flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                  Hệ Sinh Thái
+                </h2>
+                <h3 className="text-3xl font-black text-white tracking-tight leading-none drop-shadow-lg">
+                  Sản Phẩm<br />Chủ Lực
+                </h3>
+              </div>
+
+              <div className="flex flex-col gap-2 flex-1 overflow-y-auto no-scrollbar pb-4 pr-2">
+                {categories.map((cat) => {
+                  const isActive = selectedType === cat.type;
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => setSelectedType(cat.type)}
+                      className={cn(
+                        "w-full flex items-center gap-4 p-4 rounded-[8px] transition-all duration-500 group text-left relative overflow-hidden",
+                        isActive
+                          ? "bg-white/10 border-white/20 shadow-lg text-white"
+                          : "bg-transparent border-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200"
+                      )}
+                      style={{ borderWidth: "1px" }}
+                    >
+                      {/* Active Indicator Glow */}
+                      {isActive && (
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent shadow-[0_0_15px_rgba(0,74,173,1)]" />
+                      )}
+                      
+                      <div
+                        className={cn(
+                          "p-2.5 rounded-[6px] transition-all duration-500",
+                          isActive
+                            ? "bg-accent/20 text-accent"
+                            : "bg-white/5 group-hover:bg-white/10"
+                        )}
+                      >
+                        {getIcon(cat.type)}
+                      </div>
+                      
+                      <span className={cn(
+                        "font-bold text-sm tracking-tight transition-all duration-300 flex-1",
+                        isActive ? "translate-x-1" : "group-hover:translate-x-1"
+                      )}>
+                        {cat.name}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* 2. Dynamic Details Area */}
+          <div className="flex-1 flex flex-col justify-center py-10 md:py-0 md:pl-8">
+            <AnimatePresence mode="wait">
+              {selectedCategory && (
+                <motion.div
+                  key={selectedCategory.id}
+                  initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="max-w-2xl"
+                >
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/20 rounded-full mb-6 backdrop-blur-md shadow-lg">
+                    <span className="text-[9px] font-black text-slate-200 uppercase tracking-[0.2em]">
+                      {selectedCategory.type.replace("_", " ")}
+                    </span>
+                  </div>
+
+                  <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-[1.1] tracking-tighter drop-shadow-2xl">
+                    {selectedCategory.name}
+                  </h1>
+
+                  <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-10 font-medium drop-shadow-lg max-w-xl">
+                    {selectedCategory.description}
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-4 mb-14">
+                    <Link href={`/products/${selectedCategory.type.replace("_", "-")}`}>
+                      <Button
+                        size="lg"
+                        className="bg-accent hover:bg-blue-700 text-white rounded-[6px] px-8 h-14 font-black tracking-widest text-xs uppercase shadow-[0_0_30px_rgba(0,74,173,0.4)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,74,173,0.6)]"
+                      >
+                        Khám Phá Chi Tiết
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Button>
+                    </Link>
+                  </div>
+
+                  {/* Technical Specs Glass Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-white/10 pt-8">
+                    {[
+                      { icon: ShieldCheck, label: "Tiêu Chuẩn", value: "ISO 9001:2015" },
+                      { icon: Settings, label: "Vật Liệu", value: "Thép T700" },
+                      { icon: Wrench, label: "Bảo Hành", value: "24 Tháng" },
+                    ].map((spec, i) => (
+                      <div key={i} className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm text-slate-400">
+                          <spec.icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="text-[9px] font-bold uppercase tracking-widest text-slate-500">
+                            {spec.label}
+                          </div>
+                          <div className="text-sm font-black text-white">
+                            {spec.value}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
         </div>
       </div>
     </section>
