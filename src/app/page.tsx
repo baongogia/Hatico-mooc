@@ -550,7 +550,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* --- 4.6. HÌNH ẢNH BÀN GIAO --- */}
+      {/* --- 4.6. HÌNH ẢNH BÀN GIAO (CASE STUDIES) --- */}
       <section className="w-full max-w-7xl mx-auto px-6 py-12">
         <motion.div
           initial="hidden"
@@ -568,53 +568,50 @@ export default function Home() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[1, 2, 3, 4].map((idx) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            {
+              title: "Bàn giao lô 20 Moóc Ben cho CTCP Vận tải X",
+              image:
+                "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&q=80",
+            },
+            {
+              title: "Lễ bàn giao 15 Moóc Sàn tại mỏ đá Tân An",
+              image:
+                "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&q=80",
+            },
+            {
+              title: "Hợp tác chiến lược: Giao 30 Moóc Xương cho Logistics Y",
+              image:
+                "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&q=80",
+            },
+            {
+              title: "Bàn giao đội xe 10 Xe Téc chở xăng dầu Bắc Nam",
+              image:
+                "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&q=80",
+            },
+          ].map((item, idx) => (
             <motion.div
               key={idx}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="aspect-square bg-slate-100 rounded-primary overflow-hidden relative group border border-slate-200 cursor-pointer"
+              className="relative aspect-square md:aspect-[3/4] rounded-[8px] overflow-hidden group border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300"
             >
-              <div className="absolute inset-0 flex items-center justify-center">
-                <svg
-                  className="w-10 h-10 text-slate-300 pointer-events-none"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1}
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-              </div>
-              <div className="absolute inset-0 bg-blue-900/0 group-hover:bg-blue-900/60 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <span className="text-white font-semibold flex items-center gap-2">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    ></path>
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                    ></path>
-                  </svg>
-                  Bàn Giao {idx}
+              {/* Background Image */}
+              <img
+                src={item.image}
+                alt={item.title}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              {/* Dark Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-80" />
+
+              {/* Caption */}
+              <div className="absolute inset-x-0 bottom-0 p-5 z-10 flex items-end">
+                <span className="text-white font-bold text-sm leading-snug drop-shadow-lg">
+                  {item.title}
                 </span>
               </div>
             </motion.div>
@@ -635,30 +632,45 @@ export default function Home() {
             {
               name: "Anh Hoàng",
               role: "Chủ xe tải đường dài",
+              avatar:
+                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80",
               quote:
                 "Từ ngày chuyển sang dùng Moóc Hatico, tôi hoàn toàn yên tâm. Xe chạy đầm, vỏ dày dặn chở quá tải vô tư mà không lo nứt gãy sườn.",
             },
             {
               name: "Chị Lan Anh",
-              role: "GĐ Vận Tải Logistics",
+              role: "Giám đốc Vận Tải Logistics",
+              avatar:
+                "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80",
               quote:
                 "Dịch vụ sau bán hàng là điểm tôi ưng ý nhất. Mọi vấn đề kỹ thuật đều được đội ngũ Hatico hỗ trợ 24/7 cực kì nhanh chóng.",
             },
             {
               name: "Anh Tuấn Cường",
-              role: "Doanh nghiệp VLXD",
+              role: "Giám đốc Doanh nghiệp VLXD",
+              avatar:
+                "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80",
               quote:
                 "Moóc Ben của Hatico phải nói là 'nồi đồng cối đá'. Lên dốc nhả ben đất đá mượt mượt, ty ben rất khỏe, thu hồi vốn nhanh.",
             },
           ].map((fb, i) => (
             <motion.div key={i} variants={fadeInUp} className="h-full">
-              <Card className="h-full bg-slate-50 border-slate-200 hover:shadow-md transition-shadow flex flex-col">
-                <CardContent className="p-8 flex-1 flex flex-col">
-                  <div className="flex text-yellow-500 mb-4">
+              <Card className="h-full bg-white shadow-lg border border-slate-100 hover:shadow-xl transition-shadow flex flex-col rounded-[12px] overflow-hidden">
+                <CardContent className="p-8 flex-1 flex flex-col relative">
+                  <div className="absolute top-6 right-6 text-slate-100">
+                    <svg
+                      className="w-12 h-12"
+                      fill="currentColor"
+                      viewBox="0 0 32 32"
+                    >
+                      <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-2.2 1.8-4 4-4V8zm18 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-2.2 1.8-4 4-4V8z" />
+                    </svg>
+                  </div>
+                  <div className="flex text-yellow-500 mb-6 relative z-10">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <svg
                         key={star}
-                        className="w-5 h-5"
+                        className="w-4 h-4 mr-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -666,18 +678,22 @@ export default function Home() {
                       </svg>
                     ))}
                   </div>
-                  <p className="text-slate-700 italic mb-6 leading-relaxed flex-1">
+                  <p className="text-slate-700 italic mb-8 leading-relaxed flex-1 relative z-10">
                     "{fb.quote}"
                   </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-800">
-                      {fb.name.charAt(0)}
-                    </div>
+                  <div className="flex items-center gap-4 relative z-10 border-t border-slate-100 pt-6">
+                    <img
+                      src={fb.avatar}
+                      alt={fb.name}
+                      className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md"
+                    />
                     <div>
-                      <div className="font-bold text-slate-900 text-sm">
+                      <div className="font-extrabold text-slate-900 text-sm tracking-tight">
                         {fb.name}
                       </div>
-                      <div className="text-xs text-slate-500">{fb.role}</div>
+                      <div className="text-[11px] font-bold text-accent uppercase tracking-wider">
+                        {fb.role}
+                      </div>
                     </div>
                   </div>
                 </CardContent>

@@ -133,6 +133,7 @@ export default function ROICalculatorPage() {
   );
   const [previewData, setPreviewData] = useState<string | null>(null);
   const [libs, setLibs] = useState<{ toJpeg?: any; jsPDF?: any } | null>(null);
+  const [selectedRegion, setSelectedRegion] = useState<string>("");
 
   useEffect(() => {
     // Load libraries only on client to avoid SSR issues
@@ -226,19 +227,30 @@ export default function ROICalculatorPage() {
       }
       if (trailersRes.data) {
         trailersRes.data.forEach((t) => {
-          let basePrice = 350000000;
-          if (t.regional_prices) {
-            const prices = Object.values(t.regional_prices);
-            if (prices.length > 0) {
-              const parsed = parseFloat(String(prices[0]));
-              if (!isNaN(parsed)) basePrice = parsed * 1000000;
+          let regionalPrices = t.regional_prices;
+          if (typeof regionalPrices === "string") {
+            try {
+              regionalPrices = JSON.parse(regionalPrices);
+            } catch (e) {
+              regionalPrices = {};
             }
           }
+
+          let basePrice = 350000000;
+          if (regionalPrices) {
+            const prices = Object.values(regionalPrices);
+            if (prices.length > 0) {
+              const firstPrice = parseFloat(String(prices[0]));
+              if (!isNaN(firstPrice)) basePrice = firstPrice * 1000000;
+            }
+          }
+
           allVehicles.push({
             id: `trailer_${t.id}`,
             type: "trailer",
             name: t.name,
             price: basePrice,
+            regional_prices: regionalPrices,
           });
         });
       }
@@ -257,6 +269,7 @@ export default function ROICalculatorPage() {
       setProductPrice(0);
     }
     setSelectedVehicleId("");
+    setSelectedRegion("");
   }, [vehicleType]);
 
   const toggleFee = (id: string) => {
@@ -527,6 +540,46 @@ export default function ROICalculatorPage() {
                         )}
                       </div>
                     </div>
+
+                    {/* Chọn chi nhánh cho Moóc */}
+                    {vehicleType === "trailer" && selectedVehicleId && (
+                      <div className="space-y-2 border-t border-slate-100 pt-4 animate-in slide-in-from-top-2 duration-300">
+                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                          <div className="w-1 h-3 bg-accent" /> Chọn chi nhánh nhận giá chính xác
+                        </label>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                          {(() => {
+                            const vehicle = vehicles.find(v => v.id === selectedVehicleId);
+                            if (!vehicle || !vehicle.regional_prices) return null;
+                            
+                            return Object.entries(vehicle.regional_prices).map(([region, price]) => (
+                              <button
+                                key={region}
+                                onClick={() => {
+                                  setSelectedRegion(region);
+                                  const parsedPrice = parseFloat(String(price));
+                                  if (!isNaN(parsedPrice)) {
+                                    setProductPrice(parsedPrice * 1000000);
+                                  }
+                                }}
+                                className={`p-3 rounded-[8px] border text-left transition-all ${
+                                  selectedRegion === region
+                                    ? "border-accent bg-accent/5 ring-1 ring-accent"
+                                    : "border-slate-200 hover:border-slate-300 bg-white"
+                                }`}
+                              >
+                                <div className="text-[9px] font-black uppercase text-slate-400 tracking-tighter mb-1 truncate">
+                                  {region}
+                                </div>
+                                <div className={`text-xs font-black ${selectedRegion === region ? "text-accent" : "text-slate-900"}`}>
+                                  {formatCurrency(parseFloat(String(price)) * 1000000)} đ
+                                </div>
+                              </button>
+                            ));
+                          })()}
+                        </div>
+                      </div>
+                    )}
 
                     <div className="space-y-2 border-t border-slate-100 pt-4">
                       <label className="text-[11px] font-black text-slate-500 uppercase tracking-widest">
