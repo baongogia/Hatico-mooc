@@ -112,7 +112,7 @@ export default function ProductDetailPage({
   return (
     <div className="w-full bg-slate-50 min-h-screen pb-20">
       {/* Breadcrumbs */}
-      <div className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100">
+      <div className="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center text-[11px] font-bold uppercase tracking-widest text-slate-400 gap-3">
           <Link href="/" className="hover:text-accent transition-colors">
             Trang Chủ
