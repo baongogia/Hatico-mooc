@@ -396,7 +396,7 @@ export default function CommercialVehiclesCategoryPage({
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-4">
                         <Button
                           variant="accent"
                           size="lg"
@@ -405,15 +405,6 @@ export default function CommercialVehiclesCategoryPage({
                         >
                           Nhận Báo Giá Ngay
                         </Button>
-                        <Link href="/roi-calculator" className="w-full">
-                          <Button
-                            variant="outline"
-                            size="lg"
-                            className="w-full h-14 bg-white border-slate-200 text-slate-900 hover:bg-slate-50 font-black uppercase text-[10px] tracking-[0.2em] rounded-[12px]"
-                          >
-                            Tính Hiệu Quả ROI
-                          </Button>
-                        </Link>
                       </div>
                     </div>
                   </div>

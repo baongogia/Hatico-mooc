@@ -31,7 +31,9 @@ const Header = () => {
       setSession(session);
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
 
@@ -69,7 +71,7 @@ const Header = () => {
                   "text-sm font-bold uppercase tracking-widest transition-colors relative py-2",
                   pathname === item.href
                     ? "text-blue-900"
-                    : "text-slate-500 hover:text-slate-900"
+                    : "text-slate-500 hover:text-slate-900",
                 )}
               >
                 {item.name}
@@ -172,7 +174,7 @@ const Header = () => {
           <Button
             variant="accent"
             className="hidden sm:inline-flex shadow-blue-900/20"
-            onClick={() => openContactModal('quote')}
+            onClick={() => openContactModal("quote")}
           >
             Nhận Báo Giá
           </Button>
@@ -204,7 +206,9 @@ const Header = () => {
             href="/"
             className={cn(
               "text-xs font-black uppercase tracking-[0.2em] p-3 rounded-[8px] transition-all",
-              pathname === "/" ? "bg-blue-50 text-blue-900" : "text-slate-600 hover:bg-slate-50"
+              pathname === "/"
+                ? "bg-blue-50 text-blue-900"
+                : "text-slate-600 hover:bg-slate-50",
             )}
           >
             Trang Chủ
@@ -225,7 +229,7 @@ const Header = () => {
               ))}
             </div>
           </div>
-          
+
           <div className="flex flex-col gap-2">
             <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 px-3 py-1">
               Xe Tải Nặng
@@ -256,18 +260,20 @@ const Header = () => {
             href="/tin-tuc"
             className={cn(
               "text-xs font-black uppercase tracking-[0.2em] p-3 rounded-[8px] transition-all",
-              pathname === "/tin-tuc" ? "bg-blue-50 text-blue-900" : "text-slate-600 hover:bg-slate-50"
+              pathname === "/tin-tuc"
+                ? "bg-blue-50 text-blue-900"
+                : "text-slate-600 hover:bg-slate-50",
             )}
           >
             Tin Tức
           </Link>
           <hr className="my-2 border-slate-100" />
-          <Button 
-            variant="accent" 
-            className="w-full justify-center" 
+          <Button
+            variant="accent"
+            className="w-full justify-center"
             onClick={() => {
               setIsMobileMenuOpen(false);
-              openContactModal('quote');
+              openContactModal("quote");
             }}
           >
             Nhận Báo Giá

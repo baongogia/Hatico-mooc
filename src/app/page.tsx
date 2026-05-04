@@ -740,23 +740,14 @@ export default function Home() {
               Tính Toán Đầu Tư. Nắm Bắt Cơ Hội.
             </h2>
             <p className="text-slate-400">
-              Sử dụng bộ công cụ theo dõi giá xăng dầu thời gian thực và mô
-              phỏng hoàn vốn ROI để chủ động kiểm soát tài chính cho đội xe của
-              bạn.
+              Sử dụng bộ công cụ theo dõi giá xăng dầu thời gian thực để chủ động kiểm soát chi phí vận hành cho đội xe của bạn.
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-            <Link href="/roi-calculator" className="w-full">
+            <Link href="/oil-prices" className="w-full md:w-auto">
               <Button variant="accent" size="lg" className="w-full shadow-md">
-                Tính ROI Ngay
-              </Button>
-            </Link>
-            <Link href="/oil-prices" className="w-full">
-              <Button variant="outline" size="lg" className="w-full bg-white">
                 Xem Giá Xăng Dầu
               </Button>
             </Link>
-          </div>
         </motion.div>
       </section>
 
