@@ -122,16 +122,53 @@ const Header = () => {
                 </div>
               </div>
             </div>
+
+            {/* Dropdown Xe Thương Mại */}
+            <div className="relative group h-full flex items-center">
+              <button className="text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1 py-4">
+                Xe Tải Nặng
+                <svg
+                  className="w-3.5 h-3.5 transition-transform group-hover:rotate-180"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2.5"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div className="absolute top-full left-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[60] pt-2">
+                <div className="bg-white rounded-[12px] border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.1)] p-2 flex flex-col gap-1 relative ring-1 ring-black/5">
+                  <Link
+                    href="/xe-tai-nang/dau-keo"
+                    className="p-3 hover:bg-slate-50 rounded-[8px] transition-colors text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-blue-900"
+                  >
+                    Xe Đầu Kéo
+                  </Link>
+                  <Link
+                    href="/xe-tai-nang/xe-ben"
+                    className="p-3 hover:bg-slate-50 rounded-[8px] transition-colors text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-blue-900"
+                  >
+                    Xe Ben
+                  </Link>
+                  <Link
+                    href="/xe-tai-nang/xe-tron"
+                    className="p-3 hover:bg-slate-50 rounded-[8px] transition-colors text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-blue-900"
+                  >
+                    Xe Trộn Bê Tông
+                  </Link>
+                </div>
+              </div>
+            </div>
           </nav>
         </div>
 
         {/* Actions & Mobile Menu Toggle */}
         <div className="flex items-center gap-3">
-          <Link href={session ? "/admin" : "/login"}>
-            <Button variant="outline" className="hidden lg:inline-flex">
-              {session ? "Trang Quản Trị" : "Đăng Nhập"}
-            </Button>
-          </Link>
           <Button
             variant="accent"
             className="hidden sm:inline-flex shadow-blue-900/20"
@@ -188,6 +225,33 @@ const Header = () => {
               ))}
             </div>
           </div>
+          
+          <div className="flex flex-col gap-2">
+            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 px-3 py-1">
+              Xe Tải Nặng
+            </div>
+            <div className="flex flex-col gap-1 pl-3 border-l-2 border-slate-100">
+              <Link
+                href="/xe-tai-nang/dau-keo"
+                className="text-xs font-bold uppercase tracking-widest text-slate-600 p-3 hover:text-blue-900 hover:bg-slate-50 rounded-[8px]"
+              >
+                Xe Đầu Kéo
+              </Link>
+              <Link
+                href="/xe-tai-nang/xe-ben"
+                className="text-xs font-bold uppercase tracking-widest text-slate-600 p-3 hover:text-blue-900 hover:bg-slate-50 rounded-[8px]"
+              >
+                Xe Ben
+              </Link>
+              <Link
+                href="/xe-tai-nang/xe-tron"
+                className="text-xs font-bold uppercase tracking-widest text-slate-600 p-3 hover:text-blue-900 hover:bg-slate-50 rounded-[8px]"
+              >
+                Xe Trộn Bê Tông
+              </Link>
+            </div>
+          </div>
+
           <Link
             href="/tin-tuc"
             className={cn(

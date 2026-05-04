@@ -16,8 +16,10 @@ import {
   ClipboardList,
   Truck,
   Calculator,
+  Database,
 } from "lucide-react";
 import { CustomerList } from "@/components/admin/CustomerList";
+import { DataCustomerList } from "@/components/admin/DataCustomerList";
 import { PriceList } from "@/components/admin/PriceList";
 import { InventoryList } from "@/components/admin/InventoryList";
 import { CommercialVehicleList } from "@/components/admin/CommercialVehicleList";
@@ -184,6 +186,28 @@ export default function AdminPage() {
           </button>
 
           <button
+            onClick={() => setActiveTab("data_customer")}
+            className={cn(
+              "flex items-center gap-4 p-4 rounded-sm transition-all duration-300 group",
+              activeTab === "data_customer"
+                ? "bg-accent text-white shadow-lg shadow-accent/20"
+                : "hover:bg-white/5 text-slate-400",
+            )}
+          >
+            <Database
+              className={cn(
+                "w-5 h-5 shrink-0 transition-transform",
+                activeTab === "data_customer" && "scale-110",
+              )}
+            />
+            {isSidebarOpen && (
+              <span className="text-xs font-black uppercase tracking-widest">
+                Dữ liệu KH
+              </span>
+            )}
+          </button>
+
+          <button
             onClick={() => setActiveTab("quotations")}
             className={cn(
               "flex items-center gap-4 p-4 rounded-sm transition-all duration-300 group",
@@ -325,17 +349,19 @@ export default function AdminPage() {
               <h1 className="text-xl font-black text-slate-900 uppercase tracking-tighter">
                 {activeTab === "customers"
                   ? "Quản lý khách hàng"
-                  : activeTab === "quotations"
-                    ? "Báo giá chi tiết"
-                    : activeTab === "inventory"
-                      ? "Kiểm soát tồn kho"
-                      : activeTab === "commercial"
-                        ? "Bảng giá xe thương mại"
-                        : activeTab === "articles"
-                          ? "Quản lý Tin tức & Bài viết"
-                          : activeTab === "roi_calculator"
-                            ? "Tính Giá Lăn Bánh & ROI"
-                            : "Thống kê hệ thống"}
+                  : activeTab === "data_customer"
+                    ? "Dữ liệu khách hàng"
+                    : activeTab === "quotations"
+                      ? "Báo giá chi tiết"
+                      : activeTab === "inventory"
+                        ? "Kiểm soát tồn kho"
+                        : activeTab === "commercial"
+                          ? "Bảng giá xe thương mại"
+                          : activeTab === "articles"
+                            ? "Quản lý Tin tức & Bài viết"
+                            : activeTab === "roi_calculator"
+                              ? "Tính Giá Lăn Bánh & ROI"
+                              : "Thống kê hệ thống"}
               </h1>
             </div>
             <p className="text-xs text-slate-400 font-bold uppercase tracking-[0.2em] mt-1 ml-4">
@@ -361,6 +387,10 @@ export default function AdminPage() {
           {activeTab === "customers" ? (
             <div className="w-full">
               <CustomerList />
+            </div>
+          ) : activeTab === "data_customer" ? (
+            <div className="w-full h-full">
+              <DataCustomerList />
             </div>
           ) : activeTab === "quotations" ? (
             <div className="w-full">

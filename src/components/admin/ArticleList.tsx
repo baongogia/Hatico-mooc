@@ -3,10 +3,11 @@
 import * as React from "react";
 import dynamic from "next/dynamic";
 import { supabase } from "@/lib/supabase";
-import { Plus, Search, RefreshCw, Trash2, Edit, Save, X, Globe, User, Tag, Image as ImageIcon, Type, Layout } from "lucide-react";
+import { Plus, Search, RefreshCw, Trash2, Edit, Save, X, Globe, User, Tag, Image as ImageIcon, Type, Layout, AlertTriangle, Info } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Article } from "@/types/article";
 import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Dynamic import for ReactQuill to avoid SSR issues
 const ReactQuill = dynamic(() => import("react-quill-new"), { 
@@ -35,6 +36,15 @@ export const ArticleList = () => {
 
   const [isEditing, setIsEditing] = React.useState(false);
   const [currentArticle, setCurrentArticle] = React.useState<Partial<Article>>({});
+  
+  // Notification Modal State
+  const [notification, setNotification] = React.useState<{
+    isOpen: boolean;
+    type: 'error' | 'confirm';
+    title?: string;
+    message: string;
+    onConfirm?: () => void;
+  }>({ isOpen: false, type: 'error', message: '' });
 
   const fetchArticles = async () => {
     setLoading(true);
@@ -45,6 +55,12 @@ export const ArticleList = () => {
 
     if (error) {
       console.error("Error fetching articles:", error);
+      setNotification({
+        isOpen: true,
+        type: 'error',
+        title: 'Lỗi tải dữ liệu',
+        message: 'Không thể tải danh sách bài viết. Mã lỗi: ' + error.message
+      });
     } else {
       setArticles(data || []);
     }
@@ -79,19 +95,38 @@ export const ArticleList = () => {
       fetchArticles();
     } catch (err) {
       console.error("Error saving article:", err);
-      alert("Lỗi khi lưu bài viết.");
+      setNotification({
+        isOpen: true,
+        type: 'error',
+        title: 'Lỗi lưu bài viết',
+        message: "Đã có lỗi xảy ra trong quá trình lưu. Vui lòng thử lại sau."
+      });
     }
   };
 
-  const handleDelete = async (id: number) => {
-    if (!confirm("Bạn có chắc chắn muốn xóa bài viết này?")) return;
-    try {
-      const { error } = await supabase.from("article").delete().eq("id", id);
-      if (error) throw error;
-      fetchArticles();
-    } catch (err) {
-      console.error("Error deleting article:", err);
-    }
+  const handleDeleteArticle = (id: number) => {
+    setNotification({
+      isOpen: true,
+      type: 'confirm',
+      title: 'Xác nhận xóa bài viết',
+      message: 'Hành động này không thể hoàn tác. Bài viết sẽ bị xóa vĩnh viễn khỏi hệ thống và không thể truy cập lại.',
+      onConfirm: async () => {
+        try {
+          const { error } = await supabase.from("article").delete().eq("id", id);
+          if (error) throw error;
+          setNotification(prev => ({ ...prev, isOpen: false }));
+          fetchArticles();
+        } catch (err) {
+          console.error("Error deleting article:", err);
+          setNotification({
+            isOpen: true,
+            type: 'error',
+            title: 'Lỗi xóa dữ liệu',
+            message: "Đã có lỗi xảy ra khi xóa bài viết. Vui lòng thử lại."
+          });
+        }
+      }
+    });
   };
 
   const filteredArticles = articles.filter(a => 
@@ -394,7 +429,7 @@ export const ArticleList = () => {
                         </button>
                         <button 
                           className="w-9 h-9 flex items-center justify-center bg-red-50 text-red-500 hover:bg-red-600 hover:text-white transition-all shadow-sm rounded-primary"
-                          onClick={() => handleDelete(article.id)}
+                          onClick={() => handleDeleteArticle(article.id)}
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -407,6 +442,62 @@ export const ArticleList = () => {
           </table>
         </div>
       </div>
+      {/* Unified Notification Modal */}
+      <AnimatePresence>
+        {notification.isOpen && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setNotification(prev => ({ ...prev, isOpen: false }))}
+              className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-md bg-white rounded-primary shadow-2xl overflow-hidden border border-slate-200"
+            >
+              <div className="p-8 flex flex-col items-center text-center">
+                <div className={cn(
+                  "w-16 h-16 rounded-full flex items-center justify-center mb-6",
+                  notification.type === 'error' ? "bg-red-50" : "bg-orange-50"
+                )}>
+                  {notification.type === 'error' ? (
+                    <AlertTriangle className="w-8 h-8 text-red-500" />
+                  ) : (
+                    <Info className="w-8 h-8 text-orange-500" />
+                  )}
+                </div>
+                <h3 className="text-xl font-black text-slate-900 uppercase tracking-tighter mb-2">
+                  {notification.title || "Thông báo"}
+                </h3>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed mb-8">
+                  {notification.message}
+                </p>
+                <div className="flex gap-3 w-full">
+                  <Button
+                    variant="outline"
+                    className="flex-1 h-12 rounded-primary border-slate-200 text-xs font-bold hover:bg-slate-50"
+                    onClick={() => setNotification(prev => ({ ...prev, isOpen: false }))}
+                  >
+                    {notification.type === 'confirm' ? "Hủy bỏ" : "Đóng"}
+                  </Button>
+                  {notification.type === 'confirm' && notification.onConfirm && (
+                    <Button
+                      className="flex-1 h-12 rounded-primary bg-red-600 text-white hover:bg-red-700 text-xs font-black uppercase tracking-widest shadow-lg shadow-red-200 border-none"
+                      onClick={notification.onConfirm}
+                    >
+                      Xác nhận
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -206,6 +206,9 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 uppercase tracking-widest font-medium">
           <p>© {new Date().getFullYear()} HATICO. ALL RIGHTS RESERVED.</p>
           <div className="flex gap-8">
+            <Link href="/login" className="hover:text-white transition-colors">
+              Dành cho nhân viên
+            </Link>
             <Link href="#" className="hover:text-white transition-colors">
               Chính sách bảo mật
             </Link>
