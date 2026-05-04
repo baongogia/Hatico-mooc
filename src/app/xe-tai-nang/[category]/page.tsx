@@ -540,7 +540,7 @@ export default function CommercialVehiclesCategoryPage({
 
               <div className="p-6">
                 <QuoteRequestForm
-                  productId={selectedConfig?.id || dbCategory}
+                  productId={selectedConfig?.id.toString() || dbCategory}
                   productPrice={selectedConfig?.price}
                   onSuccess={() => setIsQuoteModalOpen(false)}
                 />

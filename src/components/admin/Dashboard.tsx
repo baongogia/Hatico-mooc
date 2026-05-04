@@ -135,7 +135,7 @@ export const Dashboard = () => {
           <div key={i} className="bg-white p-5 rounded-primary border border-slate-100 shadow-sm hover:shadow-md transition-all group">
             <div className="flex justify-between items-start mb-4">
               <div className={cn("p-2 rounded-sm", item.bg, item.color)}>
-                {React.cloneElement(item.icon as React.ReactElement, { size: 20, strokeWidth: 2.5 })}
+                {React.cloneElement(item.icon as any, { size: 20, strokeWidth: 2.5 })}
               </div>
               <div className="flex items-center gap-1 text-[10px] font-black text-emerald-500 uppercase tracking-widest bg-emerald-50 px-2 py-1 rounded-full">
                 <TrendingUp size={10} /> +12%

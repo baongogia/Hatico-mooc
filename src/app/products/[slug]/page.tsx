@@ -704,7 +704,7 @@ export default function ProductDetailPage({
 
               <div className="p-6">
                 <QuoteRequestForm
-                  productId={selectedConfig?.id || slug}
+                  productId={selectedConfig?.id.toString() || slug}
                   productPrice={selectedConfig?.price}
                   onSuccess={() => setIsQuoteModalOpen(false)}
                 />

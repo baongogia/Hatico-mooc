@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/Button";
 import { supabase } from "@/lib/supabase";
 import { useContactModal } from "@/context/ContactContext";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -46,7 +47,7 @@ const Header = () => {
         style={{
           backdropFilter: "blur(5px)",
         }}
-        className="w-full flex h-16 items-center justify-between px-6 bg-white/90 rounded-bl-primary rounded-br-primary"
+        className="w-full flex h-16 items-center justify-between px-6 bg-white/90 rounded-bl-primary rounded-br-primary shadow-sm"
       >
         {/* Logo */}
         <div className="flex items-center gap-6">
@@ -89,19 +90,7 @@ const Header = () => {
             <div className="relative group h-full flex items-center">
               <button className="text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1 py-4">
                 Sản Phẩm
-                <svg
-                  className="w-3.5 h-3.5 transition-transform group-hover:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2.5"
-                    d="M19 9l-7 7-7-7"
-                  ></path>
-                </svg>
+                <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
               </button>
               <div className="absolute top-full left-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[60] pt-2">
                 <div className="bg-white rounded-[12px] border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.1)] p-2 flex flex-col gap-1 relative ring-1 ring-black/5">
@@ -125,23 +114,11 @@ const Header = () => {
               </div>
             </div>
 
-            {/* Dropdown Xe Thương Mại */}
+            {/* Dropdown Xe Tải Nặng */}
             <div className="relative group h-full flex items-center">
               <button className="text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1 py-4">
                 Xe Tải Nặng
-                <svg
-                  className="w-3.5 h-3.5 transition-transform group-hover:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2.5"
-                    d="M19 9l-7 7-7-7"
-                  ></path>
-                </svg>
+                <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
               </button>
               <div className="absolute top-full left-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[60] pt-2">
                 <div className="bg-white rounded-[12px] border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.1)] p-2 flex flex-col gap-1 relative ring-1 ring-black/5">
@@ -180,106 +157,140 @@ const Header = () => {
           </Button>
           <button
             className="md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-primary"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={() => setIsMobileMenuOpen(true)}
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-            </svg>
+            <Menu className="w-6 h-6" />
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-[calc(100%+8px)] left-3 right-3 bg-white rounded-primary border border-slate-200 shadow-xl p-4 flex flex-col gap-4 z-50">
-          <Link
-            href="/"
-            className={cn(
-              "text-xs font-black uppercase tracking-[0.2em] p-3 rounded-[8px] transition-all",
-              pathname === "/"
-                ? "bg-blue-50 text-blue-900"
-                : "text-slate-600 hover:bg-slate-50",
-            )}
-          >
-            Trang Chủ
-          </Link>
-          <div className="flex flex-col gap-2">
-            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 px-3 py-1">
-              Sản Phẩm
-            </div>
-            <div className="flex flex-col gap-1 pl-3 border-l-2 border-slate-100">
-              {categories.map((cat) => (
-                <Link
-                  key={cat.type}
-                  href={`/products/${cat.type.replace("_", "-")}`}
-                  className="text-xs font-bold uppercase tracking-widest text-slate-600 p-3 hover:text-blue-900 hover:bg-slate-50 rounded-[8px]"
+      {/* Mobile Menu Slider (Drawer) */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[100] md:hidden"
+            />
+            
+            {/* Drawer */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 bottom-0 w-[300px] bg-white z-[101] md:hidden shadow-2xl flex flex-col"
+            >
+              <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                <img src="/images/Logo.png" alt="Hatico Logo" className="h-8" />
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 hover:bg-slate-200 rounded-full transition-colors text-slate-500"
                 >
-                  {cat.name}
-                </Link>
-              ))}
-            </div>
-          </div>
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
 
-          <div className="flex flex-col gap-2">
-            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 px-3 py-1">
-              Xe Tải Nặng
-            </div>
-            <div className="flex flex-col gap-1 pl-3 border-l-2 border-slate-100">
-              <Link
-                href="/xe-tai-nang/dau-keo"
-                className="text-xs font-bold uppercase tracking-widest text-slate-600 p-3 hover:text-blue-900 hover:bg-slate-50 rounded-[8px]"
-              >
-                Xe Đầu Kéo
-              </Link>
-              <Link
-                href="/xe-tai-nang/xe-ben"
-                className="text-xs font-bold uppercase tracking-widest text-slate-600 p-3 hover:text-blue-900 hover:bg-slate-50 rounded-[8px]"
-              >
-                Xe Ben
-              </Link>
-              <Link
-                href="/xe-tai-nang/xe-tron"
-                className="text-xs font-bold uppercase tracking-widest text-slate-600 p-3 hover:text-blue-900 hover:bg-slate-50 rounded-[8px]"
-              >
-                Xe Trộn Bê Tông
-              </Link>
-            </div>
-          </div>
+              <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-8">
+                {/* Main Links */}
+                <div className="flex flex-col gap-2">
+                  <Link
+                    href="/"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      "text-sm font-black uppercase tracking-[0.2em] p-4 rounded-[12px] transition-all",
+                      pathname === "/" ? "bg-accent/10 text-accent" : "text-slate-600 hover:bg-slate-50"
+                    )}
+                  >
+                    Trang Chủ
+                  </Link>
+                  <Link
+                    href="/tin-tuc"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      "text-sm font-black uppercase tracking-[0.2em] p-4 rounded-[12px] transition-all",
+                      pathname === "/tin-tuc" ? "bg-accent/10 text-accent" : "text-slate-600 hover:bg-slate-50"
+                    )}
+                  >
+                    Tin Tức
+                  </Link>
+                </div>
 
-          <Link
-            href="/tin-tuc"
-            className={cn(
-              "text-xs font-black uppercase tracking-[0.2em] p-3 rounded-[8px] transition-all",
-              pathname === "/tin-tuc"
-                ? "bg-blue-50 text-blue-900"
-                : "text-slate-600 hover:bg-slate-50",
-            )}
-          >
-            Tin Tức
-          </Link>
-          <hr className="my-2 border-slate-100" />
-          <Button
-            variant="accent"
-            className="w-full justify-center"
-            onClick={() => {
-              setIsMobileMenuOpen(false);
-              openContactModal("quote");
-            }}
-          >
-            Nhận Báo Giá
-          </Button>
-        </div>
-      )}
+                {/* Sản Phẩm Section */}
+                <div className="flex flex-col gap-4">
+                  <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 px-4 border-l-2 border-accent">
+                    Sản Phẩm (Trailer)
+                  </div>
+                  <div className="flex flex-col gap-1 pl-2">
+                    {categories.map((cat) => (
+                      <Link
+                        key={cat.type}
+                        href={`/products/${cat.type.replace("_", "-")}`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="text-xs font-bold uppercase tracking-widest text-slate-600 p-4 hover:text-accent hover:bg-slate-50 rounded-[12px] transition-all flex items-center justify-between group"
+                      >
+                        {cat.name}
+                        <ChevronRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Xe Tải Nặng Section */}
+                <div className="flex flex-col gap-4">
+                  <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 px-4 border-l-2 border-accent">
+                    Xe Tải Nặng
+                  </div>
+                  <div className="flex flex-col gap-1 pl-2">
+                    <Link
+                      href="/xe-tai-nang/dau-keo"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-xs font-bold uppercase tracking-widest text-slate-600 p-4 hover:text-accent hover:bg-slate-50 rounded-[12px] transition-all flex items-center justify-between group"
+                    >
+                      Xe Đầu Kéo
+                      <ChevronRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </Link>
+                    <Link
+                      href="/xe-tai-nang/xe-ben"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-xs font-bold uppercase tracking-widest text-slate-600 p-4 hover:text-accent hover:bg-slate-50 rounded-[12px] transition-all flex items-center justify-between group"
+                    >
+                      Xe Ben
+                      <ChevronRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </Link>
+                    <Link
+                      href="/xe-tai-nang/xe-tron"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-xs font-bold uppercase tracking-widest text-slate-600 p-4 hover:text-accent hover:bg-slate-50 rounded-[12px] transition-all flex items-center justify-between group"
+                    >
+                      Xe Trộn Bê Tông
+                      <ChevronRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Action */}
+              <div className="p-6 bg-slate-50 border-t border-slate-100">
+                <Button
+                  variant="accent"
+                  className="w-full h-14 text-xs font-black uppercase tracking-widest rounded-[12px]"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    openContactModal("quote");
+                  }}
+                >
+                  Nhận Báo Giá
+                </Button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
